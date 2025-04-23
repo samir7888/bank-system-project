@@ -1,4 +1,5 @@
 import  bcrypt  from 'bcrypt';
+const jwt = require('jsonwebtoken');
 import { Request, Response } from "express";
 import { PrismaClient } from "../../generated/prisma";
 const Router = require("express");
@@ -27,7 +28,8 @@ customerRouter.post('/login',async (req: Request, res: Response) => {
         if (!isPasswordValid) {
             return res.status(401).json({ error: "Invalid password" });
         }
-        res.status(200).json({ message: "Login successful", user });
+        const token = jwt.sign({user},"12345")
+        res.status(200).json({ message: "Login successful",token, user });
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Internal server error" });
