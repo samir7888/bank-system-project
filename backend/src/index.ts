@@ -9,8 +9,8 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 
+app.use('/',customerRouter)
 app.use('/atm',atmRouter);
-app.use('/user',customerRouter)
 app.use('/user',moneyTransferRouter)
 
 app.listen(3000,()=>{
