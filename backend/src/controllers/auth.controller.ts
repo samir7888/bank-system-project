@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "../generated/prisma";
 import bcrypt from 'bcrypt';
+import { generateOtp } from "../utils/generateOtp";
 const jwt = require('jsonwebtoken');
-const client = new PrismaClient();
+const prisma = new PrismaClient();
 
 
 export const login = async (req: Request, res: Response): Promise<void> => {
@@ -19,7 +20,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   }
 
   try {
-    const user = await client.user.findUnique({ where: { number: phone } });
+    const user = await prisma.user.findUnique({ where: { number: phone } });
     if (!user) {
       res.status(404).json({ error: "User not found" });
       return;
@@ -71,7 +72,7 @@ console.log(user)
   }
 
   try {
-    const userBalance = await client.balance.findUnique({
+    const userBalance = await prisma.balance.findUnique({
       where: { userId: user.id },
     });
 
@@ -96,3 +97,81 @@ export const logout = async (req: Request, res: Response): Promise<void> => {
     res.status(200).json({ message: "Logout successful" });
   };
   
+
+  export const requestOtp =async (req:Request,res:Response)=> {
+    const { email } = req.body;
+
+    // 1. Find user
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+  
+    if (!user) {
+       res.status(404).json({ message: 'User not found' });
+       return;
+    }
+  
+    // 2. Generate OTP
+    const otp = generateOtp();
+    const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
+  
+    // 3. Save OTP to database
+    await prisma.oTP.create({
+      data: {
+        userId: user.id,
+        code: otp,
+        expiresAt,
+      },
+    });
+  
+    // 4. Send OTP (via email / SMS) -- Here just return for demo
+    // TODO: Replace this with nodemailer or SMS sending
+    console.log(`OTP for ${email}: ${otp}`);
+  
+     res.json({ message: 'OTP sent successfully',opt: otp });
+     return;
+
+  }
+
+  export const verifyOtp = async (req: Request, res: Response) => {
+    const { email, otp } = req.body;
+
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+     res.status(404).json({ message: 'User not found' });
+     return;
+  }
+
+  const otpRecord = await prisma.oTP.findFirst({
+    where: {
+      userId: user.id,
+      code: otp,
+      verified: false,
+      expiresAt: {
+        gte: new Date(), // not expired
+      },
+    },
+  });
+
+  if (!otpRecord) {
+     res.status(400).json({ message: 'Invalid or expired OTP' });
+     return;
+  }
+
+  // Mark OTP as verified
+  await prisma.oTP.update({
+    where: { id: otpRecord.id },
+    data: { verified: true },
+  });
+
+  // You can now allow the user to proceed (login, register, reset password, etc.)
+
+   res.json({ message: 'OTP verified successfully' });
+   return;
+  }
+
+
+

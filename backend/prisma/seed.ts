@@ -4,11 +4,12 @@ import { PrismaClient } from "../src/generated/prisma";
 const prisma = new PrismaClient()
 
 async function main() {
-  const alice = await prisma.user.upsert({
+  const jethalal = await prisma.user.upsert({
     where: { number: '1111111111' },
     update: {},
     create: {
       number: '1111111111',
+      email:"basnetsameer78@gmail.com",
       password: await bcrypt.hash('alice', 10),
       name: 'alice',
       Balance: {
@@ -26,11 +27,12 @@ async function main() {
       },
     },
   })
-  const bob = await prisma.user.upsert({
+  const babita = await prisma.user.upsert({
     where: { number: '2222222222' },
     update: {},
     create: {
       number: '2222222222',
+      email:"basnetsameer321@gmail.com",
       password: await bcrypt.hash('bob', 10),
       name: 'bob',
       Balance: {
@@ -48,7 +50,7 @@ async function main() {
       },
     },
   })
-  console.log({ alice, bob })
+  console.log({ jethalal, babita })
 }
 main()
   .then(async () => {

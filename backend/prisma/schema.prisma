@@ -17,7 +17,7 @@ datasource db {
 
 model User {
   id                Int                 @id @default(autoincrement())
-  email             String?             @unique
+  email             String?           @unique
   name              String?
   number            String              @unique
   password          String
@@ -25,6 +25,7 @@ model User {
   Balance           Balance[]
   sentTransfers     p2pTransfer[]       @relation(name: "FromUserRelation")
   receivedTransfers p2pTransfer[]       @relation(name: "ToUserRelation")
+  otp              OTP[]
 }
 
 
@@ -62,4 +63,16 @@ enum OnRampStatus {
   Success
   Failure
   Processing
+}
+
+
+model OTP {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  code        String
+  expiresAt   DateTime
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
 }

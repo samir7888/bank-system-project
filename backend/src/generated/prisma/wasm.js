@@ -148,6 +148,15 @@ exports.Prisma.BalanceScalarFieldEnum = {
   amount: 'amount'
 };
 
+exports.Prisma.OTPScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  code: 'code',
+  expiresAt: 'expiresAt',
+  verified: 'verified',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -172,7 +181,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   p2pTransfer: 'p2pTransfer',
   OnRampTransaction: 'OnRampTransaction',
-  Balance: 'Balance'
+  Balance: 'Balance',
+  OTP: 'OTP'
 };
 
 /**
