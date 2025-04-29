@@ -1,5 +1,5 @@
 import express from "express";
-// import { authMiddleware } from "../middlewares/authMiddleware";
+
 import { withdraw } from "../controllers/atm.controller";
 import { authMiddleware } from "../middlewares/authMiddleware";
 

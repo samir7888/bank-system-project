@@ -17,15 +17,16 @@ datasource db {
 
 model User {
   id                Int                 @id @default(autoincrement())
-  email             String?           @unique
+  email             String?              @unique
   name              String?
   number            String              @unique
+  isFrozen          Boolean              @default(false)
   password          String
   OnRampTransaction OnRampTransaction[]
   Balance           Balance[]
   sentTransfers     p2pTransfer[]       @relation(name: "FromUserRelation")
   receivedTransfers p2pTransfer[]       @relation(name: "ToUserRelation")
-  otp              OTP[]
+  otp               OTP[]
 }
 
 

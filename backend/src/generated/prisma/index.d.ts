@@ -1342,6 +1342,7 @@ export namespace Prisma {
     email: string | null
     name: string | null
     number: string | null
+    isFrozen: boolean | null
     password: string | null
   }
 
@@ -1350,6 +1351,7 @@ export namespace Prisma {
     email: string | null
     name: string | null
     number: string | null
+    isFrozen: boolean | null
     password: string | null
   }
 
@@ -1358,6 +1360,7 @@ export namespace Prisma {
     email: number
     name: number
     number: number
+    isFrozen: number
     password: number
     _all: number
   }
@@ -1376,6 +1379,7 @@ export namespace Prisma {
     email?: true
     name?: true
     number?: true
+    isFrozen?: true
     password?: true
   }
 
@@ -1384,6 +1388,7 @@ export namespace Prisma {
     email?: true
     name?: true
     number?: true
+    isFrozen?: true
     password?: true
   }
 
@@ -1392,6 +1397,7 @@ export namespace Prisma {
     email?: true
     name?: true
     number?: true
+    isFrozen?: true
     password?: true
     _all?: true
   }
@@ -1484,9 +1490,10 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
-    email: string
+    email: string | null
     name: string | null
     number: string
+    isFrozen: boolean
     password: string
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1514,6 +1521,7 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     number?: boolean
+    isFrozen?: boolean
     password?: boolean
     OnRampTransaction?: boolean | User$OnRampTransactionArgs<ExtArgs>
     Balance?: boolean | User$BalanceArgs<ExtArgs>
@@ -1528,6 +1536,7 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     number?: boolean
+    isFrozen?: boolean
     password?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1536,6 +1545,7 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     number?: boolean
+    isFrozen?: boolean
     password?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1544,10 +1554,11 @@ export namespace Prisma {
     email?: boolean
     name?: boolean
     number?: boolean
+    isFrozen?: boolean
     password?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "number" | "password", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "number" | "isFrozen" | "password", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     OnRampTransaction?: boolean | User$OnRampTransactionArgs<ExtArgs>
     Balance?: boolean | User$BalanceArgs<ExtArgs>
@@ -1570,9 +1581,10 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      email: string
+      email: string | null
       name: string | null
       number: string
+      isFrozen: boolean
       password: string
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -2006,6 +2018,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly number: FieldRef<"User", 'String'>
+    readonly isFrozen: FieldRef<"User", 'Boolean'>
     readonly password: FieldRef<"User", 'String'>
   }
     
@@ -6960,6 +6973,7 @@ export namespace Prisma {
     email: 'email',
     name: 'name',
     number: 'number',
+    isFrozen: 'isFrozen',
     password: 'password'
   };
 
@@ -7068,6 +7082,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -7096,13 +7117,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7124,9 +7138,10 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
-    email?: StringFilter<"User"> | string
+    email?: StringNullableFilter<"User"> | string | null
     name?: StringNullableFilter<"User"> | string | null
     number?: StringFilter<"User"> | string
+    isFrozen?: BoolFilter<"User"> | boolean
     password?: StringFilter<"User"> | string
     OnRampTransaction?: OnRampTransactionListRelationFilter
     Balance?: BalanceListRelationFilter
@@ -7137,9 +7152,10 @@ export namespace Prisma {
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    email?: SortOrder
+    email?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     number?: SortOrder
+    isFrozen?: SortOrder
     password?: SortOrder
     OnRampTransaction?: OnRampTransactionOrderByRelationAggregateInput
     Balance?: BalanceOrderByRelationAggregateInput
@@ -7156,6 +7172,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringNullableFilter<"User"> | string | null
+    isFrozen?: BoolFilter<"User"> | boolean
     password?: StringFilter<"User"> | string
     OnRampTransaction?: OnRampTransactionListRelationFilter
     Balance?: BalanceListRelationFilter
@@ -7166,9 +7183,10 @@ export namespace Prisma {
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    email?: SortOrder
+    email?: SortOrderInput | SortOrder
     name?: SortOrderInput | SortOrder
     number?: SortOrder
+    isFrozen?: SortOrder
     password?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -7182,9 +7200,10 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
-    email?: StringWithAggregatesFilter<"User"> | string
+    email?: StringNullableWithAggregatesFilter<"User"> | string | null
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     number?: StringWithAggregatesFilter<"User"> | string
+    isFrozen?: BoolWithAggregatesFilter<"User"> | boolean
     password?: StringWithAggregatesFilter<"User"> | string
   }
 
@@ -7420,9 +7439,10 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionCreateNestedManyWithoutUserInput
     Balance?: BalanceCreateNestedManyWithoutUserInput
@@ -7433,9 +7453,10 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: number
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionUncheckedCreateNestedManyWithoutUserInput
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
@@ -7445,9 +7466,10 @@ export namespace Prisma {
   }
 
   export type UserUpdateInput = {
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUpdateManyWithoutUserNestedInput
     Balance?: BalanceUpdateManyWithoutUserNestedInput
@@ -7458,9 +7480,10 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUncheckedUpdateManyWithoutUserNestedInput
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
@@ -7471,24 +7494,27 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: number
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
   }
 
   export type UserUpdateManyMutationInput = {
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
   }
 
@@ -7710,6 +7736,21 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7725,19 +7766,9 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type OnRampTransactionListRelationFilter = {
@@ -7790,6 +7821,7 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     number?: SortOrder
+    isFrozen?: SortOrder
     password?: SortOrder
   }
 
@@ -7802,6 +7834,7 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     number?: SortOrder
+    isFrozen?: SortOrder
     password?: SortOrder
   }
 
@@ -7810,6 +7843,7 @@ export namespace Prisma {
     email?: SortOrder
     name?: SortOrder
     number?: SortOrder
+    isFrozen?: SortOrder
     password?: SortOrder
   }
 
@@ -7833,6 +7867,24 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7851,22 +7903,12 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -8023,11 +8065,6 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type OTPCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -8063,14 +8100,6 @@ export namespace Prisma {
   export type OTPSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type OnRampTransactionCreateNestedManyWithoutUserInput = {
@@ -8143,12 +8172,16 @@ export namespace Prisma {
     connect?: OTPWhereUniqueInput | OTPWhereUniqueInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type OnRampTransactionUpdateManyWithoutUserNestedInput = {
@@ -8369,10 +8402,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type UserUpdateOneRequiredWithoutOtpNestedInput = {
     create?: XOR<UserCreateWithoutOtpInput, UserUncheckedCreateWithoutOtpInput>
     connectOrCreate?: UserCreateOrConnectWithoutOtpInput
@@ -8392,6 +8421,20 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -8406,18 +8449,9 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -8447,23 +8481,6 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -8490,6 +8507,31 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -8532,19 +8574,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumOnRampStatusFilter<$PrismaModel>
     _max?: NestedEnumOnRampStatusFilter<$PrismaModel>
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type OnRampTransactionCreateWithoutUserInput = {
@@ -8787,9 +8816,10 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutSentTransfersInput = {
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionCreateNestedManyWithoutUserInput
     Balance?: BalanceCreateNestedManyWithoutUserInput
@@ -8799,9 +8829,10 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutSentTransfersInput = {
     id?: number
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionUncheckedCreateNestedManyWithoutUserInput
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
@@ -8815,9 +8846,10 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutReceivedTransfersInput = {
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionCreateNestedManyWithoutUserInput
     Balance?: BalanceCreateNestedManyWithoutUserInput
@@ -8827,9 +8859,10 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutReceivedTransfersInput = {
     id?: number
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionUncheckedCreateNestedManyWithoutUserInput
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
@@ -8854,9 +8887,10 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutSentTransfersInput = {
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUpdateManyWithoutUserNestedInput
     Balance?: BalanceUpdateManyWithoutUserNestedInput
@@ -8866,9 +8900,10 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutSentTransfersInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUncheckedUpdateManyWithoutUserNestedInput
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
@@ -8888,9 +8923,10 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutReceivedTransfersInput = {
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUpdateManyWithoutUserNestedInput
     Balance?: BalanceUpdateManyWithoutUserNestedInput
@@ -8900,9 +8936,10 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutReceivedTransfersInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUncheckedUpdateManyWithoutUserNestedInput
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
@@ -8911,9 +8948,10 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutOnRampTransactionInput = {
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     Balance?: BalanceCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
@@ -8923,9 +8961,10 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutOnRampTransactionInput = {
     id?: number
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
@@ -8950,9 +8989,10 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutOnRampTransactionInput = {
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
@@ -8962,9 +9002,10 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutOnRampTransactionInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
@@ -8973,9 +9014,10 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutBalanceInput = {
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
@@ -8985,9 +9027,10 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutBalanceInput = {
     id?: number
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionUncheckedCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
@@ -9012,9 +9055,10 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutBalanceInput = {
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
@@ -9024,9 +9068,10 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutBalanceInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUncheckedUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
@@ -9035,9 +9080,10 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutOtpInput = {
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionCreateNestedManyWithoutUserInput
     Balance?: BalanceCreateNestedManyWithoutUserInput
@@ -9047,9 +9093,10 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutOtpInput = {
     id?: number
-    email: string
+    email?: string | null
     name?: string | null
     number: string
+    isFrozen?: boolean
     password: string
     OnRampTransaction?: OnRampTransactionUncheckedCreateNestedManyWithoutUserInput
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
@@ -9074,9 +9121,10 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutOtpInput = {
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUpdateManyWithoutUserNestedInput
     Balance?: BalanceUpdateManyWithoutUserNestedInput
@@ -9086,9 +9134,10 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutOtpInput = {
     id?: IntFieldUpdateOperationsInput | number
-    email?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
     password?: StringFieldUpdateOperationsInput | string
     OnRampTransaction?: OnRampTransactionUncheckedUpdateManyWithoutUserNestedInput
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput

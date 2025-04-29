@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import atmRoutes from './routes/atm.routes';
 import authRoutes from './routes/auth.routes';
 import transferRoutes from './routes/transfer.routes';
+import adminRoutes from './routes/admin.routes';
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json())
 
 app.use('/atm', atmRoutes);
 app.use('/auth', authRoutes);
+app.use('/admin', adminRoutes);
 app.use('/transfer', transferRoutes);
 
 
