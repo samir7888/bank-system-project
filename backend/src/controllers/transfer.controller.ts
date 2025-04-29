@@ -9,10 +9,10 @@ const prisma = new PrismaClient();
 export const transfer =
     async (req: Request, res: Response): Promise<void> => {
         try {
-            const from = (req as any).user.user.id;
-           console.log(from)
+            console.log('body',req.body)
+            console.log('form',(req as any).user.id)
+            const from = (req as any).user.id;
             const { to, amount } = req.body;
-
             if (!from) {
                 res.status(400).json({
                     message: "sender user ID is required"
@@ -91,6 +91,7 @@ export const transfer =
 export const getTransactionHistory = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId =(req as any).user.id // Safely access the user ID
+        console.log(userId)
         if (!userId) {
             res.status(400).json({ message: "User ID is required" });
             return;
