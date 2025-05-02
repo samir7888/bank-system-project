@@ -6,6 +6,7 @@ import atmRoutes from './routes/atm.routes';
 import authRoutes from './routes/auth.routes';
 import transferRoutes from './routes/transfer.routes';
 import adminRoutes from './routes/admin.routes';
+import fraudRouter from './routes/fraud.routes';
 
 
 const app = express();
@@ -20,6 +21,8 @@ app.use('/atm', atmRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/transfer', transferRoutes);
+app.use("/fraud", fraudRouter);
+
 
 
 export default app;

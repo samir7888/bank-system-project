@@ -18,15 +18,13 @@ datasource db {
 model User {
   id                Int                 @id @default(autoincrement())
   email             String?              @unique
+  password          String
   name              String?
   number            String              @unique
   isFrozen          Boolean              @default(false)
-  password          String
-  OnRampTransaction OnRampTransaction[]
   Balance           Balance[]
   sentTransfers     p2pTransfer[]       @relation(name: "FromUserRelation")
   receivedTransfers p2pTransfer[]       @relation(name: "ToUserRelation")
-  otp               OTP[]
 }
 
 
@@ -41,15 +39,6 @@ model p2pTransfer {
   toUser     User         @relation(name: "ToUserRelation", fields: [toUserId], references: [id])
 }
 
-model OnRampTransaction {
-  id        Int          @id @default(autoincrement())
-  status    OnRampStatus
-  token     String       @unique
-  amount    Int
-  startTime DateTime
-  userId    Int
-  user      User         @relation(fields: [userId], references: [id])
-}
 
 model Balance {
   id     Int  @id @default(autoincrement())
@@ -60,20 +49,4 @@ model Balance {
 
 
 
-enum OnRampStatus {
-  Success
-  Failure
-  Processing
-}
 
-
-model OTP {
-  id          Int      @id @default(autoincrement())
-  userId      Int
-  code        String
-  expiresAt   DateTime
-  verified    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-
-  user        User     @relation(fields: [userId], references: [id])
-}

@@ -2,6 +2,7 @@
 
 import { Request, Response } from "express";
 import { PrismaClient } from "../generated/prisma";
+import { checkFraudChain } from "../services/fraudCheck";
 // import { AuthenticatedRequest } from "../middlewares/authMiddleware";
 
 const prisma = new PrismaClient();
@@ -9,9 +10,7 @@ const prisma = new PrismaClient();
 export const transfer =
     async (req: Request, res: Response): Promise<void> => {
         try {
-            console.log('body',req.body)
-            console.log('form',(req as any).user.id)
-            const from = (req as any).user.id;
+            const from = (req as any).user.user.id;
             const { to, amount } = req.body;
             if (!from) {
                 res.status(400).json({
@@ -56,7 +55,7 @@ export const transfer =
                 if (!fromBalance || fromBalance.amount < numericAmount) {
                     res.status(400).json({ message: "Insufficient funds" });
                     throw new Error('Insufficient funds');
-                    
+
                 }
 
                 await tx.balance.update({
@@ -77,8 +76,21 @@ export const transfer =
                         timestamp: new Date()
                     }
                 });
+                // Run fraud check after transaction
+                const fraudChain = await checkFraudChain(fromUserId);
 
-                res.status(200).json({ message: "Money transferred successfully" });
+                if (fraudChain) {
+                    await prisma.user.updateMany({
+                        where: { id: { in: fraudChain.map(id => id) } },
+                        data: { isFrozen: true },
+                    });
+
+                    return res.status(200).json({
+                        message: "⚠️ Transfer completed, but fraud detected. Involved accounts frozen.",
+                        fraudChain,
+                    });
+                }
+                res.status(200).json({ message: "Money transferred successfully, No fraud detected" });
             });
         } catch (error: unknown) {
             console.error("Transfer error:", error);
@@ -90,7 +102,7 @@ export const transfer =
 
 export const getTransactionHistory = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId =(req as any).user.id // Safely access the user ID
+        const userId = (req as any).user.id // Safely access the user ID
         console.log(userId)
         if (!userId) {
             res.status(400).json({ message: "User ID is required" });
@@ -119,7 +131,6 @@ export const getTransactionHistory = async (req: Request, res: Response): Promis
                 timestamp: 'desc'
             }
         });
-        console.log(transactions)
         res.status(200).json(transactions);
     } catch (error) {
         console.error("Error fetching transaction history:", error);
