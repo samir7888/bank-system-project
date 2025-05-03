@@ -3,6 +3,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "../generated/prisma";
 import { checkFraudChain } from "../services/fraudCheck";
+import { sendFraudAlertEmail } from "../services/email";
 // import { AuthenticatedRequest } from "../middlewares/authMiddleware";
 
 const prisma = new PrismaClient();
@@ -84,9 +85,9 @@ export const transfer =
                         where: { id: { in: fraudChain.map(id => id) } },
                         data: { isFrozen: true },
                     });
-
+                    await sendFraudAlertEmail(fromUserId, fraudChain);
                     return res.status(200).json({
-                        message: "⚠️ Transfer completed, but fraud detected. Involved accounts frozen.",
+                        message: "⚠️ Transfer completed, but fraud detected. Involved accounts frozen and admin notified",
                         fraudChain,
                     });
                 }
