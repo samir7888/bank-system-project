@@ -11,7 +11,10 @@ const prisma = new PrismaClient();
 export const transfer =
     async (req: Request, res: Response): Promise<void> => {
         try {
-            const from = (req as any).user.user.id;
+           
+          
+            const from = (req as any).user.id;
+            console.log("form id",from)
             const { to, amount } = req.body;
             if (!from) {
                 res.status(400).json({
@@ -92,7 +95,7 @@ export const transfer =
                     });
                 }
                 res.status(200).json({ message: "Money transferred successfully, No fraud detected" });
-            });
+            }, { timeout: 30000 });
         } catch (error: unknown) {
             console.error("Transfer error:", error);
             res.status(500).json({ message: "An error occurred during transfer" });
@@ -104,7 +107,7 @@ export const transfer =
 export const getTransactionHistory = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = (req as any).user.id // Safely access the user ID
-        console.log(userId)
+        console.log("history of id ",userId)
         if (!userId) {
             res.status(400).json({ message: "User ID is required" });
             return;

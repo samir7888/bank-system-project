@@ -13,14 +13,18 @@ const Dashboard: React.FC = () => {
     isLoading: isLoadingDetails,
     isError: isErrorDetails,
     refetch: refetchDetails
-  } = useQuery('userDetails', getUserDetails);
+  } = useQuery('userDetails', getUserDetails, {
+    refetchInterval: 5000, // every 5 seconds
+  });
 
   const {
     data: transactions,
     isLoading: isLoadingTransactions,
     isError: isErrorTransactions,
     refetch: refetchTransactions
-  } = useQuery('transactionHistory', getTransactionHistory);
+  } = useQuery('transactionHistory', getTransactionHistory, {
+    refetchInterval: 5000, // every 5 seconds
+  });
 
   const handleRefresh = () => {
     refetchDetails();

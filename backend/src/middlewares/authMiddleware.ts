@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
-    const tokenFromHeader = authHeader?.split(" ")[1];
+    // const tokenFromHeader = authHeader?.split(" ")[1];
     const tokenFromCookie = req?.cookies?.accessToken; 
-    const token = tokenFromHeader || tokenFromCookie;
+    const token =  tokenFromCookie;
   
     if (!token) {
        res.status(401).json({ message: "Unauthorized" });
@@ -17,6 +17,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     try {
         
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      // console.log("decode",decoded);
       (req as any).user = decoded;
       next();
     } catch (err) {
