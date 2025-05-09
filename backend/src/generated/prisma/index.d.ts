@@ -28,6 +28,16 @@ export type p2pTransfer = $Result.DefaultSelection<Prisma.$p2pTransferPayload>
  * 
  */
 export type Balance = $Result.DefaultSelection<Prisma.$BalancePayload>
+/**
+ * Model MaintenanceAlert
+ * 
+ */
+export type MaintenanceAlert = $Result.DefaultSelection<Prisma.$MaintenanceAlertPayload>
+/**
+ * Model EmergencyCredit
+ * 
+ */
+export type EmergencyCredit = $Result.DefaultSelection<Prisma.$EmergencyCreditPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -183,6 +193,26 @@ export class PrismaClient<
     * ```
     */
   get balance(): Prisma.BalanceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.maintenanceAlert`: Exposes CRUD operations for the **MaintenanceAlert** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MaintenanceAlerts
+    * const maintenanceAlerts = await prisma.maintenanceAlert.findMany()
+    * ```
+    */
+  get maintenanceAlert(): Prisma.MaintenanceAlertDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.emergencyCredit`: Exposes CRUD operations for the **EmergencyCredit** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more EmergencyCredits
+    * const emergencyCredits = await prisma.emergencyCredit.findMany()
+    * ```
+    */
+  get emergencyCredit(): Prisma.EmergencyCreditDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -625,7 +655,9 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     p2pTransfer: 'p2pTransfer',
-    Balance: 'Balance'
+    Balance: 'Balance',
+    MaintenanceAlert: 'MaintenanceAlert',
+    EmergencyCredit: 'EmergencyCredit'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +676,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "p2pTransfer" | "balance"
+      modelProps: "user" | "p2pTransfer" | "balance" | "maintenanceAlert" | "emergencyCredit"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -870,6 +902,154 @@ export namespace Prisma {
           }
         }
       }
+      MaintenanceAlert: {
+        payload: Prisma.$MaintenanceAlertPayload<ExtArgs>
+        fields: Prisma.MaintenanceAlertFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaintenanceAlertFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaintenanceAlertFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>
+          }
+          findFirst: {
+            args: Prisma.MaintenanceAlertFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaintenanceAlertFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>
+          }
+          findMany: {
+            args: Prisma.MaintenanceAlertFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>[]
+          }
+          create: {
+            args: Prisma.MaintenanceAlertCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>
+          }
+          createMany: {
+            args: Prisma.MaintenanceAlertCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaintenanceAlertCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>[]
+          }
+          delete: {
+            args: Prisma.MaintenanceAlertDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>
+          }
+          update: {
+            args: Prisma.MaintenanceAlertUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaintenanceAlertDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaintenanceAlertUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaintenanceAlertUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>[]
+          }
+          upsert: {
+            args: Prisma.MaintenanceAlertUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceAlertPayload>
+          }
+          aggregate: {
+            args: Prisma.MaintenanceAlertAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaintenanceAlert>
+          }
+          groupBy: {
+            args: Prisma.MaintenanceAlertGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceAlertGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaintenanceAlertCountArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceAlertCountAggregateOutputType> | number
+          }
+        }
+      }
+      EmergencyCredit: {
+        payload: Prisma.$EmergencyCreditPayload<ExtArgs>
+        fields: Prisma.EmergencyCreditFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.EmergencyCreditFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.EmergencyCreditFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>
+          }
+          findFirst: {
+            args: Prisma.EmergencyCreditFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.EmergencyCreditFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>
+          }
+          findMany: {
+            args: Prisma.EmergencyCreditFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>[]
+          }
+          create: {
+            args: Prisma.EmergencyCreditCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>
+          }
+          createMany: {
+            args: Prisma.EmergencyCreditCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.EmergencyCreditCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>[]
+          }
+          delete: {
+            args: Prisma.EmergencyCreditDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>
+          }
+          update: {
+            args: Prisma.EmergencyCreditUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>
+          }
+          deleteMany: {
+            args: Prisma.EmergencyCreditDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.EmergencyCreditUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.EmergencyCreditUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>[]
+          }
+          upsert: {
+            args: Prisma.EmergencyCreditUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$EmergencyCreditPayload>
+          }
+          aggregate: {
+            args: Prisma.EmergencyCreditAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateEmergencyCredit>
+          }
+          groupBy: {
+            args: Prisma.EmergencyCreditGroupByArgs<ExtArgs>
+            result: $Utils.Optional<EmergencyCreditGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.EmergencyCreditCountArgs<ExtArgs>
+            result: $Utils.Optional<EmergencyCreditCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -957,6 +1137,8 @@ export namespace Prisma {
     user?: UserOmit
     p2pTransfer?: p2pTransferOmit
     balance?: BalanceOmit
+    maintenanceAlert?: MaintenanceAlertOmit
+    emergencyCredit?: EmergencyCreditOmit
   }
 
   /* Types for Logging */
@@ -1054,12 +1236,14 @@ export namespace Prisma {
     Balance: number
     sentTransfers: number
     receivedTransfers: number
+    emergencyCredits: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Balance?: boolean | UserCountOutputTypeCountBalanceArgs
     sentTransfers?: boolean | UserCountOutputTypeCountSentTransfersArgs
     receivedTransfers?: boolean | UserCountOutputTypeCountReceivedTransfersArgs
+    emergencyCredits?: boolean | UserCountOutputTypeCountEmergencyCreditsArgs
   }
 
   // Custom InputTypes
@@ -1092,6 +1276,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountReceivedTransfersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: p2pTransferWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountEmergencyCreditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmergencyCreditWhereInput
   }
 
 
@@ -1308,6 +1499,7 @@ export namespace Prisma {
     Balance?: boolean | User$BalanceArgs<ExtArgs>
     sentTransfers?: boolean | User$sentTransfersArgs<ExtArgs>
     receivedTransfers?: boolean | User$receivedTransfersArgs<ExtArgs>
+    emergencyCredits?: boolean | User$emergencyCreditsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1343,6 +1535,7 @@ export namespace Prisma {
     Balance?: boolean | User$BalanceArgs<ExtArgs>
     sentTransfers?: boolean | User$sentTransfersArgs<ExtArgs>
     receivedTransfers?: boolean | User$receivedTransfersArgs<ExtArgs>
+    emergencyCredits?: boolean | User$emergencyCreditsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1354,6 +1547,7 @@ export namespace Prisma {
       Balance: Prisma.$BalancePayload<ExtArgs>[]
       sentTransfers: Prisma.$p2pTransferPayload<ExtArgs>[]
       receivedTransfers: Prisma.$p2pTransferPayload<ExtArgs>[]
+      emergencyCredits: Prisma.$EmergencyCreditPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1759,6 +1953,7 @@ export namespace Prisma {
     Balance<T extends User$BalanceArgs<ExtArgs> = {}>(args?: Subset<T, User$BalanceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BalancePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sentTransfers<T extends User$sentTransfersArgs<ExtArgs> = {}>(args?: Subset<T, User$sentTransfersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$p2pTransferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     receivedTransfers<T extends User$receivedTransfersArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedTransfersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$p2pTransferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    emergencyCredits<T extends User$emergencyCreditsArgs<ExtArgs> = {}>(args?: Subset<T, User$emergencyCreditsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2251,6 +2446,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: P2pTransferScalarFieldEnum | P2pTransferScalarFieldEnum[]
+  }
+
+  /**
+   * User.emergencyCredits
+   */
+  export type User$emergencyCreditsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    where?: EmergencyCreditWhereInput
+    orderBy?: EmergencyCreditOrderByWithRelationInput | EmergencyCreditOrderByWithRelationInput[]
+    cursor?: EmergencyCreditWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EmergencyCreditScalarFieldEnum | EmergencyCreditScalarFieldEnum[]
   }
 
   /**
@@ -4459,6 +4678,2174 @@ export namespace Prisma {
 
 
   /**
+   * Model MaintenanceAlert
+   */
+
+  export type AggregateMaintenanceAlert = {
+    _count: MaintenanceAlertCountAggregateOutputType | null
+    _avg: MaintenanceAlertAvgAggregateOutputType | null
+    _sum: MaintenanceAlertSumAggregateOutputType | null
+    _min: MaintenanceAlertMinAggregateOutputType | null
+    _max: MaintenanceAlertMaxAggregateOutputType | null
+  }
+
+  export type MaintenanceAlertAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type MaintenanceAlertSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type MaintenanceAlertMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    type: string | null
+    startTime: Date | null
+    endTime: Date | null
+    createdAt: Date | null
+  }
+
+  export type MaintenanceAlertMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    type: string | null
+    startTime: Date | null
+    endTime: Date | null
+    createdAt: Date | null
+  }
+
+  export type MaintenanceAlertCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    type: number
+    startTime: number
+    endTime: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MaintenanceAlertAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type MaintenanceAlertSumAggregateInputType = {
+    id?: true
+  }
+
+  export type MaintenanceAlertMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    startTime?: true
+    endTime?: true
+    createdAt?: true
+  }
+
+  export type MaintenanceAlertMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    startTime?: true
+    endTime?: true
+    createdAt?: true
+  }
+
+  export type MaintenanceAlertCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    type?: true
+    startTime?: true
+    endTime?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MaintenanceAlertAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceAlert to aggregate.
+     */
+    where?: MaintenanceAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceAlerts to fetch.
+     */
+    orderBy?: MaintenanceAlertOrderByWithRelationInput | MaintenanceAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaintenanceAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MaintenanceAlerts
+    **/
+    _count?: true | MaintenanceAlertCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MaintenanceAlertAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MaintenanceAlertSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaintenanceAlertMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaintenanceAlertMaxAggregateInputType
+  }
+
+  export type GetMaintenanceAlertAggregateType<T extends MaintenanceAlertAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaintenanceAlert]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaintenanceAlert[P]>
+      : GetScalarType<T[P], AggregateMaintenanceAlert[P]>
+  }
+
+
+
+
+  export type MaintenanceAlertGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceAlertWhereInput
+    orderBy?: MaintenanceAlertOrderByWithAggregationInput | MaintenanceAlertOrderByWithAggregationInput[]
+    by: MaintenanceAlertScalarFieldEnum[] | MaintenanceAlertScalarFieldEnum
+    having?: MaintenanceAlertScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaintenanceAlertCountAggregateInputType | true
+    _avg?: MaintenanceAlertAvgAggregateInputType
+    _sum?: MaintenanceAlertSumAggregateInputType
+    _min?: MaintenanceAlertMinAggregateInputType
+    _max?: MaintenanceAlertMaxAggregateInputType
+  }
+
+  export type MaintenanceAlertGroupByOutputType = {
+    id: number
+    title: string
+    description: string
+    type: string
+    startTime: Date
+    endTime: Date
+    createdAt: Date
+    _count: MaintenanceAlertCountAggregateOutputType | null
+    _avg: MaintenanceAlertAvgAggregateOutputType | null
+    _sum: MaintenanceAlertSumAggregateOutputType | null
+    _min: MaintenanceAlertMinAggregateOutputType | null
+    _max: MaintenanceAlertMaxAggregateOutputType | null
+  }
+
+  type GetMaintenanceAlertGroupByPayload<T extends MaintenanceAlertGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaintenanceAlertGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaintenanceAlertGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaintenanceAlertGroupByOutputType[P]>
+            : GetScalarType<T[P], MaintenanceAlertGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaintenanceAlertSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["maintenanceAlert"]>
+
+  export type MaintenanceAlertSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["maintenanceAlert"]>
+
+  export type MaintenanceAlertSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["maintenanceAlert"]>
+
+  export type MaintenanceAlertSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    type?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    createdAt?: boolean
+  }
+
+  export type MaintenanceAlertOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "type" | "startTime" | "endTime" | "createdAt", ExtArgs["result"]["maintenanceAlert"]>
+
+  export type $MaintenanceAlertPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MaintenanceAlert"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      title: string
+      description: string
+      type: string
+      startTime: Date
+      endTime: Date
+      createdAt: Date
+    }, ExtArgs["result"]["maintenanceAlert"]>
+    composites: {}
+  }
+
+  type MaintenanceAlertGetPayload<S extends boolean | null | undefined | MaintenanceAlertDefaultArgs> = $Result.GetResult<Prisma.$MaintenanceAlertPayload, S>
+
+  type MaintenanceAlertCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaintenanceAlertFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaintenanceAlertCountAggregateInputType | true
+    }
+
+  export interface MaintenanceAlertDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MaintenanceAlert'], meta: { name: 'MaintenanceAlert' } }
+    /**
+     * Find zero or one MaintenanceAlert that matches the filter.
+     * @param {MaintenanceAlertFindUniqueArgs} args - Arguments to find a MaintenanceAlert
+     * @example
+     * // Get one MaintenanceAlert
+     * const maintenanceAlert = await prisma.maintenanceAlert.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaintenanceAlertFindUniqueArgs>(args: SelectSubset<T, MaintenanceAlertFindUniqueArgs<ExtArgs>>): Prisma__MaintenanceAlertClient<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MaintenanceAlert that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaintenanceAlertFindUniqueOrThrowArgs} args - Arguments to find a MaintenanceAlert
+     * @example
+     * // Get one MaintenanceAlert
+     * const maintenanceAlert = await prisma.maintenanceAlert.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaintenanceAlertFindUniqueOrThrowArgs>(args: SelectSubset<T, MaintenanceAlertFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaintenanceAlertClient<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceAlert that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAlertFindFirstArgs} args - Arguments to find a MaintenanceAlert
+     * @example
+     * // Get one MaintenanceAlert
+     * const maintenanceAlert = await prisma.maintenanceAlert.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaintenanceAlertFindFirstArgs>(args?: SelectSubset<T, MaintenanceAlertFindFirstArgs<ExtArgs>>): Prisma__MaintenanceAlertClient<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceAlert that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAlertFindFirstOrThrowArgs} args - Arguments to find a MaintenanceAlert
+     * @example
+     * // Get one MaintenanceAlert
+     * const maintenanceAlert = await prisma.maintenanceAlert.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaintenanceAlertFindFirstOrThrowArgs>(args?: SelectSubset<T, MaintenanceAlertFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaintenanceAlertClient<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MaintenanceAlerts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAlertFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MaintenanceAlerts
+     * const maintenanceAlerts = await prisma.maintenanceAlert.findMany()
+     * 
+     * // Get first 10 MaintenanceAlerts
+     * const maintenanceAlerts = await prisma.maintenanceAlert.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maintenanceAlertWithIdOnly = await prisma.maintenanceAlert.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaintenanceAlertFindManyArgs>(args?: SelectSubset<T, MaintenanceAlertFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MaintenanceAlert.
+     * @param {MaintenanceAlertCreateArgs} args - Arguments to create a MaintenanceAlert.
+     * @example
+     * // Create one MaintenanceAlert
+     * const MaintenanceAlert = await prisma.maintenanceAlert.create({
+     *   data: {
+     *     // ... data to create a MaintenanceAlert
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaintenanceAlertCreateArgs>(args: SelectSubset<T, MaintenanceAlertCreateArgs<ExtArgs>>): Prisma__MaintenanceAlertClient<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MaintenanceAlerts.
+     * @param {MaintenanceAlertCreateManyArgs} args - Arguments to create many MaintenanceAlerts.
+     * @example
+     * // Create many MaintenanceAlerts
+     * const maintenanceAlert = await prisma.maintenanceAlert.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaintenanceAlertCreateManyArgs>(args?: SelectSubset<T, MaintenanceAlertCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MaintenanceAlerts and returns the data saved in the database.
+     * @param {MaintenanceAlertCreateManyAndReturnArgs} args - Arguments to create many MaintenanceAlerts.
+     * @example
+     * // Create many MaintenanceAlerts
+     * const maintenanceAlert = await prisma.maintenanceAlert.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MaintenanceAlerts and only return the `id`
+     * const maintenanceAlertWithIdOnly = await prisma.maintenanceAlert.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaintenanceAlertCreateManyAndReturnArgs>(args?: SelectSubset<T, MaintenanceAlertCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MaintenanceAlert.
+     * @param {MaintenanceAlertDeleteArgs} args - Arguments to delete one MaintenanceAlert.
+     * @example
+     * // Delete one MaintenanceAlert
+     * const MaintenanceAlert = await prisma.maintenanceAlert.delete({
+     *   where: {
+     *     // ... filter to delete one MaintenanceAlert
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaintenanceAlertDeleteArgs>(args: SelectSubset<T, MaintenanceAlertDeleteArgs<ExtArgs>>): Prisma__MaintenanceAlertClient<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MaintenanceAlert.
+     * @param {MaintenanceAlertUpdateArgs} args - Arguments to update one MaintenanceAlert.
+     * @example
+     * // Update one MaintenanceAlert
+     * const maintenanceAlert = await prisma.maintenanceAlert.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaintenanceAlertUpdateArgs>(args: SelectSubset<T, MaintenanceAlertUpdateArgs<ExtArgs>>): Prisma__MaintenanceAlertClient<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MaintenanceAlerts.
+     * @param {MaintenanceAlertDeleteManyArgs} args - Arguments to filter MaintenanceAlerts to delete.
+     * @example
+     * // Delete a few MaintenanceAlerts
+     * const { count } = await prisma.maintenanceAlert.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaintenanceAlertDeleteManyArgs>(args?: SelectSubset<T, MaintenanceAlertDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceAlerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAlertUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MaintenanceAlerts
+     * const maintenanceAlert = await prisma.maintenanceAlert.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaintenanceAlertUpdateManyArgs>(args: SelectSubset<T, MaintenanceAlertUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceAlerts and returns the data updated in the database.
+     * @param {MaintenanceAlertUpdateManyAndReturnArgs} args - Arguments to update many MaintenanceAlerts.
+     * @example
+     * // Update many MaintenanceAlerts
+     * const maintenanceAlert = await prisma.maintenanceAlert.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MaintenanceAlerts and only return the `id`
+     * const maintenanceAlertWithIdOnly = await prisma.maintenanceAlert.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaintenanceAlertUpdateManyAndReturnArgs>(args: SelectSubset<T, MaintenanceAlertUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MaintenanceAlert.
+     * @param {MaintenanceAlertUpsertArgs} args - Arguments to update or create a MaintenanceAlert.
+     * @example
+     * // Update or create a MaintenanceAlert
+     * const maintenanceAlert = await prisma.maintenanceAlert.upsert({
+     *   create: {
+     *     // ... data to create a MaintenanceAlert
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MaintenanceAlert we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaintenanceAlertUpsertArgs>(args: SelectSubset<T, MaintenanceAlertUpsertArgs<ExtArgs>>): Prisma__MaintenanceAlertClient<$Result.GetResult<Prisma.$MaintenanceAlertPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MaintenanceAlerts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAlertCountArgs} args - Arguments to filter MaintenanceAlerts to count.
+     * @example
+     * // Count the number of MaintenanceAlerts
+     * const count = await prisma.maintenanceAlert.count({
+     *   where: {
+     *     // ... the filter for the MaintenanceAlerts we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaintenanceAlertCountArgs>(
+      args?: Subset<T, MaintenanceAlertCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaintenanceAlertCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MaintenanceAlert.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAlertAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaintenanceAlertAggregateArgs>(args: Subset<T, MaintenanceAlertAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceAlertAggregateType<T>>
+
+    /**
+     * Group by MaintenanceAlert.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceAlertGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaintenanceAlertGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaintenanceAlertGroupByArgs['orderBy'] }
+        : { orderBy?: MaintenanceAlertGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaintenanceAlertGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceAlertGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MaintenanceAlert model
+   */
+  readonly fields: MaintenanceAlertFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MaintenanceAlert.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaintenanceAlertClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MaintenanceAlert model
+   */
+  interface MaintenanceAlertFieldRefs {
+    readonly id: FieldRef<"MaintenanceAlert", 'Int'>
+    readonly title: FieldRef<"MaintenanceAlert", 'String'>
+    readonly description: FieldRef<"MaintenanceAlert", 'String'>
+    readonly type: FieldRef<"MaintenanceAlert", 'String'>
+    readonly startTime: FieldRef<"MaintenanceAlert", 'DateTime'>
+    readonly endTime: FieldRef<"MaintenanceAlert", 'DateTime'>
+    readonly createdAt: FieldRef<"MaintenanceAlert", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MaintenanceAlert findUnique
+   */
+  export type MaintenanceAlertFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceAlert to fetch.
+     */
+    where: MaintenanceAlertWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceAlert findUniqueOrThrow
+   */
+  export type MaintenanceAlertFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceAlert to fetch.
+     */
+    where: MaintenanceAlertWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceAlert findFirst
+   */
+  export type MaintenanceAlertFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceAlert to fetch.
+     */
+    where?: MaintenanceAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceAlerts to fetch.
+     */
+    orderBy?: MaintenanceAlertOrderByWithRelationInput | MaintenanceAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceAlerts.
+     */
+    cursor?: MaintenanceAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceAlerts.
+     */
+    distinct?: MaintenanceAlertScalarFieldEnum | MaintenanceAlertScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceAlert findFirstOrThrow
+   */
+  export type MaintenanceAlertFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceAlert to fetch.
+     */
+    where?: MaintenanceAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceAlerts to fetch.
+     */
+    orderBy?: MaintenanceAlertOrderByWithRelationInput | MaintenanceAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceAlerts.
+     */
+    cursor?: MaintenanceAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceAlerts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceAlerts.
+     */
+    distinct?: MaintenanceAlertScalarFieldEnum | MaintenanceAlertScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceAlert findMany
+   */
+  export type MaintenanceAlertFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceAlerts to fetch.
+     */
+    where?: MaintenanceAlertWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceAlerts to fetch.
+     */
+    orderBy?: MaintenanceAlertOrderByWithRelationInput | MaintenanceAlertOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MaintenanceAlerts.
+     */
+    cursor?: MaintenanceAlertWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceAlerts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceAlerts.
+     */
+    skip?: number
+    distinct?: MaintenanceAlertScalarFieldEnum | MaintenanceAlertScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceAlert create
+   */
+  export type MaintenanceAlertCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MaintenanceAlert.
+     */
+    data: XOR<MaintenanceAlertCreateInput, MaintenanceAlertUncheckedCreateInput>
+  }
+
+  /**
+   * MaintenanceAlert createMany
+   */
+  export type MaintenanceAlertCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MaintenanceAlerts.
+     */
+    data: MaintenanceAlertCreateManyInput | MaintenanceAlertCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MaintenanceAlert createManyAndReturn
+   */
+  export type MaintenanceAlertCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * The data used to create many MaintenanceAlerts.
+     */
+    data: MaintenanceAlertCreateManyInput | MaintenanceAlertCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MaintenanceAlert update
+   */
+  export type MaintenanceAlertUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MaintenanceAlert.
+     */
+    data: XOR<MaintenanceAlertUpdateInput, MaintenanceAlertUncheckedUpdateInput>
+    /**
+     * Choose, which MaintenanceAlert to update.
+     */
+    where: MaintenanceAlertWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceAlert updateMany
+   */
+  export type MaintenanceAlertUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MaintenanceAlerts.
+     */
+    data: XOR<MaintenanceAlertUpdateManyMutationInput, MaintenanceAlertUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceAlerts to update
+     */
+    where?: MaintenanceAlertWhereInput
+    /**
+     * Limit how many MaintenanceAlerts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceAlert updateManyAndReturn
+   */
+  export type MaintenanceAlertUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * The data used to update MaintenanceAlerts.
+     */
+    data: XOR<MaintenanceAlertUpdateManyMutationInput, MaintenanceAlertUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceAlerts to update
+     */
+    where?: MaintenanceAlertWhereInput
+    /**
+     * Limit how many MaintenanceAlerts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceAlert upsert
+   */
+  export type MaintenanceAlertUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MaintenanceAlert to update in case it exists.
+     */
+    where: MaintenanceAlertWhereUniqueInput
+    /**
+     * In case the MaintenanceAlert found by the `where` argument doesn't exist, create a new MaintenanceAlert with this data.
+     */
+    create: XOR<MaintenanceAlertCreateInput, MaintenanceAlertUncheckedCreateInput>
+    /**
+     * In case the MaintenanceAlert was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaintenanceAlertUpdateInput, MaintenanceAlertUncheckedUpdateInput>
+  }
+
+  /**
+   * MaintenanceAlert delete
+   */
+  export type MaintenanceAlertDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+    /**
+     * Filter which MaintenanceAlert to delete.
+     */
+    where: MaintenanceAlertWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceAlert deleteMany
+   */
+  export type MaintenanceAlertDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceAlerts to delete
+     */
+    where?: MaintenanceAlertWhereInput
+    /**
+     * Limit how many MaintenanceAlerts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceAlert without action
+   */
+  export type MaintenanceAlertDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceAlert
+     */
+    select?: MaintenanceAlertSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceAlert
+     */
+    omit?: MaintenanceAlertOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model EmergencyCredit
+   */
+
+  export type AggregateEmergencyCredit = {
+    _count: EmergencyCreditCountAggregateOutputType | null
+    _avg: EmergencyCreditAvgAggregateOutputType | null
+    _sum: EmergencyCreditSumAggregateOutputType | null
+    _min: EmergencyCreditMinAggregateOutputType | null
+    _max: EmergencyCreditMaxAggregateOutputType | null
+  }
+
+  export type EmergencyCreditAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    amount: number | null
+  }
+
+  export type EmergencyCreditSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    amount: number | null
+  }
+
+  export type EmergencyCreditMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    amount: number | null
+    isUsed: boolean | null
+    createdAt: Date | null
+    expiresAt: Date | null
+  }
+
+  export type EmergencyCreditMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    amount: number | null
+    isUsed: boolean | null
+    createdAt: Date | null
+    expiresAt: Date | null
+  }
+
+  export type EmergencyCreditCountAggregateOutputType = {
+    id: number
+    userId: number
+    amount: number
+    isUsed: number
+    createdAt: number
+    expiresAt: number
+    _all: number
+  }
+
+
+  export type EmergencyCreditAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+  }
+
+  export type EmergencyCreditSumAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+  }
+
+  export type EmergencyCreditMinAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    isUsed?: true
+    createdAt?: true
+    expiresAt?: true
+  }
+
+  export type EmergencyCreditMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    isUsed?: true
+    createdAt?: true
+    expiresAt?: true
+  }
+
+  export type EmergencyCreditCountAggregateInputType = {
+    id?: true
+    userId?: true
+    amount?: true
+    isUsed?: true
+    createdAt?: true
+    expiresAt?: true
+    _all?: true
+  }
+
+  export type EmergencyCreditAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmergencyCredit to aggregate.
+     */
+    where?: EmergencyCreditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmergencyCredits to fetch.
+     */
+    orderBy?: EmergencyCreditOrderByWithRelationInput | EmergencyCreditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: EmergencyCreditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmergencyCredits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmergencyCredits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned EmergencyCredits
+    **/
+    _count?: true | EmergencyCreditCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: EmergencyCreditAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: EmergencyCreditSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: EmergencyCreditMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: EmergencyCreditMaxAggregateInputType
+  }
+
+  export type GetEmergencyCreditAggregateType<T extends EmergencyCreditAggregateArgs> = {
+        [P in keyof T & keyof AggregateEmergencyCredit]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateEmergencyCredit[P]>
+      : GetScalarType<T[P], AggregateEmergencyCredit[P]>
+  }
+
+
+
+
+  export type EmergencyCreditGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EmergencyCreditWhereInput
+    orderBy?: EmergencyCreditOrderByWithAggregationInput | EmergencyCreditOrderByWithAggregationInput[]
+    by: EmergencyCreditScalarFieldEnum[] | EmergencyCreditScalarFieldEnum
+    having?: EmergencyCreditScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: EmergencyCreditCountAggregateInputType | true
+    _avg?: EmergencyCreditAvgAggregateInputType
+    _sum?: EmergencyCreditSumAggregateInputType
+    _min?: EmergencyCreditMinAggregateInputType
+    _max?: EmergencyCreditMaxAggregateInputType
+  }
+
+  export type EmergencyCreditGroupByOutputType = {
+    id: number
+    userId: number
+    amount: number
+    isUsed: boolean
+    createdAt: Date
+    expiresAt: Date
+    _count: EmergencyCreditCountAggregateOutputType | null
+    _avg: EmergencyCreditAvgAggregateOutputType | null
+    _sum: EmergencyCreditSumAggregateOutputType | null
+    _min: EmergencyCreditMinAggregateOutputType | null
+    _max: EmergencyCreditMaxAggregateOutputType | null
+  }
+
+  type GetEmergencyCreditGroupByPayload<T extends EmergencyCreditGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<EmergencyCreditGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof EmergencyCreditGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], EmergencyCreditGroupByOutputType[P]>
+            : GetScalarType<T[P], EmergencyCreditGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type EmergencyCreditSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amount?: boolean
+    isUsed?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emergencyCredit"]>
+
+  export type EmergencyCreditSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amount?: boolean
+    isUsed?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emergencyCredit"]>
+
+  export type EmergencyCreditSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    amount?: boolean
+    isUsed?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["emergencyCredit"]>
+
+  export type EmergencyCreditSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    amount?: boolean
+    isUsed?: boolean
+    createdAt?: boolean
+    expiresAt?: boolean
+  }
+
+  export type EmergencyCreditOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "amount" | "isUsed" | "createdAt" | "expiresAt", ExtArgs["result"]["emergencyCredit"]>
+  export type EmergencyCreditInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type EmergencyCreditIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type EmergencyCreditIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $EmergencyCreditPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "EmergencyCredit"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      amount: number
+      isUsed: boolean
+      createdAt: Date
+      expiresAt: Date
+    }, ExtArgs["result"]["emergencyCredit"]>
+    composites: {}
+  }
+
+  type EmergencyCreditGetPayload<S extends boolean | null | undefined | EmergencyCreditDefaultArgs> = $Result.GetResult<Prisma.$EmergencyCreditPayload, S>
+
+  type EmergencyCreditCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<EmergencyCreditFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: EmergencyCreditCountAggregateInputType | true
+    }
+
+  export interface EmergencyCreditDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['EmergencyCredit'], meta: { name: 'EmergencyCredit' } }
+    /**
+     * Find zero or one EmergencyCredit that matches the filter.
+     * @param {EmergencyCreditFindUniqueArgs} args - Arguments to find a EmergencyCredit
+     * @example
+     * // Get one EmergencyCredit
+     * const emergencyCredit = await prisma.emergencyCredit.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends EmergencyCreditFindUniqueArgs>(args: SelectSubset<T, EmergencyCreditFindUniqueArgs<ExtArgs>>): Prisma__EmergencyCreditClient<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one EmergencyCredit that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {EmergencyCreditFindUniqueOrThrowArgs} args - Arguments to find a EmergencyCredit
+     * @example
+     * // Get one EmergencyCredit
+     * const emergencyCredit = await prisma.emergencyCredit.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends EmergencyCreditFindUniqueOrThrowArgs>(args: SelectSubset<T, EmergencyCreditFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmergencyCreditClient<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmergencyCredit that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmergencyCreditFindFirstArgs} args - Arguments to find a EmergencyCredit
+     * @example
+     * // Get one EmergencyCredit
+     * const emergencyCredit = await prisma.emergencyCredit.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends EmergencyCreditFindFirstArgs>(args?: SelectSubset<T, EmergencyCreditFindFirstArgs<ExtArgs>>): Prisma__EmergencyCreditClient<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first EmergencyCredit that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmergencyCreditFindFirstOrThrowArgs} args - Arguments to find a EmergencyCredit
+     * @example
+     * // Get one EmergencyCredit
+     * const emergencyCredit = await prisma.emergencyCredit.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends EmergencyCreditFindFirstOrThrowArgs>(args?: SelectSubset<T, EmergencyCreditFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmergencyCreditClient<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more EmergencyCredits that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmergencyCreditFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all EmergencyCredits
+     * const emergencyCredits = await prisma.emergencyCredit.findMany()
+     * 
+     * // Get first 10 EmergencyCredits
+     * const emergencyCredits = await prisma.emergencyCredit.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const emergencyCreditWithIdOnly = await prisma.emergencyCredit.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends EmergencyCreditFindManyArgs>(args?: SelectSubset<T, EmergencyCreditFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a EmergencyCredit.
+     * @param {EmergencyCreditCreateArgs} args - Arguments to create a EmergencyCredit.
+     * @example
+     * // Create one EmergencyCredit
+     * const EmergencyCredit = await prisma.emergencyCredit.create({
+     *   data: {
+     *     // ... data to create a EmergencyCredit
+     *   }
+     * })
+     * 
+     */
+    create<T extends EmergencyCreditCreateArgs>(args: SelectSubset<T, EmergencyCreditCreateArgs<ExtArgs>>): Prisma__EmergencyCreditClient<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many EmergencyCredits.
+     * @param {EmergencyCreditCreateManyArgs} args - Arguments to create many EmergencyCredits.
+     * @example
+     * // Create many EmergencyCredits
+     * const emergencyCredit = await prisma.emergencyCredit.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends EmergencyCreditCreateManyArgs>(args?: SelectSubset<T, EmergencyCreditCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many EmergencyCredits and returns the data saved in the database.
+     * @param {EmergencyCreditCreateManyAndReturnArgs} args - Arguments to create many EmergencyCredits.
+     * @example
+     * // Create many EmergencyCredits
+     * const emergencyCredit = await prisma.emergencyCredit.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many EmergencyCredits and only return the `id`
+     * const emergencyCreditWithIdOnly = await prisma.emergencyCredit.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends EmergencyCreditCreateManyAndReturnArgs>(args?: SelectSubset<T, EmergencyCreditCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a EmergencyCredit.
+     * @param {EmergencyCreditDeleteArgs} args - Arguments to delete one EmergencyCredit.
+     * @example
+     * // Delete one EmergencyCredit
+     * const EmergencyCredit = await prisma.emergencyCredit.delete({
+     *   where: {
+     *     // ... filter to delete one EmergencyCredit
+     *   }
+     * })
+     * 
+     */
+    delete<T extends EmergencyCreditDeleteArgs>(args: SelectSubset<T, EmergencyCreditDeleteArgs<ExtArgs>>): Prisma__EmergencyCreditClient<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one EmergencyCredit.
+     * @param {EmergencyCreditUpdateArgs} args - Arguments to update one EmergencyCredit.
+     * @example
+     * // Update one EmergencyCredit
+     * const emergencyCredit = await prisma.emergencyCredit.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends EmergencyCreditUpdateArgs>(args: SelectSubset<T, EmergencyCreditUpdateArgs<ExtArgs>>): Prisma__EmergencyCreditClient<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more EmergencyCredits.
+     * @param {EmergencyCreditDeleteManyArgs} args - Arguments to filter EmergencyCredits to delete.
+     * @example
+     * // Delete a few EmergencyCredits
+     * const { count } = await prisma.emergencyCredit.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends EmergencyCreditDeleteManyArgs>(args?: SelectSubset<T, EmergencyCreditDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmergencyCredits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmergencyCreditUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many EmergencyCredits
+     * const emergencyCredit = await prisma.emergencyCredit.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends EmergencyCreditUpdateManyArgs>(args: SelectSubset<T, EmergencyCreditUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more EmergencyCredits and returns the data updated in the database.
+     * @param {EmergencyCreditUpdateManyAndReturnArgs} args - Arguments to update many EmergencyCredits.
+     * @example
+     * // Update many EmergencyCredits
+     * const emergencyCredit = await prisma.emergencyCredit.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more EmergencyCredits and only return the `id`
+     * const emergencyCreditWithIdOnly = await prisma.emergencyCredit.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends EmergencyCreditUpdateManyAndReturnArgs>(args: SelectSubset<T, EmergencyCreditUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one EmergencyCredit.
+     * @param {EmergencyCreditUpsertArgs} args - Arguments to update or create a EmergencyCredit.
+     * @example
+     * // Update or create a EmergencyCredit
+     * const emergencyCredit = await prisma.emergencyCredit.upsert({
+     *   create: {
+     *     // ... data to create a EmergencyCredit
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the EmergencyCredit we want to update
+     *   }
+     * })
+     */
+    upsert<T extends EmergencyCreditUpsertArgs>(args: SelectSubset<T, EmergencyCreditUpsertArgs<ExtArgs>>): Prisma__EmergencyCreditClient<$Result.GetResult<Prisma.$EmergencyCreditPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of EmergencyCredits.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmergencyCreditCountArgs} args - Arguments to filter EmergencyCredits to count.
+     * @example
+     * // Count the number of EmergencyCredits
+     * const count = await prisma.emergencyCredit.count({
+     *   where: {
+     *     // ... the filter for the EmergencyCredits we want to count
+     *   }
+     * })
+    **/
+    count<T extends EmergencyCreditCountArgs>(
+      args?: Subset<T, EmergencyCreditCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], EmergencyCreditCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a EmergencyCredit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmergencyCreditAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends EmergencyCreditAggregateArgs>(args: Subset<T, EmergencyCreditAggregateArgs>): Prisma.PrismaPromise<GetEmergencyCreditAggregateType<T>>
+
+    /**
+     * Group by EmergencyCredit.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {EmergencyCreditGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends EmergencyCreditGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: EmergencyCreditGroupByArgs['orderBy'] }
+        : { orderBy?: EmergencyCreditGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, EmergencyCreditGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmergencyCreditGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the EmergencyCredit model
+   */
+  readonly fields: EmergencyCreditFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for EmergencyCredit.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__EmergencyCreditClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the EmergencyCredit model
+   */
+  interface EmergencyCreditFieldRefs {
+    readonly id: FieldRef<"EmergencyCredit", 'Int'>
+    readonly userId: FieldRef<"EmergencyCredit", 'Int'>
+    readonly amount: FieldRef<"EmergencyCredit", 'Int'>
+    readonly isUsed: FieldRef<"EmergencyCredit", 'Boolean'>
+    readonly createdAt: FieldRef<"EmergencyCredit", 'DateTime'>
+    readonly expiresAt: FieldRef<"EmergencyCredit", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * EmergencyCredit findUnique
+   */
+  export type EmergencyCreditFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * Filter, which EmergencyCredit to fetch.
+     */
+    where: EmergencyCreditWhereUniqueInput
+  }
+
+  /**
+   * EmergencyCredit findUniqueOrThrow
+   */
+  export type EmergencyCreditFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * Filter, which EmergencyCredit to fetch.
+     */
+    where: EmergencyCreditWhereUniqueInput
+  }
+
+  /**
+   * EmergencyCredit findFirst
+   */
+  export type EmergencyCreditFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * Filter, which EmergencyCredit to fetch.
+     */
+    where?: EmergencyCreditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmergencyCredits to fetch.
+     */
+    orderBy?: EmergencyCreditOrderByWithRelationInput | EmergencyCreditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmergencyCredits.
+     */
+    cursor?: EmergencyCreditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmergencyCredits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmergencyCredits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmergencyCredits.
+     */
+    distinct?: EmergencyCreditScalarFieldEnum | EmergencyCreditScalarFieldEnum[]
+  }
+
+  /**
+   * EmergencyCredit findFirstOrThrow
+   */
+  export type EmergencyCreditFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * Filter, which EmergencyCredit to fetch.
+     */
+    where?: EmergencyCreditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmergencyCredits to fetch.
+     */
+    orderBy?: EmergencyCreditOrderByWithRelationInput | EmergencyCreditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for EmergencyCredits.
+     */
+    cursor?: EmergencyCreditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmergencyCredits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmergencyCredits.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of EmergencyCredits.
+     */
+    distinct?: EmergencyCreditScalarFieldEnum | EmergencyCreditScalarFieldEnum[]
+  }
+
+  /**
+   * EmergencyCredit findMany
+   */
+  export type EmergencyCreditFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * Filter, which EmergencyCredits to fetch.
+     */
+    where?: EmergencyCreditWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of EmergencyCredits to fetch.
+     */
+    orderBy?: EmergencyCreditOrderByWithRelationInput | EmergencyCreditOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing EmergencyCredits.
+     */
+    cursor?: EmergencyCreditWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` EmergencyCredits from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` EmergencyCredits.
+     */
+    skip?: number
+    distinct?: EmergencyCreditScalarFieldEnum | EmergencyCreditScalarFieldEnum[]
+  }
+
+  /**
+   * EmergencyCredit create
+   */
+  export type EmergencyCreditCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * The data needed to create a EmergencyCredit.
+     */
+    data: XOR<EmergencyCreditCreateInput, EmergencyCreditUncheckedCreateInput>
+  }
+
+  /**
+   * EmergencyCredit createMany
+   */
+  export type EmergencyCreditCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many EmergencyCredits.
+     */
+    data: EmergencyCreditCreateManyInput | EmergencyCreditCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * EmergencyCredit createManyAndReturn
+   */
+  export type EmergencyCreditCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * The data used to create many EmergencyCredits.
+     */
+    data: EmergencyCreditCreateManyInput | EmergencyCreditCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmergencyCredit update
+   */
+  export type EmergencyCreditUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * The data needed to update a EmergencyCredit.
+     */
+    data: XOR<EmergencyCreditUpdateInput, EmergencyCreditUncheckedUpdateInput>
+    /**
+     * Choose, which EmergencyCredit to update.
+     */
+    where: EmergencyCreditWhereUniqueInput
+  }
+
+  /**
+   * EmergencyCredit updateMany
+   */
+  export type EmergencyCreditUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update EmergencyCredits.
+     */
+    data: XOR<EmergencyCreditUpdateManyMutationInput, EmergencyCreditUncheckedUpdateManyInput>
+    /**
+     * Filter which EmergencyCredits to update
+     */
+    where?: EmergencyCreditWhereInput
+    /**
+     * Limit how many EmergencyCredits to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmergencyCredit updateManyAndReturn
+   */
+  export type EmergencyCreditUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * The data used to update EmergencyCredits.
+     */
+    data: XOR<EmergencyCreditUpdateManyMutationInput, EmergencyCreditUncheckedUpdateManyInput>
+    /**
+     * Filter which EmergencyCredits to update
+     */
+    where?: EmergencyCreditWhereInput
+    /**
+     * Limit how many EmergencyCredits to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * EmergencyCredit upsert
+   */
+  export type EmergencyCreditUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * The filter to search for the EmergencyCredit to update in case it exists.
+     */
+    where: EmergencyCreditWhereUniqueInput
+    /**
+     * In case the EmergencyCredit found by the `where` argument doesn't exist, create a new EmergencyCredit with this data.
+     */
+    create: XOR<EmergencyCreditCreateInput, EmergencyCreditUncheckedCreateInput>
+    /**
+     * In case the EmergencyCredit was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<EmergencyCreditUpdateInput, EmergencyCreditUncheckedUpdateInput>
+  }
+
+  /**
+   * EmergencyCredit delete
+   */
+  export type EmergencyCreditDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+    /**
+     * Filter which EmergencyCredit to delete.
+     */
+    where: EmergencyCreditWhereUniqueInput
+  }
+
+  /**
+   * EmergencyCredit deleteMany
+   */
+  export type EmergencyCreditDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which EmergencyCredits to delete
+     */
+    where?: EmergencyCreditWhereInput
+    /**
+     * Limit how many EmergencyCredits to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * EmergencyCredit without action
+   */
+  export type EmergencyCreditDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EmergencyCredit
+     */
+    select?: EmergencyCreditSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the EmergencyCredit
+     */
+    omit?: EmergencyCreditOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EmergencyCreditInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4502,6 +6889,31 @@ export namespace Prisma {
   };
 
   export type BalanceScalarFieldEnum = (typeof BalanceScalarFieldEnum)[keyof typeof BalanceScalarFieldEnum]
+
+
+  export const MaintenanceAlertScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    type: 'type',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    createdAt: 'createdAt'
+  };
+
+  export type MaintenanceAlertScalarFieldEnum = (typeof MaintenanceAlertScalarFieldEnum)[keyof typeof MaintenanceAlertScalarFieldEnum]
+
+
+  export const EmergencyCreditScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    amount: 'amount',
+    isUsed: 'isUsed',
+    createdAt: 'createdAt',
+    expiresAt: 'expiresAt'
+  };
+
+  export type EmergencyCreditScalarFieldEnum = (typeof EmergencyCreditScalarFieldEnum)[keyof typeof EmergencyCreditScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4612,6 +7024,7 @@ export namespace Prisma {
     Balance?: BalanceListRelationFilter
     sentTransfers?: P2pTransferListRelationFilter
     receivedTransfers?: P2pTransferListRelationFilter
+    emergencyCredits?: EmergencyCreditListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4624,6 +7037,7 @@ export namespace Prisma {
     Balance?: BalanceOrderByRelationAggregateInput
     sentTransfers?: p2pTransferOrderByRelationAggregateInput
     receivedTransfers?: p2pTransferOrderByRelationAggregateInput
+    emergencyCredits?: EmergencyCreditOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4639,6 +7053,7 @@ export namespace Prisma {
     Balance?: BalanceListRelationFilter
     sentTransfers?: P2pTransferListRelationFilter
     receivedTransfers?: P2pTransferListRelationFilter
+    emergencyCredits?: EmergencyCreditListRelationFilter
   }, "id" | "email" | "number">
 
   export type UserOrderByWithAggregationInput = {
@@ -4774,6 +7189,132 @@ export namespace Prisma {
     amount?: IntWithAggregatesFilter<"Balance"> | number
   }
 
+  export type MaintenanceAlertWhereInput = {
+    AND?: MaintenanceAlertWhereInput | MaintenanceAlertWhereInput[]
+    OR?: MaintenanceAlertWhereInput[]
+    NOT?: MaintenanceAlertWhereInput | MaintenanceAlertWhereInput[]
+    id?: IntFilter<"MaintenanceAlert"> | number
+    title?: StringFilter<"MaintenanceAlert"> | string
+    description?: StringFilter<"MaintenanceAlert"> | string
+    type?: StringFilter<"MaintenanceAlert"> | string
+    startTime?: DateTimeFilter<"MaintenanceAlert"> | Date | string
+    endTime?: DateTimeFilter<"MaintenanceAlert"> | Date | string
+    createdAt?: DateTimeFilter<"MaintenanceAlert"> | Date | string
+  }
+
+  export type MaintenanceAlertOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MaintenanceAlertWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: MaintenanceAlertWhereInput | MaintenanceAlertWhereInput[]
+    OR?: MaintenanceAlertWhereInput[]
+    NOT?: MaintenanceAlertWhereInput | MaintenanceAlertWhereInput[]
+    title?: StringFilter<"MaintenanceAlert"> | string
+    description?: StringFilter<"MaintenanceAlert"> | string
+    type?: StringFilter<"MaintenanceAlert"> | string
+    startTime?: DateTimeFilter<"MaintenanceAlert"> | Date | string
+    endTime?: DateTimeFilter<"MaintenanceAlert"> | Date | string
+    createdAt?: DateTimeFilter<"MaintenanceAlert"> | Date | string
+  }, "id">
+
+  export type MaintenanceAlertOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    createdAt?: SortOrder
+    _count?: MaintenanceAlertCountOrderByAggregateInput
+    _avg?: MaintenanceAlertAvgOrderByAggregateInput
+    _max?: MaintenanceAlertMaxOrderByAggregateInput
+    _min?: MaintenanceAlertMinOrderByAggregateInput
+    _sum?: MaintenanceAlertSumOrderByAggregateInput
+  }
+
+  export type MaintenanceAlertScalarWhereWithAggregatesInput = {
+    AND?: MaintenanceAlertScalarWhereWithAggregatesInput | MaintenanceAlertScalarWhereWithAggregatesInput[]
+    OR?: MaintenanceAlertScalarWhereWithAggregatesInput[]
+    NOT?: MaintenanceAlertScalarWhereWithAggregatesInput | MaintenanceAlertScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"MaintenanceAlert"> | number
+    title?: StringWithAggregatesFilter<"MaintenanceAlert"> | string
+    description?: StringWithAggregatesFilter<"MaintenanceAlert"> | string
+    type?: StringWithAggregatesFilter<"MaintenanceAlert"> | string
+    startTime?: DateTimeWithAggregatesFilter<"MaintenanceAlert"> | Date | string
+    endTime?: DateTimeWithAggregatesFilter<"MaintenanceAlert"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"MaintenanceAlert"> | Date | string
+  }
+
+  export type EmergencyCreditWhereInput = {
+    AND?: EmergencyCreditWhereInput | EmergencyCreditWhereInput[]
+    OR?: EmergencyCreditWhereInput[]
+    NOT?: EmergencyCreditWhereInput | EmergencyCreditWhereInput[]
+    id?: IntFilter<"EmergencyCredit"> | number
+    userId?: IntFilter<"EmergencyCredit"> | number
+    amount?: IntFilter<"EmergencyCredit"> | number
+    isUsed?: BoolFilter<"EmergencyCredit"> | boolean
+    createdAt?: DateTimeFilter<"EmergencyCredit"> | Date | string
+    expiresAt?: DateTimeFilter<"EmergencyCredit"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type EmergencyCreditOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    isUsed?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type EmergencyCreditWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: EmergencyCreditWhereInput | EmergencyCreditWhereInput[]
+    OR?: EmergencyCreditWhereInput[]
+    NOT?: EmergencyCreditWhereInput | EmergencyCreditWhereInput[]
+    userId?: IntFilter<"EmergencyCredit"> | number
+    amount?: IntFilter<"EmergencyCredit"> | number
+    isUsed?: BoolFilter<"EmergencyCredit"> | boolean
+    createdAt?: DateTimeFilter<"EmergencyCredit"> | Date | string
+    expiresAt?: DateTimeFilter<"EmergencyCredit"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type EmergencyCreditOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    isUsed?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+    _count?: EmergencyCreditCountOrderByAggregateInput
+    _avg?: EmergencyCreditAvgOrderByAggregateInput
+    _max?: EmergencyCreditMaxOrderByAggregateInput
+    _min?: EmergencyCreditMinOrderByAggregateInput
+    _sum?: EmergencyCreditSumOrderByAggregateInput
+  }
+
+  export type EmergencyCreditScalarWhereWithAggregatesInput = {
+    AND?: EmergencyCreditScalarWhereWithAggregatesInput | EmergencyCreditScalarWhereWithAggregatesInput[]
+    OR?: EmergencyCreditScalarWhereWithAggregatesInput[]
+    NOT?: EmergencyCreditScalarWhereWithAggregatesInput | EmergencyCreditScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"EmergencyCredit"> | number
+    userId?: IntWithAggregatesFilter<"EmergencyCredit"> | number
+    amount?: IntWithAggregatesFilter<"EmergencyCredit"> | number
+    isUsed?: BoolWithAggregatesFilter<"EmergencyCredit"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"EmergencyCredit"> | Date | string
+    expiresAt?: DateTimeWithAggregatesFilter<"EmergencyCredit"> | Date | string
+  }
+
   export type UserCreateInput = {
     email?: string | null
     password: string
@@ -4783,6 +7324,7 @@ export namespace Prisma {
     Balance?: BalanceCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
     receivedTransfers?: p2pTransferCreateNestedManyWithoutToUserInput
+    emergencyCredits?: EmergencyCreditCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -4795,6 +7337,7 @@ export namespace Prisma {
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
     receivedTransfers?: p2pTransferUncheckedCreateNestedManyWithoutToUserInput
+    emergencyCredits?: EmergencyCreditUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -4806,6 +7349,7 @@ export namespace Prisma {
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
     receivedTransfers?: p2pTransferUpdateManyWithoutToUserNestedInput
+    emergencyCredits?: EmergencyCreditUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -4818,6 +7362,7 @@ export namespace Prisma {
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
     receivedTransfers?: p2pTransferUncheckedUpdateManyWithoutToUserNestedInput
+    emergencyCredits?: EmergencyCreditUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -4935,6 +7480,132 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
   }
 
+  export type MaintenanceAlertCreateInput = {
+    title: string
+    description: string
+    type: string
+    startTime: Date | string
+    endTime: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MaintenanceAlertUncheckedCreateInput = {
+    id?: number
+    title: string
+    description: string
+    type: string
+    startTime: Date | string
+    endTime: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MaintenanceAlertUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceAlertUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceAlertCreateManyInput = {
+    id?: number
+    title: string
+    description: string
+    type: string
+    startTime: Date | string
+    endTime: Date | string
+    createdAt?: Date | string
+  }
+
+  export type MaintenanceAlertUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceAlertUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmergencyCreditCreateInput = {
+    amount: number
+    isUsed?: boolean
+    createdAt?: Date | string
+    expiresAt: Date | string
+    user: UserCreateNestedOneWithoutEmergencyCreditsInput
+  }
+
+  export type EmergencyCreditUncheckedCreateInput = {
+    id?: number
+    userId: number
+    amount: number
+    isUsed?: boolean
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type EmergencyCreditUpdateInput = {
+    amount?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutEmergencyCreditsNestedInput
+  }
+
+  export type EmergencyCreditUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    amount?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmergencyCreditCreateManyInput = {
+    id?: number
+    userId: number
+    amount: number
+    isUsed?: boolean
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type EmergencyCreditUpdateManyMutationInput = {
+    amount?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmergencyCreditUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    amount?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -4993,6 +7664,12 @@ export namespace Prisma {
     none?: p2pTransferWhereInput
   }
 
+  export type EmergencyCreditListRelationFilter = {
+    every?: EmergencyCreditWhereInput
+    some?: EmergencyCreditWhereInput
+    none?: EmergencyCreditWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -5003,6 +7680,10 @@ export namespace Prisma {
   }
 
   export type p2pTransferOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EmergencyCreditOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -5199,6 +7880,83 @@ export namespace Prisma {
     amount?: SortOrder
   }
 
+  export type MaintenanceAlertCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MaintenanceAlertAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type MaintenanceAlertMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MaintenanceAlertMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    type?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MaintenanceAlertSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type EmergencyCreditCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    isUsed?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type EmergencyCreditAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type EmergencyCreditMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    isUsed?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type EmergencyCreditMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+    isUsed?: SortOrder
+    createdAt?: SortOrder
+    expiresAt?: SortOrder
+  }
+
+  export type EmergencyCreditSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    amount?: SortOrder
+  }
+
   export type BalanceCreateNestedManyWithoutUserInput = {
     create?: XOR<BalanceCreateWithoutUserInput, BalanceUncheckedCreateWithoutUserInput> | BalanceCreateWithoutUserInput[] | BalanceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BalanceCreateOrConnectWithoutUserInput | BalanceCreateOrConnectWithoutUserInput[]
@@ -5220,6 +7978,13 @@ export namespace Prisma {
     connect?: p2pTransferWhereUniqueInput | p2pTransferWhereUniqueInput[]
   }
 
+  export type EmergencyCreditCreateNestedManyWithoutUserInput = {
+    create?: XOR<EmergencyCreditCreateWithoutUserInput, EmergencyCreditUncheckedCreateWithoutUserInput> | EmergencyCreditCreateWithoutUserInput[] | EmergencyCreditUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmergencyCreditCreateOrConnectWithoutUserInput | EmergencyCreditCreateOrConnectWithoutUserInput[]
+    createMany?: EmergencyCreditCreateManyUserInputEnvelope
+    connect?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+  }
+
   export type BalanceUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<BalanceCreateWithoutUserInput, BalanceUncheckedCreateWithoutUserInput> | BalanceCreateWithoutUserInput[] | BalanceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: BalanceCreateOrConnectWithoutUserInput | BalanceCreateOrConnectWithoutUserInput[]
@@ -5239,6 +8004,13 @@ export namespace Prisma {
     connectOrCreate?: p2pTransferCreateOrConnectWithoutToUserInput | p2pTransferCreateOrConnectWithoutToUserInput[]
     createMany?: p2pTransferCreateManyToUserInputEnvelope
     connect?: p2pTransferWhereUniqueInput | p2pTransferWhereUniqueInput[]
+  }
+
+  export type EmergencyCreditUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<EmergencyCreditCreateWithoutUserInput, EmergencyCreditUncheckedCreateWithoutUserInput> | EmergencyCreditCreateWithoutUserInput[] | EmergencyCreditUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmergencyCreditCreateOrConnectWithoutUserInput | EmergencyCreditCreateOrConnectWithoutUserInput[]
+    createMany?: EmergencyCreditCreateManyUserInputEnvelope
+    connect?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -5295,6 +8067,20 @@ export namespace Prisma {
     deleteMany?: p2pTransferScalarWhereInput | p2pTransferScalarWhereInput[]
   }
 
+  export type EmergencyCreditUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EmergencyCreditCreateWithoutUserInput, EmergencyCreditUncheckedCreateWithoutUserInput> | EmergencyCreditCreateWithoutUserInput[] | EmergencyCreditUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmergencyCreditCreateOrConnectWithoutUserInput | EmergencyCreditCreateOrConnectWithoutUserInput[]
+    upsert?: EmergencyCreditUpsertWithWhereUniqueWithoutUserInput | EmergencyCreditUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EmergencyCreditCreateManyUserInputEnvelope
+    set?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+    disconnect?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+    delete?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+    connect?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+    update?: EmergencyCreditUpdateWithWhereUniqueWithoutUserInput | EmergencyCreditUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EmergencyCreditUpdateManyWithWhereWithoutUserInput | EmergencyCreditUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EmergencyCreditScalarWhereInput | EmergencyCreditScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -5345,6 +8131,20 @@ export namespace Prisma {
     deleteMany?: p2pTransferScalarWhereInput | p2pTransferScalarWhereInput[]
   }
 
+  export type EmergencyCreditUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<EmergencyCreditCreateWithoutUserInput, EmergencyCreditUncheckedCreateWithoutUserInput> | EmergencyCreditCreateWithoutUserInput[] | EmergencyCreditUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: EmergencyCreditCreateOrConnectWithoutUserInput | EmergencyCreditCreateOrConnectWithoutUserInput[]
+    upsert?: EmergencyCreditUpsertWithWhereUniqueWithoutUserInput | EmergencyCreditUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: EmergencyCreditCreateManyUserInputEnvelope
+    set?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+    disconnect?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+    delete?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+    connect?: EmergencyCreditWhereUniqueInput | EmergencyCreditWhereUniqueInput[]
+    update?: EmergencyCreditUpdateWithWhereUniqueWithoutUserInput | EmergencyCreditUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: EmergencyCreditUpdateManyWithWhereWithoutUserInput | EmergencyCreditUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: EmergencyCreditScalarWhereInput | EmergencyCreditScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutSentTransfersInput = {
     create?: XOR<UserCreateWithoutSentTransfersInput, UserUncheckedCreateWithoutSentTransfersInput>
     connectOrCreate?: UserCreateOrConnectWithoutSentTransfersInput
@@ -5389,6 +8189,20 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutBalanceInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBalanceInput, UserUpdateWithoutBalanceInput>, UserUncheckedUpdateWithoutBalanceInput>
+  }
+
+  export type UserCreateNestedOneWithoutEmergencyCreditsInput = {
+    create?: XOR<UserCreateWithoutEmergencyCreditsInput, UserUncheckedCreateWithoutEmergencyCreditsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEmergencyCreditsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutEmergencyCreditsNestedInput = {
+    create?: XOR<UserCreateWithoutEmergencyCreditsInput, UserUncheckedCreateWithoutEmergencyCreditsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutEmergencyCreditsInput
+    upsert?: UserUpsertWithoutEmergencyCreditsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutEmergencyCreditsInput, UserUpdateWithoutEmergencyCreditsInput>, UserUncheckedUpdateWithoutEmergencyCreditsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -5605,6 +8419,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EmergencyCreditCreateWithoutUserInput = {
+    amount: number
+    isUsed?: boolean
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type EmergencyCreditUncheckedCreateWithoutUserInput = {
+    id?: number
+    amount: number
+    isUsed?: boolean
+    createdAt?: Date | string
+    expiresAt: Date | string
+  }
+
+  export type EmergencyCreditCreateOrConnectWithoutUserInput = {
+    where: EmergencyCreditWhereUniqueInput
+    create: XOR<EmergencyCreditCreateWithoutUserInput, EmergencyCreditUncheckedCreateWithoutUserInput>
+  }
+
+  export type EmergencyCreditCreateManyUserInputEnvelope = {
+    data: EmergencyCreditCreateManyUserInput | EmergencyCreditCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type BalanceUpsertWithWhereUniqueWithoutUserInput = {
     where: BalanceWhereUniqueInput
     update: XOR<BalanceUpdateWithoutUserInput, BalanceUncheckedUpdateWithoutUserInput>
@@ -5673,6 +8512,34 @@ export namespace Prisma {
     data: XOR<p2pTransferUpdateManyMutationInput, p2pTransferUncheckedUpdateManyWithoutToUserInput>
   }
 
+  export type EmergencyCreditUpsertWithWhereUniqueWithoutUserInput = {
+    where: EmergencyCreditWhereUniqueInput
+    update: XOR<EmergencyCreditUpdateWithoutUserInput, EmergencyCreditUncheckedUpdateWithoutUserInput>
+    create: XOR<EmergencyCreditCreateWithoutUserInput, EmergencyCreditUncheckedCreateWithoutUserInput>
+  }
+
+  export type EmergencyCreditUpdateWithWhereUniqueWithoutUserInput = {
+    where: EmergencyCreditWhereUniqueInput
+    data: XOR<EmergencyCreditUpdateWithoutUserInput, EmergencyCreditUncheckedUpdateWithoutUserInput>
+  }
+
+  export type EmergencyCreditUpdateManyWithWhereWithoutUserInput = {
+    where: EmergencyCreditScalarWhereInput
+    data: XOR<EmergencyCreditUpdateManyMutationInput, EmergencyCreditUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type EmergencyCreditScalarWhereInput = {
+    AND?: EmergencyCreditScalarWhereInput | EmergencyCreditScalarWhereInput[]
+    OR?: EmergencyCreditScalarWhereInput[]
+    NOT?: EmergencyCreditScalarWhereInput | EmergencyCreditScalarWhereInput[]
+    id?: IntFilter<"EmergencyCredit"> | number
+    userId?: IntFilter<"EmergencyCredit"> | number
+    amount?: IntFilter<"EmergencyCredit"> | number
+    isUsed?: BoolFilter<"EmergencyCredit"> | boolean
+    createdAt?: DateTimeFilter<"EmergencyCredit"> | Date | string
+    expiresAt?: DateTimeFilter<"EmergencyCredit"> | Date | string
+  }
+
   export type UserCreateWithoutSentTransfersInput = {
     email?: string | null
     password: string
@@ -5681,6 +8548,7 @@ export namespace Prisma {
     isFrozen?: boolean
     Balance?: BalanceCreateNestedManyWithoutUserInput
     receivedTransfers?: p2pTransferCreateNestedManyWithoutToUserInput
+    emergencyCredits?: EmergencyCreditCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSentTransfersInput = {
@@ -5692,6 +8560,7 @@ export namespace Prisma {
     isFrozen?: boolean
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     receivedTransfers?: p2pTransferUncheckedCreateNestedManyWithoutToUserInput
+    emergencyCredits?: EmergencyCreditUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSentTransfersInput = {
@@ -5707,6 +8576,7 @@ export namespace Prisma {
     isFrozen?: boolean
     Balance?: BalanceCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
+    emergencyCredits?: EmergencyCreditCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReceivedTransfersInput = {
@@ -5718,6 +8588,7 @@ export namespace Prisma {
     isFrozen?: boolean
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
+    emergencyCredits?: EmergencyCreditUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReceivedTransfersInput = {
@@ -5744,6 +8615,7 @@ export namespace Prisma {
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     receivedTransfers?: p2pTransferUpdateManyWithoutToUserNestedInput
+    emergencyCredits?: EmergencyCreditUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentTransfersInput = {
@@ -5755,6 +8627,7 @@ export namespace Prisma {
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     receivedTransfers?: p2pTransferUncheckedUpdateManyWithoutToUserNestedInput
+    emergencyCredits?: EmergencyCreditUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutReceivedTransfersInput = {
@@ -5776,6 +8649,7 @@ export namespace Prisma {
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
+    emergencyCredits?: EmergencyCreditUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedTransfersInput = {
@@ -5787,6 +8661,7 @@ export namespace Prisma {
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
+    emergencyCredits?: EmergencyCreditUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBalanceInput = {
@@ -5797,6 +8672,7 @@ export namespace Prisma {
     isFrozen?: boolean
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
     receivedTransfers?: p2pTransferCreateNestedManyWithoutToUserInput
+    emergencyCredits?: EmergencyCreditCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBalanceInput = {
@@ -5808,6 +8684,7 @@ export namespace Prisma {
     isFrozen?: boolean
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
     receivedTransfers?: p2pTransferUncheckedCreateNestedManyWithoutToUserInput
+    emergencyCredits?: EmergencyCreditUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBalanceInput = {
@@ -5834,6 +8711,7 @@ export namespace Prisma {
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
     receivedTransfers?: p2pTransferUpdateManyWithoutToUserNestedInput
+    emergencyCredits?: EmergencyCreditUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBalanceInput = {
@@ -5843,6 +8721,69 @@ export namespace Prisma {
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
+    sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
+    receivedTransfers?: p2pTransferUncheckedUpdateManyWithoutToUserNestedInput
+    emergencyCredits?: EmergencyCreditUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutEmergencyCreditsInput = {
+    email?: string | null
+    password: string
+    name?: string | null
+    number: string
+    isFrozen?: boolean
+    Balance?: BalanceCreateNestedManyWithoutUserInput
+    sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
+    receivedTransfers?: p2pTransferCreateNestedManyWithoutToUserInput
+  }
+
+  export type UserUncheckedCreateWithoutEmergencyCreditsInput = {
+    id?: number
+    email?: string | null
+    password: string
+    name?: string | null
+    number: string
+    isFrozen?: boolean
+    Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
+    sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
+    receivedTransfers?: p2pTransferUncheckedCreateNestedManyWithoutToUserInput
+  }
+
+  export type UserCreateOrConnectWithoutEmergencyCreditsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutEmergencyCreditsInput, UserUncheckedCreateWithoutEmergencyCreditsInput>
+  }
+
+  export type UserUpsertWithoutEmergencyCreditsInput = {
+    update: XOR<UserUpdateWithoutEmergencyCreditsInput, UserUncheckedUpdateWithoutEmergencyCreditsInput>
+    create: XOR<UserCreateWithoutEmergencyCreditsInput, UserUncheckedCreateWithoutEmergencyCreditsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutEmergencyCreditsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutEmergencyCreditsInput, UserUncheckedUpdateWithoutEmergencyCreditsInput>
+  }
+
+  export type UserUpdateWithoutEmergencyCreditsInput = {
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
+    Balance?: BalanceUpdateManyWithoutUserNestedInput
+    sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
+    receivedTransfers?: p2pTransferUpdateManyWithoutToUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutEmergencyCreditsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    number?: StringFieldUpdateOperationsInput | string
+    isFrozen?: BoolFieldUpdateOperationsInput | boolean
+    Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
     receivedTransfers?: p2pTransferUncheckedUpdateManyWithoutToUserNestedInput
   }
@@ -5864,6 +8805,14 @@ export namespace Prisma {
     amount: number
     timestamp: Date | string
     fromUserId: number
+  }
+
+  export type EmergencyCreditCreateManyUserInput = {
+    id?: number
+    amount: number
+    isUsed?: boolean
+    createdAt?: Date | string
+    expiresAt: Date | string
   }
 
   export type BalanceUpdateWithoutUserInput = {
@@ -5918,6 +8867,29 @@ export namespace Prisma {
     amount?: IntFieldUpdateOperationsInput | number
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     fromUserId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type EmergencyCreditUpdateWithoutUserInput = {
+    amount?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmergencyCreditUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EmergencyCreditUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    amount?: IntFieldUpdateOperationsInput | number
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

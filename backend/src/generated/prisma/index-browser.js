@@ -143,6 +143,25 @@ exports.Prisma.BalanceScalarFieldEnum = {
   amount: 'amount'
 };
 
+exports.Prisma.MaintenanceAlertScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.EmergencyCreditScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  amount: 'amount',
+  isUsed: 'isUsed',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -162,7 +181,9 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   p2pTransfer: 'p2pTransfer',
-  Balance: 'Balance'
+  Balance: 'Balance',
+  MaintenanceAlert: 'MaintenanceAlert',
+  EmergencyCredit: 'EmergencyCredit'
 };
 
 /**

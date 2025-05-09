@@ -15,15 +15,16 @@ datasource db {
 }
 
 model User {
-  id                Int           @id @default(autoincrement())
-  email             String?       @unique
+  id                Int               @id @default(autoincrement())
+  email             String?           @unique
   password          String
   name              String?
-  number            String        @unique
-  isFrozen          Boolean       @default(false)
+  number            String            @unique
+  isFrozen          Boolean           @default(false)
   Balance           Balance[]
-  sentTransfers     p2pTransfer[] @relation(name: "FromUserRelation")
-  receivedTransfers p2pTransfer[] @relation(name: "ToUserRelation")
+  sentTransfers     p2pTransfer[]     @relation(name: "FromUserRelation")
+  receivedTransfers p2pTransfer[]     @relation(name: "ToUserRelation")
+  emergencyCredits  EmergencyCredit[]
 }
 
 model p2pTransfer {
@@ -41,4 +42,24 @@ model Balance {
   userId Int  @unique
   amount Int
   user   User @relation(fields: [userId], references: [id])
+}
+
+model MaintenanceAlert {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  type        String // e.g. "ATM", "OnlineBanking", "MobileApp"
+  startTime   DateTime
+  endTime     DateTime
+  createdAt   DateTime @default(now())
+}
+
+model EmergencyCredit {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  amount    Int
+  isUsed    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  user      User     @relation(fields: [userId], references: [id])
 }
