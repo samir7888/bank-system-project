@@ -3,6 +3,21 @@ import { PrismaClient } from "../generated/prisma";
 
 const prisma = new PrismaClient();
 
+
+export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const users = await prisma.user.findMany();
+        res.status(200).json(users);
+        return;
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        res.status(500).json({ error: "Internal server error" });
+        return;
+    }
+};
+
+
+
 export const freezeUser = async (req: Request, res: Response): Promise<void> => {
     const userId = Number(req.params.id);
 

@@ -2,6 +2,7 @@
 import express, { Request, Response } from 'express';
 import { prisma } from '../db';
 import { authMiddleware } from '../middlewares/authMiddleware';
+import { sendSucceedOfflineTransactionEmailToReceiver, sendSucceedOfflineTransactionEmailToSender } from '../services/email';
 
 const EmergencyRouter = express.Router();
 
@@ -66,12 +67,12 @@ EmergencyRouter.post('/claim', authMiddleware, async (req: Request, res: Respons
             where: {
                 type: 'OnlineBanking',
 
-                
+
                 // startTime: { lte: now },
                 // endTime: { gte: now }
             }
         });
-console.log(activeMaintenance)
+        console.log(activeMaintenance)
         if (!activeMaintenance) {
             res.status(403).json({ message: 'No active maintenance. Emergency credit is not available.' });
             return;
@@ -106,21 +107,33 @@ console.log(activeMaintenance)
 // Settle emergency credit after downtime
 EmergencyRouter.post('/settle', authMiddleware, async (req: Request, res: Response): Promise<void> => {
     const { userId, amountSpent } = req.body;
+    console.log("user",(req as any).user)
     const from = (req as any).user.id;
     // const receiverID = Number(userId);
 
     try {
-         const toUser = await prisma.user.findFirst({
-                where: {
-                    number: userId
-                }
-            });
-         if (!toUser) {
-                res.status(404).json({
-                    message: "User not found"
-                });
-                return;
+        const sender = await prisma.user.findUnique({
+            where: {
+                id: from
             }
+        });
+
+        const senderEmail = sender?.email;
+        const senderName = sender?.name;
+        console.log(senderEmail)
+        const toUser = await prisma.user.findFirst({
+            where: {
+                number: userId
+            }
+        });
+        if (!toUser) {
+            res.status(404).json({
+                message: "User not found"
+            });
+            return;
+        }
+        
+        await prisma.maintenanceAlert.deleteMany();
         await prisma.$transaction(async (tx) => {
             const credit = await tx.emergencyCredit.findFirst({
                 where: { userId: from, isUsed: false, expiresAt: { gte: new Date() } },
@@ -135,7 +148,7 @@ EmergencyRouter.post('/settle', authMiddleware, async (req: Request, res: Respon
                 res.status(400).json({ message: 'Spent amount exceeds emergency credit.' });
                 throw new Error('Spent amount exceeds limit');
             }
-         
+
             // Deduct from sender and credit to receiver atomically
             await tx.emergencyCredit.update({
                 where: { id: credit.id },
@@ -152,8 +165,9 @@ EmergencyRouter.post('/settle', authMiddleware, async (req: Request, res: Respon
                 data: { amount: { increment: Number(amountSpent) } },
             });
         });
-
-        res.json({ message: 'Emergency credit settled.' });
+        await sendSucceedOfflineTransactionEmailToSender(senderEmail || "",toUser.name || "");
+        await sendSucceedOfflineTransactionEmailToReceiver(toUser.email || "",senderName || "");
+        res.json({ message: 'Emergency credit settled and mail sent successfully' });
     } catch (err) {
         console.error("Error during emergency credit settlement:", err);
         res.status(500).json({ error: 'Internal server error', detail: err });

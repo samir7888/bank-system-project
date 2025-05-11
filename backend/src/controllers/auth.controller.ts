@@ -1,26 +1,36 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "../generated/prisma";
 import bcrypt from 'bcrypt';
-import { generateOtp } from "../services/generateOtp";
 const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
 
 
 export const login = async (req: Request, res: Response): Promise<void> => {
-  const { phone, password } = req.body;
+  const { email, phone, password } = req.body;
 
-  if (!phone || !password) {
-    res.status(400).json({ error: "All fields are required" });
+  // Require password and at least one of email or phone
+  if (!password || (!email && !phone)) {
+    res.status(400).json({ error: "Password and either email or phone are required" });
     return;
   }
 
-  if (phone.length !== 10 || isNaN(Number(phone))) {
+  // Optional: validate phone if provided
+  if (phone && (phone.length !== 10 || isNaN(Number(phone)))) {
     res.status(400).json({ error: "Invalid phone number" });
     return;
   }
 
   try {
-    const user = await prisma.user.findUnique({ where: { number: phone } });
+    // Dynamically build where clause
+    const user = await prisma.user.findFirst({
+      where: {
+        OR: [
+          ...(phone ? [{ number: phone }] : []),
+          ...(email ? [{ email }] : []),
+        ],
+      },
+    });
+
     if (!user) {
       res.status(404).json({ error: "User not found" });
       return;
@@ -32,31 +42,22 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // 👇 Only include minimal data in JWT payload
     const payload = { id: user.id, phone: user.number };
+    const token = jwt.sign(payload, process.env.JWT_SECRET!, { expiresIn: "1h" });
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET!, {
-      expiresIn: "1h", // optional: token expires in 1 hour
-    });
-
-    // 👇 Set token in HTTP-only cookie
     res.cookie('accessToken', token, {
       httpOnly: true,
-      secure: false, // not https
-      sameSite: 'lax', // not none
+      secure: false,
+      sameSite: 'lax',
     });
-    
 
-    // 👇 Send minimal info back, no need to send token manually
     res.status(200).json({ message: "Login successful", user: { id: user.id, phone: user.number } });
-    return;
-
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: "Internal server error" });
-    return;
   }
 };
+
 
 
 

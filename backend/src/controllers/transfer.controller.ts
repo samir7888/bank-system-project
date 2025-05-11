@@ -11,10 +11,9 @@ const prisma = new PrismaClient();
 export const transfer =
     async (req: Request, res: Response): Promise<void> => {
         try {
-           
-          
+
+
             const from = (req as any).user.id;
-            console.log("form id",from)
             const { to, amount } = req.body;
             if (!from) {
                 res.status(400).json({
@@ -39,7 +38,6 @@ export const transfer =
                     number: to
                 }
             });
-
             if (!toUser) {
                 res.status(404).json({
                     message: "User not found"
@@ -47,10 +45,15 @@ export const transfer =
                 return;
             }
 
+            if (from === toUser.id) {
+                res.status(400).json({
+                    message: "cannot send money to yourself"
+                })
+            }
+
             await prisma.$transaction(async (tx) => {
                 // Make sure from is a number when used in the query
                 const fromUserId = Number(from);
-
                 await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${fromUserId} FOR UPDATE`;
 
                 const fromBalance = await tx.balance.findUnique({
@@ -107,7 +110,7 @@ export const transfer =
 export const getTransactionHistory = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = (req as any).user.id // Safely access the user ID
-        console.log("history of id ",userId)
+        console.log("history of id ", userId)
         if (!userId) {
             res.status(400).json({ message: "User ID is required" });
             return;
