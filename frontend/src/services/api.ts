@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { LoginFormData, TransferFormData, Transaction, UserWithBalance } from '../types';
+import { AlertData } from '../components/MaintanaceAlert';
 
 const API_URL = 'http://localhost:3001';
 
@@ -37,8 +38,9 @@ export const getAllUsers = async () =>{
   const response = await api.get('/admin/users');
   return response.data;
 }
-export const createMaintenanceAlert = async () =>{
-  const response = await api.post('emergency-credit/maintenance-alert');
+export const createMaintenanceAlert = async (data:AlertData) =>{
+  console.log(data)
+  const response = await api.post('emergency-credit/maintenance-alert',data);
   return response.data;
 }
 

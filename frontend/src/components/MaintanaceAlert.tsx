@@ -17,7 +17,7 @@ import { toast } from "../hooks/use-toast";
 import { createMaintenanceAlert } from "../services/api";
 
 // API service function (simulated)
-interface AlertData {
+export interface AlertData {
   title: string;
   description: string;
   type: string;
@@ -29,6 +29,7 @@ interface CreateAlertResponse {
   alert: {
     id: string;
   };
+  message:string;
 }
 
 export default function MaintenanceAlertCard() {
@@ -61,18 +62,21 @@ export default function MaintenanceAlertCard() {
     }
   );
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+// Removed redundant interface declaration
+
+const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setAlertData((prev) => ({
-      ...prev,
-      [name]: value,
+        ...prev,
+        [name]: value,
     }));
-  };
+};
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
+    console.log(alertData);
     mutation.mutate(alertData);
-  };
+};
 
   return (
     <div className="container mx-auto my-8">
@@ -86,7 +90,7 @@ export default function MaintenanceAlertCard() {
           </div>
           <CardDescription className="text-yellow-700">
             Create an emergency alert for system downtime
-          </CardDescription>
+          </CardDescription> 
         </CardHeader>
 
         <CardContent className="space-y-4 pt-6">
@@ -153,12 +157,23 @@ export default function MaintenanceAlertCard() {
             </div>
           </form>
 
-          {mutation.isError && (
-            <div className="flex items-center text-red-600 bg-red-50 p-3 rounded-lg">
-              <AlertCircle className="h-5 w-5 mr-2" />
-              <p className="text-sm">{(mutation.error as Error)?.message}</p>
-            </div>
-          )}
+         {mutation.isError && (
+  <div className="flex items-center text-red-600 bg-red-50 p-3 rounded-lg">
+    <AlertCircle className="h-5 w-5 mr-2" />
+    <p className="text-sm">
+      {(mutation.error as { response?: { data?: { message?: string } } })?.response?.data?.message || mutation.error.message}
+    </p>
+  </div>
+)}
+         {mutation.isSuccess && (
+  <div className="flex items-center text-green-600 bg-red-50 p-3 rounded-lg">
+    {/* < className="h-5 w-5 mr-2" /> */}
+    <p className="text-sm">
+      {mutation.data?.message || "Successfully created maintenance alert"}
+    </p>
+  </div>
+)}
+
         </CardContent>
 
         <CardFooter className="flex !p-4 items-center justify-between bg-gray-50 border-t">
@@ -168,13 +183,10 @@ export default function MaintenanceAlertCard() {
             <span className="text-sm">System Maintenance</span>
           </div>
           <Button
-            onClick={() =>
-              handleSubmit(
-                new Event(
-                  "submit"
-                ) as unknown as React.FormEvent<HTMLFormElement>
-              )
-            }
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
+            }}
             disabled={mutation.isLoading}
             className={
               mutation.isLoading ? "opacity-50 cursor-not-allowed" : ""

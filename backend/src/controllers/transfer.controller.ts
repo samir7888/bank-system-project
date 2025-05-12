@@ -1,12 +1,13 @@
 
 
 import { Request, Response } from "express";
-import { PrismaClient } from "../generated/prisma";
+// import { PrismaClient } from "../generated/prisma";
 import { checkFraudChain } from "../services/fraudCheck";
 import { sendFraudAlertEmail } from "../services/email";
 // import { AuthenticatedRequest } from "../middlewares/authMiddleware";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
+import { prisma } from '../db';
 
 export const transfer =
     async (req: Request, res: Response): Promise<void> => {

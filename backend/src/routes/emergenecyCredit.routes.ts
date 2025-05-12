@@ -8,6 +8,7 @@ const EmergencyRouter = express.Router();
 
 //Route for admin to create a maintenance alert
 EmergencyRouter.post('/maintenance-alert', async (req: Request, res: Response): Promise<void> => {
+console.log(req.body)
     const { title, description, type, startTime, endTime } = req.body;
 
     if (!title || !description || !type || !startTime || !endTime) {

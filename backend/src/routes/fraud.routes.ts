@@ -3,7 +3,8 @@ import express from "express";
 import { Prisma, PrismaClient } from "../generated/prisma";
 import { checkFraudChain } from "../services/fraudCheck";
 import { fraudCheckRoute } from "../controllers/fraud.controller";
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
+import { prisma } from '../db';
 const fraudRouter = express.Router();
 
 fraudRouter.get("/check/:senderId", fraudCheckRoute);

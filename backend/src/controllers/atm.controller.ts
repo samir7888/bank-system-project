@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "../generated/prisma";
-const prisma = new PrismaClient();
-
+// import { PrismaClient } from "../generated/prisma";
+// const prisma = new PrismaClient();
+import { prisma } from '../db';
 
 // Withdraw function to handle ATM withdrawal requests
 export const withdraw = async (req: Request, res: Response) => {

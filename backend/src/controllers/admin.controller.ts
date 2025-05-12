@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "../generated/prisma";
+// import { PrismaClient } from "../generated/prisma";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
+import { prisma } from '../db';
 
 
 export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
