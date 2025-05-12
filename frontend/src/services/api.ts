@@ -33,4 +33,13 @@ export const transferMoney = async (data: TransferFormData) => {
   return response.data;
 };
 
+export const getAllUsers = async () =>{
+  const response = await api.get('/admin/users');
+  return response.data;
+}
+export const createMaintenanceAlert = async () =>{
+  const response = await api.post('emergency-credit/maintenance-alert');
+  return response.data;
+}
+
 export default api;

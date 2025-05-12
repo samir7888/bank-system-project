@@ -6,7 +6,11 @@ const prisma = new PrismaClient();
 
 export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
     try {
-        const users = await prisma.user.findMany();
+        const users = await prisma.user.findMany({
+            orderBy: {
+                id: 'asc' // Replace 'id' with the desired field for sorting
+            }
+        });
         res.status(200).json(users);
         return;
     } catch (error) {

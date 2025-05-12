@@ -1,13 +1,20 @@
-import { useState, useEffect } from 'react';
-
-
-import { AlertCircle, Loader2, RefreshCw, User, Users } from 'lucide-react';
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
-import { Badge } from './ui/badge';
-
+import { AlertCircle, Loader2, RefreshCw, User, Users } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
+import { Badge } from "./ui/badge";
+import { useQuery } from "react-query";
+import { getAllUsers } from "../services/api";
+import MaintenanceAlertCard from "./MaintanaceAlert";
 
 export default function AdminDashboard() {
-  interface User {
+  interface IUser {
     id: number;
     name: string;
     email: string;
@@ -16,35 +23,16 @@ export default function AdminDashboard() {
     isFrozen: boolean;
   }
 
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState< string | null  | unknown>(null);
-
-  const fetchUsers = async () => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      const response = await fetch('http://localhost:3001/admin/users/');
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      
-      const data = await response.json();
-      setUsers(data);
-    } catch (err:unknown) {
-
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
-      console.error('Error fetching users:', err);
-    } finally {
-      setLoading(false);
-    }
+  const {
+    data: users,
+    isLoading: isUsersDetailsLoading,
+    isError: isErrorDetails,
+    error,
+    refetch: refetchDetails,
+  } = useQuery("usersDetails", getAllUsers);
+  const handleRefresh = () => {
+    refetchDetails();
   };
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="container mx-auto py-8">
@@ -52,7 +40,9 @@ export default function AdminDashboard() {
         <header className="bg-white shadow rounded-lg p-6 mb-6">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+              <h1 className="text-2xl font-bold text-gray-900">
+                Admin Dashboard
+              </h1>
               <p className="text-gray-500">Manage your users</p>
             </div>
             <div className="flex items-center">
@@ -61,7 +51,7 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <p className="text-sm text-gray-500">Total Users</p>
-                <p className="text-2xl font-bold">{users.length}</p>
+                <p className="text-2xl font-bold">{users?.length}</p>
               </div>
             </div>
           </div>
@@ -72,8 +62,8 @@ export default function AdminDashboard() {
           <div className="p-6 border-b border-gray-200">
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-medium">User Management</h2>
-              <button 
-                onClick={fetchUsers}
+              <button
+                onClick={handleRefresh}
                 className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
               >
                 <RefreshCw className="h-4 w-4 mr-2" />
@@ -84,12 +74,12 @@ export default function AdminDashboard() {
 
           {/* Table */}
           <div className="p-6">
-            {loading ? (
+            {isUsersDetailsLoading ? (
               <div className="flex justify-center items-center py-12">
                 <Loader2 className="h-8 w-8 text-blue-600 animate-spin" />
                 <p className="ml-2 text-gray-600">Loading users...</p>
               </div>
-            ) : error ? (
+            ) : isErrorDetails ? (
               <div className="flex justify-center items-center py-12 text-red-600">
                 <AlertCircle className="h-8 w-8 mr-2" />
                 <div>
@@ -111,7 +101,7 @@ export default function AdminDashboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {users.map((user) => (
+                  {users.map((user: IUser) => (
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.id}</TableCell>
                       <TableCell className="flex items-center">
@@ -123,19 +113,29 @@ export default function AdminDashboard() {
                       <TableCell>{user.email}</TableCell>
                       <TableCell>{user.number}</TableCell>
                       <TableCell>
-                        <Badge 
-                          className={user.role === 'ADMIN' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'}
+                        <Badge
+                          className={
+                            user.role === "ADMIN"
+                              ? "bg-purple-100 text-purple-800"
+                              : "bg-blue-100 text-blue-800"
+                          }
                         >
                           {user.role}
                         </Badge>
                       </TableCell>
                       <TableCell>
                         {user.isFrozen ? (
-                          <Badge variant="outline" className="bg-red-100 text-red-800 border-red-200">
+                          <Badge
+                            variant="outline"
+                            className="bg-red-100 text-red-800 border-red-200"
+                          >
                             Frozen
                           </Badge>
                         ) : (
-                          <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                          <Badge
+                            variant="outline"
+                            className="bg-green-100 text-green-800 border-green-200"
+                          >
                             Active
                           </Badge>
                         )}
@@ -147,7 +147,9 @@ export default function AdminDashboard() {
             )}
           </div>
         </div>
+    <MaintenanceAlertCard />
       </div>
+    
     </div>
   );
 }
