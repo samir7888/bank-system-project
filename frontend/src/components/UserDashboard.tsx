@@ -7,7 +7,7 @@ import TransactionItem from './TransactionItem';
 import BalanceChart from './BalanceChart';
 import { CreditCard, RefreshCw } from 'lucide-react';
 
-const Dashboard: React.FC = () => {
+const UserDashboard: React.FC = () => {
   const { 
     data: userDetails,
     isLoading: isLoadingDetails,
@@ -123,4 +123,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default UserDashboard;

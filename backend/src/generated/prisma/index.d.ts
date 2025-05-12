@@ -40,6 +40,23 @@ export type MaintenanceAlert = $Result.DefaultSelection<Prisma.$MaintenanceAlert
 export type EmergencyCredit = $Result.DefaultSelection<Prisma.$EmergencyCreditPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const Role: {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+};
+
+export type Role = (typeof Role)[keyof typeof Role]
+
+}
+
+export type Role = $Enums.Role
+
+export const Role: typeof $Enums.Role
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -1316,6 +1333,7 @@ export namespace Prisma {
     password: string | null
     name: string | null
     number: string | null
+    role: $Enums.Role | null
     isFrozen: boolean | null
   }
 
@@ -1325,6 +1343,7 @@ export namespace Prisma {
     password: string | null
     name: string | null
     number: string | null
+    role: $Enums.Role | null
     isFrozen: boolean | null
   }
 
@@ -1334,6 +1353,7 @@ export namespace Prisma {
     password: number
     name: number
     number: number
+    role: number
     isFrozen: number
     _all: number
   }
@@ -1353,6 +1373,7 @@ export namespace Prisma {
     password?: true
     name?: true
     number?: true
+    role?: true
     isFrozen?: true
   }
 
@@ -1362,6 +1383,7 @@ export namespace Prisma {
     password?: true
     name?: true
     number?: true
+    role?: true
     isFrozen?: true
   }
 
@@ -1371,6 +1393,7 @@ export namespace Prisma {
     password?: true
     name?: true
     number?: true
+    role?: true
     isFrozen?: true
     _all?: true
   }
@@ -1467,6 +1490,7 @@ export namespace Prisma {
     password: string
     name: string | null
     number: string
+    role: $Enums.Role
     isFrozen: boolean
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1495,6 +1519,7 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     number?: boolean
+    role?: boolean
     isFrozen?: boolean
     Balance?: boolean | User$BalanceArgs<ExtArgs>
     sentTransfers?: boolean | User$sentTransfersArgs<ExtArgs>
@@ -1509,6 +1534,7 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     number?: boolean
+    role?: boolean
     isFrozen?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1518,6 +1544,7 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     number?: boolean
+    role?: boolean
     isFrozen?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1527,10 +1554,11 @@ export namespace Prisma {
     password?: boolean
     name?: boolean
     number?: boolean
+    role?: boolean
     isFrozen?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "number" | "isFrozen", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "password" | "name" | "number" | "role" | "isFrozen", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Balance?: boolean | User$BalanceArgs<ExtArgs>
     sentTransfers?: boolean | User$sentTransfersArgs<ExtArgs>
@@ -1555,6 +1583,7 @@ export namespace Prisma {
       password: string
       name: string | null
       number: string
+      role: $Enums.Role
       isFrozen: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1988,6 +2017,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly number: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'Role'>
     readonly isFrozen: FieldRef<"User", 'Boolean'>
   }
     
@@ -6865,6 +6895,7 @@ export namespace Prisma {
     password: 'password',
     name: 'name',
     number: 'number',
+    role: 'role',
     isFrozen: 'isFrozen'
   };
 
@@ -6974,6 +7005,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Role'
+   */
+  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
+    
+
+
+  /**
+   * Reference to a field of type 'Role[]'
+   */
+  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -7020,6 +7065,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
     number?: StringFilter<"User"> | string
+    role?: EnumRoleFilter<"User"> | $Enums.Role
     isFrozen?: BoolFilter<"User"> | boolean
     Balance?: BalanceListRelationFilter
     sentTransfers?: P2pTransferListRelationFilter
@@ -7033,6 +7079,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrderInput | SortOrder
     number?: SortOrder
+    role?: SortOrder
     isFrozen?: SortOrder
     Balance?: BalanceOrderByRelationAggregateInput
     sentTransfers?: p2pTransferOrderByRelationAggregateInput
@@ -7049,6 +7096,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
+    role?: EnumRoleFilter<"User"> | $Enums.Role
     isFrozen?: BoolFilter<"User"> | boolean
     Balance?: BalanceListRelationFilter
     sentTransfers?: P2pTransferListRelationFilter
@@ -7062,6 +7110,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrderInput | SortOrder
     number?: SortOrder
+    role?: SortOrder
     isFrozen?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -7079,6 +7128,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
     number?: StringWithAggregatesFilter<"User"> | string
+    role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     isFrozen?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
@@ -7320,6 +7370,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     Balance?: BalanceCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
@@ -7333,6 +7384,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
@@ -7345,6 +7397,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
@@ -7358,6 +7411,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
@@ -7371,6 +7425,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
   }
 
@@ -7379,6 +7434,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7388,6 +7444,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7647,6 +7704,13 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -7693,6 +7757,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrder
     number?: SortOrder
+    role?: SortOrder
     isFrozen?: SortOrder
   }
 
@@ -7706,6 +7771,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrder
     number?: SortOrder
+    role?: SortOrder
     isFrozen?: SortOrder
   }
 
@@ -7715,6 +7781,7 @@ export namespace Prisma {
     password?: SortOrder
     name?: SortOrder
     number?: SortOrder
+    role?: SortOrder
     isFrozen?: SortOrder
   }
 
@@ -7772,6 +7839,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8021,6 +8098,10 @@ export namespace Prisma {
     set?: string
   }
 
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -8244,6 +8325,13 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -8319,6 +8407,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8545,6 +8643,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     Balance?: BalanceCreateNestedManyWithoutUserInput
     receivedTransfers?: p2pTransferCreateNestedManyWithoutToUserInput
@@ -8557,6 +8656,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     receivedTransfers?: p2pTransferUncheckedCreateNestedManyWithoutToUserInput
@@ -8573,6 +8673,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     Balance?: BalanceCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
@@ -8585,6 +8686,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
@@ -8612,6 +8714,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     receivedTransfers?: p2pTransferUpdateManyWithoutToUserNestedInput
@@ -8624,6 +8727,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     receivedTransfers?: p2pTransferUncheckedUpdateManyWithoutToUserNestedInput
@@ -8646,6 +8750,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
@@ -8658,6 +8763,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
@@ -8669,6 +8775,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
     receivedTransfers?: p2pTransferCreateNestedManyWithoutToUserInput
@@ -8681,6 +8788,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
     receivedTransfers?: p2pTransferUncheckedCreateNestedManyWithoutToUserInput
@@ -8708,6 +8816,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
     receivedTransfers?: p2pTransferUpdateManyWithoutToUserNestedInput
@@ -8720,6 +8829,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput
     receivedTransfers?: p2pTransferUncheckedUpdateManyWithoutToUserNestedInput
@@ -8731,6 +8841,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     Balance?: BalanceCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferCreateNestedManyWithoutFromUserInput
@@ -8743,6 +8854,7 @@ export namespace Prisma {
     password: string
     name?: string | null
     number: string
+    role?: $Enums.Role
     isFrozen?: boolean
     Balance?: BalanceUncheckedCreateNestedManyWithoutUserInput
     sentTransfers?: p2pTransferUncheckedCreateNestedManyWithoutFromUserInput
@@ -8770,6 +8882,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUpdateManyWithoutFromUserNestedInput
@@ -8782,6 +8895,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
     number?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isFrozen?: BoolFieldUpdateOperationsInput | boolean
     Balance?: BalanceUncheckedUpdateManyWithoutUserNestedInput
     sentTransfers?: p2pTransferUncheckedUpdateManyWithoutFromUserNestedInput

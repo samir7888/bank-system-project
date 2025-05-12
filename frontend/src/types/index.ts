@@ -1,10 +1,14 @@
 export interface User {
   id: number;
   phone: string;
+  role:Role;
   iat: number;
   exp: number;
 }
-
+export enum Role{
+ ADMIN,
+ USER
+}
 export interface UserWithBalance {
   user: User;
   balance: {

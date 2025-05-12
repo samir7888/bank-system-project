@@ -25,8 +25,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     const user = await prisma.user.findFirst({
       where: {
         OR: [
-          ...(phone ? [{ number: phone }] : []),
           ...(email ? [{ email }] : []),
+          ...(phone ? [{ number: phone }] : []),
         ],
       },
     });
@@ -42,7 +42,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const payload = { id: user.id, phone: user.number };
+    const payload = { id: user.id, phone: user.number,role: user.role };
     const token = jwt.sign(payload, process.env.JWT_SECRET!, { expiresIn: "1h" });
 
     res.cookie('accessToken', token, {
@@ -51,7 +51,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       sameSite: 'lax',
     });
 
-    res.status(200).json({ message: "Login successful", user: { id: user.id, phone: user.number } });
+    res.status(200).json({ message: "Login successful", user: { id: user.id, phone: user.number,role: user.role } });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

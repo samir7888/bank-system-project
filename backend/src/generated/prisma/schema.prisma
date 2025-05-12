@@ -14,12 +14,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model User {
   id                Int               @id @default(autoincrement())
   email             String?           @unique
   password          String
   name              String?
   number            String            @unique
+  role              Role              @default(USER)
   isFrozen          Boolean           @default(false)
   Balance           Balance[]
   sentTransfers     p2pTransfer[]     @relation(name: "FromUserRelation")

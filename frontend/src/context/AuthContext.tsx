@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { getUserDetails } from '../services/api';
+import { Role } from '../types';
 
 interface User {
   id: number;
   phone: string;
+  role: Role
 }
 
 interface AuthContextType {
