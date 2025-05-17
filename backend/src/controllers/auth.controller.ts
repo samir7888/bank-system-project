@@ -66,7 +66,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 export const me = async (req: Request, res: Response): Promise<void> => {
     
   const user = (req as any).user; // or use your AuthenticatedRequest type
-console.log(user)
+
   if (!user) {
     res.status(401).json({ error: "Unauthorized" });
     return;

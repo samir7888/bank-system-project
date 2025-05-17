@@ -8,6 +8,6 @@ const adminRoutes = express.Router();
 // adminRoutes.use(adminAuthMiddleware);
 
 adminRoutes.get("/users/",getAllUsers);
-adminRoutes.patch("/users/:id/freeze", freezeUser);
-adminRoutes.patch("/users/:id/unfreeze", unfreezeUser); 
+adminRoutes.post("/users/:id/freeze", freezeUser);
+adminRoutes.post("/users/:id/unfreeze", unfreezeUser); 
 export default adminRoutes;

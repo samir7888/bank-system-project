@@ -29,7 +29,7 @@ interface CreateAlertResponse {
   alert: {
     id: string;
   };
-  message:string;
+  message: string;
 }
 
 export default function MaintenanceAlertCard() {
@@ -62,21 +62,21 @@ export default function MaintenanceAlertCard() {
     }
   );
 
-// Removed redundant interface declaration
+  // Removed redundant interface declaration
 
-const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     setAlertData((prev) => ({
-        ...prev,
-        [name]: value,
+      ...prev,
+      [name]: value,
     }));
-};
+  };
 
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     console.log(alertData);
     mutation.mutate(alertData);
-};
+  };
 
   return (
     <div className="container mx-auto my-8">
@@ -90,7 +90,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
           </div>
           <CardDescription className="text-yellow-700">
             Create an emergency alert for system downtime
-          </CardDescription> 
+          </CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-4 pt-6">
@@ -157,23 +157,27 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
             </div>
           </form>
 
-         {mutation.isError && (
-  <div className="flex items-center text-red-600 bg-red-50 p-3 rounded-lg">
-    <AlertCircle className="h-5 w-5 mr-2" />
-    <p className="text-sm">
-      {(mutation.error as { response?: { data?: { message?: string } } })?.response?.data?.message || mutation.error.message}
-    </p>
-  </div>
-)}
-         {mutation.isSuccess && (
-  <div className="flex items-center text-green-600 bg-red-50 p-3 rounded-lg">
-    {/* < className="h-5 w-5 mr-2" /> */}
-    <p className="text-sm">
-      {mutation.data?.message || "Successfully created maintenance alert"}
-    </p>
-  </div>
-)}
-
+          {mutation.isError && (
+            <div className="flex items-center text-red-600 bg-red-50 p-3 rounded-lg">
+              <AlertCircle className="h-5 w-5 mr-2" />
+              <p className="text-sm">
+                {(
+                  mutation.error as {
+                    response?: { data?: { message?: string } };
+                  }
+                )?.response?.data?.message || mutation.error.message}
+              </p>
+            </div>
+          )}
+          {mutation.isSuccess && (
+            <div className="flex items-center text-green-600 bg-red-50 p-3 rounded-lg">
+              {/* < className="h-5 w-5 mr-2" /> */}
+              <p className="text-sm">
+                {mutation.data?.message ||
+                  "Successfully created maintenance alert"}
+              </p>
+            </div>
+          )}
         </CardContent>
 
         <CardFooter className="flex !p-4 items-center justify-between bg-gray-50 border-t">

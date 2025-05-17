@@ -1,5 +1,11 @@
 import { AlertCircle, Loader2, RefreshCw, User, Users } from "lucide-react";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "./ui/popover";
+
+import {
   Table,
   TableBody,
   TableCaption,
@@ -10,8 +16,9 @@ import {
 } from "./ui/table";
 import { Badge } from "./ui/badge";
 import { useQuery } from "react-query";
-import { getAllUsers } from "../services/api";
+import { getAllUsers, unfreezeUser, freezeUser } from "../services/api";
 import MaintenanceAlertCard from "./MaintanaceAlert";
+import Button from "./ui/Button";
 
 export default function AdminDashboard() {
   interface IUser {
@@ -140,6 +147,30 @@ export default function AdminDashboard() {
                           </Badge>
                         )}
                       </TableCell>
+                      <TableCell>
+                        <Popover>
+                          <PopoverTrigger><Button>Edit</Button></PopoverTrigger>
+                          <PopoverContent className="w-fit  p-0">
+                            <Button
+                              onClick={() => {
+                                if (user.isFrozen) {
+                                  unfreezeUser(user.id);
+                                  handleRefresh();
+                                } else {
+                                  // You need to implement freezeUser or import it if it exists
+                                  freezeUser(user.id);
+                                  handleRefresh();
+                                }
+                              }}
+                              variant="outline"
+                            >
+                              {user.isFrozen ? 'unfreeze' : 'freeze'}
+                            </Button>
+                          </PopoverContent>
+                        </Popover>
+
+                        
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -147,9 +178,8 @@ export default function AdminDashboard() {
             )}
           </div>
         </div>
-    <MaintenanceAlertCard />
+        <MaintenanceAlertCard />
       </div>
-    
     </div>
   );
 }

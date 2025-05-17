@@ -8,6 +8,9 @@ import { prisma } from '../db';
 export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
     try {
         const users = await prisma.user.findMany({
+            where:{
+                role:'USER'
+            },
             orderBy: {
                 id: 'asc' // Replace 'id' with the desired field for sorting
             }

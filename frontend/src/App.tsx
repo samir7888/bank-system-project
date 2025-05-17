@@ -14,6 +14,7 @@ import DashboardPage from "./pages/DashboardPage";
 import UserDashboard from "./components/UserDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import { ProtectedRoutes } from "./services/ProtectedRoutes";
+import { Toaster } from "./components/ui/toaster";
 // import Dashboard from './components/Dashboard';
 
 // Create a client
@@ -29,7 +30,7 @@ const queryClient = new QueryClient({
 // Protected route component
 const AuthRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useAuth();
- 
+
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
@@ -40,6 +41,7 @@ const AuthRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <Toaster />
       <AuthProvider>
         <Router>
           <Routes>
