@@ -6,9 +6,10 @@ import { sendSucceedOfflineTransactionEmailToReceiver, sendSucceedOfflineTransac
 
 const EmergencyRouter = express.Router();
 
-//Route for admin to create a maintenance alert
+
+//route to create a maintenance alert
 EmergencyRouter.post('/maintenance-alert', async (req: Request, res: Response): Promise<void> => {
-    console.log(req.body)
+    console.log(req.body);
     const { title, description, type, startTime, endTime } = req.body;
 
     if (!title || !description || !type || !startTime || !endTime) {
@@ -19,17 +20,35 @@ EmergencyRouter.post('/maintenance-alert', async (req: Request, res: Response): 
     try {
         const start = new Date(startTime);
         const end = new Date(endTime);
+        const now = new Date();
 
+        // Validate startTime is >= now
+        if (start < now) {
+            res.status(400).json({ message: 'Start time must be in the future or now.' });
+            return;
+        }
+
+        // Validate endTime is > startTime
+        if (end <= start) {
+            res.status(400).json({ message: 'End time must be after start time.' });
+            return;
+        }
+
+        // Check for overlapping alerts of the same type
         const overlappingAlert = await prisma.maintenanceAlert.findFirst({
-            // where: {
-            //     type,
-            //     OR: [
-            //         {
-            //             startTime: { lte: end },
-            //             endTime: { gte: start }
-            //         }
-            //     ]
-            // }
+            where: {
+                type,
+                OR: [
+                    {
+                        startTime: {
+                            lte: end,
+                        },
+                        endTime: {
+                            gte: start,
+                        },
+                    },
+                ],
+            },
         });
 
         if (overlappingAlert) {

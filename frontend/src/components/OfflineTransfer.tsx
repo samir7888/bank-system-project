@@ -10,17 +10,18 @@ const OfflineTransfer = () => {
   const [isOfflineMode, setIsOfflineMode] = useState(false);
   const [receiver, setReceiver] = useState("");
   const [amount, setAmount] = useState("");
-  const wasOffline = useRef(false); // track last maintenance state
+
+  const wasOffline = useRef(false); // tracks last maintenance state
+  const hasSyncedRef = useRef(false); // ensures sync runs only once
 
   useEffect(() => {
     const checkMaintenance = async () => {
       try {
         const { isActive } = await isMaintenanceActive();
-
         setIsOfflineMode(isActive);
 
-        // If system was offline but is now online, try syncing
-        if (wasOffline.current && !isActive) {
+        if (wasOffline.current && !isActive && !hasSyncedRef.current) {
+          hasSyncedRef.current = true;
           await syncOfflineTransfer();
         }
 
@@ -31,8 +32,7 @@ const OfflineTransfer = () => {
     };
 
     checkMaintenance();
-    const interval = setInterval(checkMaintenance, 10000); // poll every 10 seconds
-
+    const interval = setInterval(checkMaintenance, 10000); // poll every 10s
     return () => clearInterval(interval);
   }, []);
 
@@ -59,6 +59,7 @@ const OfflineTransfer = () => {
     ).toString();
 
     localStorage.setItem("offline_transfer", encrypted);
+    hasSyncedRef.current = false; // allow sync next time we're online
     setMessage("Offline transfer saved and will sync when system is back online.");
     setReceiver("");
     setAmount("");
@@ -74,11 +75,13 @@ const OfflineTransfer = () => {
 
       const { receiver, amount } = decrypted;
 
-      // Send to /settle endpoint
-      await settleOfflineTransfer({receiver,amount})
+      await settleOfflineTransfer({ receiver, amount });
 
       localStorage.removeItem("offline_transfer");
       setMessage("✅ Offline transfer synced successfully!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (err) {
       console.error("Failed to sync offline transfer", err);
       setMessage("❌ Failed to sync offline transfer. Please try again later.");
