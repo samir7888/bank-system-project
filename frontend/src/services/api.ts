@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoginFormData, TransferFormData, Transaction, UserWithBalance } from '../types';
+import { LoginFormData, TransferFormData, Transaction, UserWithBalance, EmergencyCreditStatusResponse, MaintenanceStatus } from '../types';
 import { AlertData } from '../components/MaintanaceAlert';
 import { toast } from '../hooks/use-toast';
 
@@ -21,6 +21,7 @@ export const loginUser = async (data: LoginFormData) => {
 export const getUserDetails = async () => {
   const response = await api.get<UserWithBalance>('/auth/me');
   localStorage.setItem('userName', response.data.balance.user.name);
+  localStorage.setItem('id', String(response.data.user.id));
   return response.data;
 };
 
@@ -39,6 +40,11 @@ export const getAllUsers = async () => {
   const response = await api.get('/admin/users');
   return response.data;
 }
+export const getEmergencyWalletStatus = async () => {
+  const id = localStorage.getItem('id')
+  const response = await api.get<EmergencyCreditStatusResponse>(`/emergency-credit/status/${id}`);
+  return response.data;
+}
 export const createMaintenanceAlert = async (data: AlertData) => {
   console.log(data)
   const response = await api.post('emergency-credit/maintenance-alert', data);
@@ -48,6 +54,13 @@ export const createMaintenanceAlert = async (data: AlertData) => {
   })
   return response.data;
 }
+
+export const checkStatusOfMaintenance = async () => {
+  const response = await api.get<MaintenanceStatus>('/emergency-credit/maintenance-alert/status');
+  return response.data;
+}
+
+
 export const freezeUser = async (id: number) => {
   const response = await api.post(`/admin/users/${id}/freeze`);
     toast({
@@ -64,5 +77,9 @@ export const unfreezeUser = async (id: number) => {
   })
   return response.data;
 }
+
+
+
+
 
 export default api;

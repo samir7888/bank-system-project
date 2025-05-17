@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { getUserDetails, getTransactionHistory } from '../services/api';
+import { getUserDetails, getTransactionHistory, checkStatusOfMaintenance } from '../services/api';
 import {
   Card,
   CardDescription,
@@ -12,6 +12,7 @@ import TransferForm from './TransferForm';
 import TransactionItem from './TransactionItem';
 import BalanceChart from './BalanceChart';
 import { CreditCard } from 'lucide-react';
+import EmergencyCreditCard from './ui/EmergencyWallet';
 
 const UserDashboard: React.FC = () => {
   const {
@@ -36,6 +37,21 @@ const UserDashboard: React.FC = () => {
     refetchDetails();
     refetchTransactions();
   };
+  const [maintenanceStatus, setMaintenanceStatus] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    checkStatusOfMaintenance().then((status) => {
+      if (isMounted) {
+        setMaintenanceStatus(status?.hasMaintenanceAlert ?? false);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+
 
   if (isLoadingDetails || isLoadingTransactions) {
     return (
@@ -68,6 +84,7 @@ const UserDashboard: React.FC = () => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+     
       {/* Balance Card */}
       <Card className="lg:col-span-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
         <CardHeader className="">
@@ -99,7 +116,7 @@ const UserDashboard: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-
+{maintenanceStatus && <EmergencyCreditCard />}
       {/* Transfer Form */}
       <Card className="lg:row-span-2">
         <CardHeader>

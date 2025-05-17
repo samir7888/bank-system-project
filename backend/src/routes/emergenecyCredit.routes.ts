@@ -21,15 +21,15 @@ console.log(req.body)
         const end = new Date(endTime);
 
         const overlappingAlert = await prisma.maintenanceAlert.findFirst({
-            where: {
-                type,
-                OR: [
-                    {
-                        startTime: { lte: end },
-                        endTime: { gte: start }
-                    }
-                ]
-            }
+            // where: {
+            //     type,
+            //     OR: [
+            //         {
+            //             startTime: { lte: end },
+            //             endTime: { gte: start }
+            //         }
+            //     ]
+            // }
         });
 
         if (overlappingAlert) {
@@ -54,6 +54,16 @@ console.log(req.body)
     }
 });
 
+
+//Route to check the status of emergency wallet
+EmergencyRouter.get('/maintenance-alert/status', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const alerts = await prisma.maintenanceAlert.findMany();
+        res.json({ hasMaintenanceAlert: alerts.length > 0 });
+    } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 
 

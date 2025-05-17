@@ -1,3 +1,5 @@
+
+
 export interface User {
   id: number;
   phone: string;
@@ -61,4 +63,26 @@ export interface AuthContextType {
 export interface BalancePoint {
   date: string;
   amount: number;
+}
+
+
+
+export interface EmergencyCredit {
+  id: number;
+  userId: number;
+  amount: number;
+  isUsed: boolean;
+  createdAt: string; // or Date if you convert it
+  expiresAt: string; // or Date if you convert it
+}
+
+export interface EmergencyCreditStatusResponse {
+  hasCredit: boolean;
+  credit?: EmergencyCredit;
+}
+
+
+
+export interface MaintenanceStatus {
+  hasMaintenanceAlert: boolean
 }
