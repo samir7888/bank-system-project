@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, CardContent } from "./Card";
 import Button from "./Button";
-import { getEmergencyWalletStatus } from "../../services/api";
+import { ClaimEmergencyWallet, getEmergencyWalletStatus } from "../../services/api";
 
 const EmergencyCreditCard = () => {
   const [isClaimed, setIsClaimed] = useState(false);
@@ -30,8 +30,8 @@ const EmergencyCreditCard = () => {
   const handleClaimCredit = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("/emergency-credit/claim");
-      if (response.status === 201) {
+     const response =  ClaimEmergencyWallet();
+      if ((await response).credit) {
         setIsClaimed(true);
         setMessage(
           "₹1000 emergency credit granted. You can now spend it offline."

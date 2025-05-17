@@ -86,3 +86,19 @@ export interface EmergencyCreditStatusResponse {
 export interface MaintenanceStatus {
   hasMaintenanceAlert: boolean
 }
+
+
+
+export interface EmergencyCredit {
+  id: number;
+  userId: number;
+  amount: number;
+  isUsed: boolean;
+  createdAt: string;  // or Date if parsed
+  expiresAt: string;  // or Date if parsed
+}
+
+export interface EmergencyCreditClaimResponse {
+  message: string;
+  credit: EmergencyCredit;
+}

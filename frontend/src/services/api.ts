@@ -1,5 +1,6 @@
+
 import axios from 'axios';
-import { LoginFormData, TransferFormData, Transaction, UserWithBalance, EmergencyCreditStatusResponse, MaintenanceStatus } from '../types';
+import { LoginFormData, TransferFormData, Transaction, UserWithBalance, EmergencyCreditStatusResponse, MaintenanceStatus, EmergencyCreditClaimResponse } from '../types';
 import { AlertData } from '../components/MaintanaceAlert';
 import { toast } from '../hooks/use-toast';
 
@@ -48,22 +49,44 @@ export const getEmergencyWalletStatus = async () => {
 export const createMaintenanceAlert = async (data: AlertData) => {
   console.log(data)
   const response = await api.post('emergency-credit/maintenance-alert', data);
-    toast({
+  toast({
     title: "Success!",
     description: "Maintenance alert created successfully.",
   })
   return response.data;
 }
+export const ClaimEmergencyWallet = async () => {
+  const response = await api.post<EmergencyCreditClaimResponse>("/emergency-credit/claim");
+  return response.data;
+}
+
+
 
 export const checkStatusOfMaintenance = async () => {
   const response = await api.get<MaintenanceStatus>('/emergency-credit/maintenance-alert/status');
   return response.data;
 }
 
+export const settleOfflineTransfer = async ({ receiver, amount }: { receiver: string, amount: string }) => {
+  const response = await api.post("/emergency-credit/settle", {
+    userId: receiver,
+    amountSpent: amount
+  });
+  return response.data;
+}
+
+
+interface IisMaintenanceActive {
+  isActive: boolean;
+}
+export const isMaintenanceActive = async () => {
+  const response = await api.get<IisMaintenanceActive>('/emergency-credit/maintenance/active');
+  return response.data;
+}
 
 export const freezeUser = async (id: number) => {
   const response = await api.post(`/admin/users/${id}/freeze`);
-    toast({
+  toast({
     title: "Success!",
     description: "User freeze successfully.",
   })

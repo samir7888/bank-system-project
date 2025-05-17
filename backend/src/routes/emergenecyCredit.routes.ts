@@ -8,7 +8,7 @@ const EmergencyRouter = express.Router();
 
 //Route for admin to create a maintenance alert
 EmergencyRouter.post('/maintenance-alert', async (req: Request, res: Response): Promise<void> => {
-console.log(req.body)
+    console.log(req.body)
     const { title, description, type, startTime, endTime } = req.body;
 
     if (!title || !description || !type || !startTime || !endTime) {
@@ -77,13 +77,10 @@ EmergencyRouter.post('/claim', authMiddleware, async (req: Request, res: Respons
         const activeMaintenance = await prisma.maintenanceAlert.findFirst({
             where: {
                 type: 'OnlineBanking',
-
-
-                // startTime: { lte: now },
-                // endTime: { gte: now }
+                endTime: { gte: now }
             }
         });
-        console.log(activeMaintenance)
+
         if (!activeMaintenance) {
             res.status(403).json({ message: 'No active maintenance. Emergency credit is not available.' });
             return;
@@ -98,12 +95,21 @@ EmergencyRouter.post('/claim', authMiddleware, async (req: Request, res: Respons
             return;
         }
 
-        const expiresAt = new Date(now.getTime() + 2 * 60 * 60 * 1000); // 2 hours from now
+        const userBalance = await prisma.balance.findUnique({
+            where: { userId },
+        });
+
+        if (!userBalance || userBalance.amount <= 1000) {
+            res.status(400).json({ message: 'Balance must be greater than 1000' });
+            return;
+        }
+
+        const expiresAt = activeMaintenance.endTime;
 
         const credit = await prisma.emergencyCredit.create({
             data: {
                 userId,
-                amount: 1000, // or configurable
+                amount: 1000,
                 expiresAt,
             },
         });
@@ -115,10 +121,11 @@ EmergencyRouter.post('/claim', authMiddleware, async (req: Request, res: Respons
     }
 });
 
+
 // Settle emergency credit after downtime
 EmergencyRouter.post('/settle', authMiddleware, async (req: Request, res: Response): Promise<void> => {
     const { userId, amountSpent } = req.body;
-    console.log("user",(req as any).user)
+    console.log("user", (req as any).user)
     const from = (req as any).user.id;
     // const receiverID = Number(userId);
 
@@ -143,11 +150,11 @@ EmergencyRouter.post('/settle', authMiddleware, async (req: Request, res: Respon
             });
             return;
         }
-        
+
         await prisma.maintenanceAlert.deleteMany();
         await prisma.$transaction(async (tx) => {
             const credit = await tx.emergencyCredit.findFirst({
-                where: { userId: from, isUsed: false, expiresAt: { gte: new Date() } },
+                where: { userId: from}
             });
 
             if (!credit) {
@@ -176,8 +183,8 @@ EmergencyRouter.post('/settle', authMiddleware, async (req: Request, res: Respon
                 data: { amount: { increment: Number(amountSpent) } },
             });
         });
-        await sendSucceedOfflineTransactionEmailToSender(senderEmail || "",toUser.name || "");
-        await sendSucceedOfflineTransactionEmailToReceiver(toUser.email || "",senderName || "");
+        await sendSucceedOfflineTransactionEmailToSender(senderEmail || "", toUser.name || "");
+        await sendSucceedOfflineTransactionEmailToReceiver(toUser.email || "", senderName || "");
         res.json({ message: 'Emergency credit settled and mail sent successfully' });
     } catch (err) {
         console.error("Error during emergency credit settlement:", err);
@@ -195,6 +202,44 @@ EmergencyRouter.get('/status/:userId', async (req, res) => {
         });
 
         res.json({ hasCredit: !!credit, credit });
+    } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+//to check user is offline
+EmergencyRouter.get('/maintenance/active', async (req: Request, res: Response): Promise<void> => {
+
+    try {
+        const now = new Date();
+        const activeAlert = await prisma.maintenanceAlert.findFirst({
+            where: {
+                startTime: { lte: now },
+                endTime: { gte: now }
+            }
+        });
+        res.json({ isActive: !!activeAlert });
+    } catch (err) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+//to check user is online 
+EmergencyRouter.get('/maintenance/inactive', async (req: Request, res: Response): Promise<void> => {
+    try {
+        const now = new Date();
+        const activeAlert = await prisma.maintenanceAlert.findFirst({
+            where: {
+                startTime: { lte: now },
+                endTime: { gte: now }
+            }
+        });
+
+        // Inactive if no active alert
+        res.json({ isOffline: !!activeAlert });
     } catch (err) {
         res.status(500).json({ error: 'Internal server error' });
     }
