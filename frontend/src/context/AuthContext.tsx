@@ -62,8 +62,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const logout = () => {
-    localStorage.removeItem('bankToken');
+  const logout = async() => {
+    try {
+      await axios.post('http://localhost:3001/auth/logout', {}, {
+        withCredentials: true});
+        localStorage.clear();
+        setUser(null);
+    } catch (error) {
+      console.log(error);
+    }
+    localStorage.clear();
     setUser(null);
   };
 
