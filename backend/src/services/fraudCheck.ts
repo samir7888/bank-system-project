@@ -69,7 +69,7 @@ function dfs(
 export async function checkFraudChain(
   senderId: number,
   maxHops: number = 3,
-  maxMinutes: number = 5
+  maxMinutes: number = 3
 ): Promise<number[] | null> {
   const graph = await buildGraph(maxMinutes);
   const path = dfs(graph, senderId, new Set<number>(), [senderId], new Date(), maxHops, maxMinutes);

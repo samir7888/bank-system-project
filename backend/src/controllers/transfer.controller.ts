@@ -110,8 +110,7 @@ export const transfer =
 
 export const getTransactionHistory = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId = (req as any).user.id // Safely access the user ID
-        console.log("history of id ", userId)
+        const userId = (req as any).user.id ;
         if (!userId) {
             res.status(400).json({ message: "User ID is required" });
             return;

@@ -19,6 +19,7 @@ import BalanceChart from "./BalanceChart";
 import { CreditCard } from "lucide-react";
 import EmergencyCreditCard from "./ui/EmergencyWallet";
 import OfflineTransfer from "./OfflineTransfer";
+import ATMInterface from "./Atm";
 
 const UserDashboard: React.FC = () => {
   const {
@@ -147,8 +148,9 @@ const UserDashboard: React.FC = () => {
                 Transfer to another user securely
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-6">
               <TransferForm />
+              <ATMInterface />
             </CardContent>
           </Card>
 
@@ -172,6 +174,8 @@ const UserDashboard: React.FC = () => {
               )}
             </CardContent>
           </Card>
+
+          
         </>
       ): <OfflineTransfer />}
     </div>

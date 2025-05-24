@@ -36,7 +36,10 @@ export const transferMoney = async (data: TransferFormData) => {
 
   return response.data;
 };
-
+export const atmWithdraw = async (data: { amount: number }) => {
+  const response = await api.post('/atm/withdraw', data);
+  return response.data;
+};
 export const getAllUsers = async () => {
   const response = await api.get('/admin/users');
   return response.data;
@@ -100,9 +103,5 @@ export const unfreezeUser = async (id: number) => {
   })
   return response.data;
 }
-
-
-
-
 
 export default api;
