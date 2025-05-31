@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-// import { PrismaClient } from "../generated/prisma";
-// const prisma = new PrismaClient();
 import { prisma } from '../db';
 
 // Withdraw function to handle ATM withdrawal requests
@@ -27,44 +25,50 @@ export const withdraw = async (req: Request, res: Response) => {
   let originalAmount = amount;
 
   try {
+    interface Balance {
+      userId: number;
+      amount: number;
+    }
+
+    interface Result {
+      [denomination: number]: number;
+    }
+
     const transactionResult = await prisma.$transaction(async (tx) => {
-      const balance = await tx.balance.findUnique({
-        where: { userId },
+      const balance: Balance | null = await tx.balance.findUnique({
+      where: { userId },
       });
 
       if (!balance) {
-        throw new Error("User not found");
-
+      throw new Error("User not found");
       }
 
       if (!balance.amount || balance.amount < originalAmount) {
-        throw new Error("Insufficient balance");
-
+      throw new Error("Insufficient balance");
       }
 
       // Dispense logic (note: this doesn't interact with DB but kept for consistency)
       for (let note of denominations) {
-        const count = Math.floor(amount / note);
-        if (count > 0) {
-          result[note] = count;
-          amount -= count * note;
-        }
+      const count: number = Math.floor(amount / note);
+      if (count > 0) {
+        (result as Result)[note] = count;
+        amount -= count * note;
+      }
       }
 
       if (amount !== 0) {
-        throw new Error(`Cannot dispense exact amount (₹${originalAmount}) with available denominations`);
+      throw new Error(`Cannot dispense exact amount (₹${originalAmount}) with available denominations`);
       }
 
       // Decrement balance atomically
       await tx.balance.update({
-        where: { userId },
-        data: {
-          amount: {
-            decrement: Number(originalAmount),
-          },
+      where: { userId },
+      data: {
+        amount: {
+        decrement: Number(originalAmount),
         },
+      },
       });
-
 
     });
 

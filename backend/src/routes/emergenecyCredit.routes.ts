@@ -171,35 +171,55 @@ EmergencyRouter.post('/settle', authMiddleware, async (req: Request, res: Respon
         }
 
         await prisma.maintenanceAlert.deleteMany();
+        interface EmergencyCredit {
+            id: number;
+            userId: number;
+            amount: number;
+            expiresAt: Date;
+            isUsed: boolean;
+        }
+
+        interface User {
+            id: number;
+            name: string | null;
+            email: string | null;
+            number: string;
+        }
+
+        interface Balance {
+            userId: number;
+            amount: number;
+        }
+
         await prisma.$transaction(async (tx) => {
-            const credit = await tx.emergencyCredit.findFirst({
-                where: { userId: from}
+            const credit: EmergencyCredit | null = await tx.emergencyCredit.findFirst({
+            where: { userId: from }
             });
 
             if (!credit) {
-                res.status(404).json({ message: 'No active emergency credit found.' });
-                throw new Error('No active emergency credit');
+            res.status(404).json({ message: 'No active emergency credit found.' });
+            throw new Error('No active emergency credit');
             }
 
             if (amountSpent > credit.amount) {
-                res.status(400).json({ message: 'Spent amount exceeds emergency credit.' });
-                throw new Error('Spent amount exceeds limit');
+            res.status(400).json({ message: 'Spent amount exceeds emergency credit.' });
+            throw new Error('Spent amount exceeds limit');
             }
 
             // Deduct from sender and credit to receiver atomically
             await tx.emergencyCredit.update({
-                where: { id: credit.id },
-                data: { isUsed: true },
+            where: { id: credit.id },
+            data: { isUsed: true },
             });
 
             await tx.balance.update({
-                where: { userId: from },
-                data: { amount: { decrement: Number(amountSpent) } },
+            where: { userId: from },
+            data: { amount: { decrement: Number(amountSpent) } },
             });
 
             await tx.balance.update({
-                where: { userId: toUser.id },
-                data: { amount: { increment: Number(amountSpent) } },
+            where: { userId: toUser.id },
+            data: { amount: { increment: Number(amountSpent) } },
             });
         });
         await sendSucceedOfflineTransactionEmailToSender(senderEmail || "", toUser.name || "");

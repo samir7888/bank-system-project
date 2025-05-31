@@ -1,7 +1,5 @@
-// import { PrismaClient } from "../generated/prisma";
 import { Request, Response } from "express";
 import { checkFraudChain } from "../services/fraudCheck";
-// const prisma = new PrismaClient();
 import { prisma } from '../db';
 
 export const fraudCheckRoute = async (req: Request, res: Response) => {

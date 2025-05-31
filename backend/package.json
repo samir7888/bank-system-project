@@ -4,9 +4,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "dev": "nodemon --watch src --exec ts-node api/index.ts",
     "build": "tsc",
-    "start": "node dist/src/index.js"
+    "start": "node dist/api/index.js"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -16,7 +16,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^6.7.0",
+    "@prisma/client": "^6.8.2",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
@@ -37,7 +37,7 @@
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.1",
     "@types/nodemailer": "^6.4.17",
-    "prisma": "^6.7.0",
+    "prisma": "^6.8.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }

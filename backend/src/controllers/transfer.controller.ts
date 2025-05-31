@@ -1,12 +1,9 @@
 
 
 import { Request, Response } from "express";
-// import { PrismaClient } from "../generated/prisma";
 import { checkFraudChain } from "../services/fraudCheck";
 import { sendFraudAlertEmail } from "../services/email";
-// import { AuthenticatedRequest } from "../middlewares/authMiddleware";
 
-// const prisma = new PrismaClient();
 import { prisma } from '../db';
 
 export const transfer =
@@ -52,55 +49,60 @@ export const transfer =
                 })
             }
 
-            await prisma.$transaction(async (tx) => {
-                // Make sure from is a number when used in the query
-                const fromUserId = Number(from);
-                await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${fromUserId} FOR UPDATE`;
+            interface FraudChainResult {
+                fraudChain: number[] | null;
+            }
 
-                const fromBalance = await tx.balance.findUnique({
-                    where: { userId: fromUserId },
-                });
-                if (!fromBalance || fromBalance.amount < numericAmount) {
-                    res.status(400).json({ message: "Insufficient funds" });
-                    throw new Error('Insufficient funds');
+            await prisma.$transaction(
+                async (tx) => {
+                    // Make sure from is a number when used in the query
+                    const fromUserId: number = Number(from);
+                    await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId" = ${fromUserId} FOR UPDATE`;
 
-                }
-
-                await tx.balance.update({
-                    where: { userId: fromUserId },
-                    data: { amount: { decrement: numericAmount } },
-                });
-
-                await tx.balance.update({
-                    where: { userId: toUser.id },
-                    data: { amount: { increment: numericAmount } },
-                });
-
-                await tx.p2pTransfer.create({
-                    data: {
-                        fromUserId: fromUserId,
-                        toUserId: toUser.id,
-                        amount: numericAmount,
-                        timestamp: new Date()
+                    const fromBalance: { amount: number } | null = await tx.balance.findUnique({
+                        where: { userId: fromUserId },
+                    });
+                    if (!fromBalance || fromBalance.amount < numericAmount) {
+                        res.status(400).json({ message: "Insufficient funds" });
+                        throw new Error('Insufficient funds');
                     }
-                });
-                // Run fraud check after transaction
-                const fraudChain = await checkFraudChain(fromUserId);
 
-                if (fraudChain) {
-                    await prisma.user.updateMany({
-                        where: { id: { in: fraudChain.map(id => id) } },
-                        data: { isFrozen: true },
+                    await tx.balance.update({
+                        where: { userId: fromUserId },
+                        data: { amount: { decrement: numericAmount } },
                     });
-                    await sendFraudAlertEmail(fromUserId, fraudChain);
-                    return res.status(200).json({
-                        message: "⚠️ Transfer completed, but fraud detected. Involved accounts frozen and admin notified",
-                        fraudChain,
+
+                    await tx.balance.update({
+                        where: { userId: toUser.id as number },
+                        data: { amount: { increment: numericAmount } },
                     });
-                }
-                res.status(200).json({ message: "Money transferred successfully, No fraud detected" });
-            }, { timeout: 30000 });
-        } catch (error: unknown) {
+
+                    await tx.p2pTransfer.create({
+                        data: {
+                            fromUserId: fromUserId,
+                            toUserId: toUser.id as number,
+                            amount: numericAmount,
+                            timestamp: new Date()
+                        }
+                    });
+                    // Run fraud check after transaction
+                    const fraudChain: number[] | null = await checkFraudChain(fromUserId);
+
+                    if (fraudChain) {
+                        await prisma.user.updateMany({
+                            where: { id: { in: fraudChain.map((id: number) => id) } },
+                            data: { isFrozen: true },
+                        });
+                        await sendFraudAlertEmail(fromUserId, fraudChain);
+                        return res.status(200).json({
+                            message: "⚠️ Transfer completed, but fraud detected. Involved accounts frozen and admin notified",
+                            fraudChain,
+                        });
+                    }
+                    res.status(200).json({ message: "Money transferred successfully, No fraud detected" });
+                },
+                { timeout: 30000 }
+            );    } catch (error: unknown) {
             console.error("Transfer error:", error);
             res.status(500).json({ message: "An error occurred during transfer" });
         }
