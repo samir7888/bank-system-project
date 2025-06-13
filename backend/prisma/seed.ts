@@ -21,29 +21,29 @@ async function main() {
      
     },
   })
-  const bob = await prisma.user.upsert({
+  const sameer = await prisma.user.upsert({
     where: { number: '2222222222' },
     update: {},
     create: {
       number: '2222222222',
       email:"basnetsameer321@gmail.com",
-      password: await bcrypt.hash('bob', 10),
-      name: 'bob',
+      password: await bcrypt.hash('sameer', 10),
+      name: 'sameer',
       Balance: {
         create: {
-            amount: 20000,
+            amount: 80000,
         }
       }
     },
   })
-  const bob1 = await prisma.user.upsert({
+  const bishal = await prisma.user.upsert({
     where: { number: '3333333333' },
     update: {},
     create: {
       number: '3333333333',
-      email:"basnetsameer333@gmail.com",
-      password: await bcrypt.hash('bob1', 10),
-      name: 'bob1',
+      email:"bishaladhikari728@gmail.com",
+      password: await bcrypt.hash('bishal', 10),
+      name: 'bishal',
       Balance: {
         create: {
             amount: 20000,
@@ -56,7 +56,7 @@ async function main() {
     update: {},
     create: {
       number: '4444444444',
-      email:"basnetsameer444@gmail.com",
+      email:"basnetsameer07@gmail.com",
       password: await bcrypt.hash('bob2', 10),
       name: 'bob2',
       Balance: {
@@ -66,7 +66,7 @@ async function main() {
       }
     },
   })
-  console.log({ alice, bob,bob1,bob2 })
+  console.log({ alice, sameer,bishal,bob2 })
 }
 main()
   .then(async () => {

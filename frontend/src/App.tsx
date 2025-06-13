@@ -15,6 +15,8 @@ import UserDashboard from "./components/UserDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import { ProtectedRoutes } from "./services/ProtectedRoutes";
 import { Toaster } from "./components/ui/toaster";
+import SendMoney from "./sperateComponets/sendMoney";
+import ATMInterface from "./components/Atm";
 // import Dashboard from './components/Dashboard';
 
 // Create a client
@@ -62,6 +64,8 @@ function App() {
                 element={<Navigate to="/user-dashboard" replace />}
               />
               <Route path="user-dashboard" element={<UserDashboard />} />
+              <Route path="send-money" element={<SendMoney />} />
+              <Route path="withdraw-money" element={<ATMInterface />} />
             </Route>
             <Route
               path="/"

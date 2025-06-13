@@ -77,8 +77,8 @@ const ATMInterface = () => {
     : 0;
 
   return (
-    <div className="flex flex-col items-center w-full max-w-md">
-      <div className="w-full bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+    <div className="min-h-screen bg-gray-600 flex items-center justify-center">
+      <div className=" bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
         <div className="p-6 bg-gray-900">
           <div className="bg-gray-700 p-6 rounded-lg border-4 border-gray-600 shadow-inner">
             <div className="bg-blue-900 h-40 rounded-md p-4 mb-4 flex flex-col justify-between shadow-inner">

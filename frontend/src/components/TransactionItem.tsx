@@ -14,7 +14,7 @@ const TransactionItem: React.FC<TransactionItemProps> = ({ transaction }) => {
   
   const amount = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'NPR',
   }).format(transaction.amount);
   
   const formattedDate = format(new Date(transaction.timestamp), 'MMM d, yyyy h:mm a');

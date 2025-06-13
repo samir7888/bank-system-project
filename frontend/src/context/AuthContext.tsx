@@ -5,6 +5,7 @@ import { Role } from '../types';
 
 interface User {
   id: number;
+  name:string;
   phone: string;
   role: Role
 }
@@ -66,12 +67,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       await axios.post('http://localhost:3001/auth/logout', {}, {
         withCredentials: true});
-        localStorage.clear();
-        setUser(null);
     } catch (error) {
       console.log(error);
     }
-    localStorage.clear();
+    await localStorage.clear();
     setUser(null);
   };
 

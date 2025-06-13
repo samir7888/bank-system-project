@@ -23,7 +23,7 @@ export async function sendFraudAlertEmail(userId: number, chain: number[]) {
 
   await transporter.sendMail(mailOptions);
 }
-export async function sendSucceedOfflineTransactionEmailToSender(email:string,name:string) {
+export async function sendSucceedOfflineTransactionEmailToSender(email:string,name:string,amount:number) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -35,16 +35,16 @@ export async function sendSucceedOfflineTransactionEmailToSender(email:string,na
   const mailOptions = {
     from: `"Banking System" <${process.env.ADMIN_EMAIL}>`,
     to: email,
-    subject: `Offline transaction has completed`,
+    subject: `Transaction has completed`,
     html: `
-      <h2>The money has sent successfully to ${name}</h2>
+      <h2> Rs. ${amount} has been sent to ${name} successfully</h2>
   
     `,
   };
 
   await transporter.sendMail(mailOptions);
 }
-export async function sendSucceedOfflineTransactionEmailToReceiver(email:string,name:string) {
+export async function sendSucceedOfflineTransactionEmailToReceiver(email:string,name:string,amount:number) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -56,9 +56,9 @@ export async function sendSucceedOfflineTransactionEmailToReceiver(email:string,
   const mailOptions = {
     from: `"Banking System" <${process.env.ADMIN_EMAIL}>`,
     to: email,
-    subject: `Offline transaction has completed`,
+    subject: `Transaction has completed`,
     html: `
-      <h2>The money has received successfully from ${name}</h2>
+      <h2>You have received ${amount} from ${name} successfully</h2>
   
     `,
   };

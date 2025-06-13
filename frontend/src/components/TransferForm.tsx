@@ -7,8 +7,10 @@ import { TransferFormData } from "../types";
 import { transferMoney } from "../services/api";
 import { useMutation, useQueryClient } from "react-query";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 const TransferForm: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<TransferFormData>({
     to: "",
     amount: "",
@@ -24,7 +26,7 @@ const TransferForm: React.FC = () => {
     onSuccess: () => {
       setAlert({ type: "success", message: "Transfer successful!" });
       setFormData({ to: "", amount: "" });
-
+      navigate("/user-dashboard");
       // Invalidate queries to refresh data
       queryClient.invalidateQueries("userDetails");
       queryClient.invalidateQueries("transactionHistory");

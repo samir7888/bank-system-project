@@ -50,7 +50,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       sameSite: 'lax',
     });
 
-    res.status(200).json({ message: "Login successful", user: { id: user.id, phone: user.number,role: user.role } });
+    res.status(200).json({ message: "Login successful", user: { id: user.id,name:user.name, phone: user.number,role: user.role } });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

@@ -1,12 +1,24 @@
 import { Request, Response } from "express";
 import { checkFraudChain } from "../services/fraudCheck";
-import { sendFraudAlertEmail } from "../services/email";
+import {
+  sendFraudAlertEmail,
+  sendSucceedOfflineTransactionEmailToReceiver,
+  sendSucceedOfflineTransactionEmailToSender,
+} from "../services/email";
 
 import { prisma } from "../db";
 
 export const transfer = async (req: Request, res: Response): Promise<void> => {
   try {
     const from = (req as any).user.id;
+    const sender = await prisma.user.findUnique({
+      where: {
+        id: from,
+      },
+    });
+
+    const senderEmail = sender?.email;
+    const senderName = sender?.name;
     const { to, amount } = req.body;
     if (!from) {
       res.status(400).json({
@@ -15,12 +27,14 @@ export const transfer = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    if (prisma.user.findFirst({ where: { number: from, isFrozen: true } })) {
+    const isFrozen = await prisma.user.findUnique({ where: { id: from } });
+    if (isFrozen.isFrozen) {
       res.status(400).json({
         message: "Your account is frozen, You cannot send money",
       });
       return;
     }
+
     // Convert amount to number to fix the increment type issue
     const numericAmount = Number(amount);
 
@@ -101,12 +115,24 @@ export const transfer = async (req: Request, res: Response): Promise<void> => {
               "⚠️ Transfer completed, but fraud detected. Involved accounts frozen and admin notified",
             fraudChain,
           });
+        } else {
+          await sendSucceedOfflineTransactionEmailToSender(
+            senderEmail,
+            toUser.name,
+
+            numericAmount
+          );
+          await sendSucceedOfflineTransactionEmailToReceiver(
+            toUser.email,
+            senderName,
+
+            numericAmount
+          );
         }
-        res
-          .status(200)
-          .json({
-            message: "Money transferred successfully, No fraud detected",
-          });
+
+        res.status(200).json({
+          message: "Money transferred successfully, No fraud detected",
+        });
       },
       { timeout: 30000 }
     );
@@ -149,10 +175,8 @@ export const getTransactionHistory = async (
     res.status(200).json(transactions);
   } catch (error) {
     console.error("Error fetching transaction history:", error);
-    res
-      .status(500)
-      .json({
-        message: "An error occurred while fetching transaction history",
-      });
+    res.status(500).json({
+      message: "An error occurred while fetching transaction history",
+    });
   }
 };

@@ -16,12 +16,11 @@ const api = axios.create({
 
 export const loginUser = async (data: LoginFormData) => {
   const response = await api.post('/auth/login', data);
-  return response.data;
+  return response.data; 
 };
 
 export const getUserDetails = async () => {
   const response = await api.get<UserWithBalance>('/auth/me');
-  localStorage.setItem('userName', response.data.balance.user.name);
   localStorage.setItem('id', String(response.data.user.id));
   return response.data;
 };

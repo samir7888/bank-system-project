@@ -3,13 +3,14 @@
 export interface User {
   id: number;
   phone: string;
+  name:string;
   role:Role;
   iat: number;
   exp: number;
 }
 export enum Role{
- ADMIN,
- USER
+ ADMIN = "ADMIN",
+ USER = "USER"
 }
 export interface UserWithBalance {
   user: User;

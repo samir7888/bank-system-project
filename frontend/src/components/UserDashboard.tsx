@@ -13,13 +13,11 @@ import {
   CardContent,
   CardTitle,
 } from "../components/ui/Card";
-import TransferForm from "./TransferForm";
 import TransactionItem from "./TransactionItem";
 import BalanceChart from "./BalanceChart";
 import { CreditCard } from "lucide-react";
 import EmergencyCreditCard from "./ui/EmergencyWallet";
 import OfflineTransfer from "./OfflineTransfer";
-import ATMInterface from "./Atm";
 
 const UserDashboard: React.FC = () => {
   const {
@@ -97,64 +95,56 @@ const UserDashboard: React.FC = () => {
   const balance = userDetails?.balance?.amount || 0;
   const formattedBalance = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "USD",
+    currency: "NPR",
   }).format(balance);
 
   return (
- <div className={`grid grid-cols-1 ${!maintenanceStatus ? 'lg:grid-cols-3' : ''} gap-6`}>
- {/* Balance Card */}
-    {!maintenanceStatus &&  <Card className="lg:col-span-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-        <CardHeader className="">
-          <div className="flex items-center">
-            <div className="p-3 bg-blue-700 rounded-full mr-4">
-              <CreditCard size={24} />
+    <div
+      className={`grid grid-cols-1 ${
+        !maintenanceStatus ? "lg:grid-cols-3" : ""
+      } gap-6`}
+    >
+      {/* Balance Card */}
+      {!maintenanceStatus && (
+        <Card className="lg:col-span-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
+          <CardHeader className="">
+            <div className="flex items-center">
+              <div className="p-3 bg-blue-700 rounded-full mr-4">
+                <CreditCard size={24} />
+              </div>
+              <div>
+                <CardDescription className="text-blue-100">
+                  Current Balance
+                </CardDescription>
+                <CardTitle className="text-3xl text-white">
+                  {formattedBalance}
+                </CardTitle>
+              </div>
             </div>
-            <div>
-              <CardDescription className="text-blue-100">
-                Current Balance
-              </CardDescription>
-              <CardTitle className="text-3xl text-white">
-                {formattedBalance}
-              </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-blue-800 rounded-lg p-4">
+              <h3 className="text-sm font-medium text-blue-100 mb-2">
+                Balance History
+              </h3>
+              {transactions && transactions.length > 0 ? (
+                <BalanceChart
+                  transactions={transactions}
+                  currentBalance={balance}
+                />
+              ) : (
+                <p className="text-blue-200 text-sm">
+                  No transaction history available
+                </p>
+              )}
             </div>
-          </div>
-         
-        </CardHeader>
-        <CardContent>
-          <div className="bg-blue-800 rounded-lg p-4">
-            <h3 className="text-sm font-medium text-blue-100 mb-2">
-              Balance History
-            </h3>
-            {transactions && transactions.length > 0 ? (
-              <BalanceChart
-                transactions={transactions}
-                currentBalance={balance}
-              />
-            ) : (
-              <p className="text-blue-200 text-sm">
-                No transaction history available
-              </p>
-            )}
-          </div>
-        </CardContent>
-      </Card>}
+          </CardContent>
+        </Card>
+      )}
       {!maintenanceAlertStatus && <EmergencyCreditCard />}
       {!maintenanceStatus ? (
         <>
-          <Card className="lg:row-span-2">
-            <CardHeader>
-              <CardTitle>Send Money</CardTitle>
-              <CardDescription>
-                Transfer to another user securely
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <TransferForm />
-              <ATMInterface />
-            </CardContent>
-          </Card>
-
-          <Card className="lg:col-span-2">
+          <Card className="lg:col-span-3">
             <CardHeader>
               <CardTitle>Recent Transactions</CardTitle>
               <CardDescription>Your latest activity</CardDescription>
@@ -174,10 +164,10 @@ const UserDashboard: React.FC = () => {
               )}
             </CardContent>
           </Card>
-
-          
         </>
-      ): <OfflineTransfer />}
+      ) : (
+        <OfflineTransfer />
+      )}
     </div>
   );
 };
