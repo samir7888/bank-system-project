@@ -68,7 +68,7 @@ const EmergencyCreditCard = () => {
             ? "Credit Claimed"
             : "Claim ₹1000 Emergency Credit"}
         </Button>
-        {message && <p className="text-sm text-green-600 mt-2">{message}</p>}
+        {message && <p className="text-sm text-red-600 mt-2">{message}</p>}
       </CardContent>
     </Card>
   );

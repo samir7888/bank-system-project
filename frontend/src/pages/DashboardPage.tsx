@@ -1,17 +1,16 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { LogOut, User } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const DashboardPage: React.FC = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const userName = localStorage.getItem('userName');
-  console.log(userName)
+  const userName = localStorage.getItem("userName");
   const handleLogout = () => {
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
@@ -27,13 +26,10 @@ const DashboardPage: React.FC = () => {
               <h1 className="text-xl font-bold text-gray-900">SecureBank</h1>
             </div>
             <div className="flex items-center">
-              <div className="flex items-center mr-4">
-                <div className="p-2 bg-blue-100 rounded-full mr-2">
-                  <User size={18} className="text-blue-900" />
+              <div className="flex items-start mr-4">
+                <div className="p-2 text-2xl font-bold capitalize rounded-full mr-2">
+                  Welcome back, {userName}
                 </div>
-                <span className="text-sm font-medium text-gray-700">
-                  {userName}
-                </span>
               </div>
               <button
                 onClick={handleLogout}
