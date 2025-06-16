@@ -1,14 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "api/index.ts",
   "scripts": {
-  "dev": "nodemon --watch src --exec ts-node api/index.ts",
-  "build": "tsc && npx prisma generate",
-  "start": "node dist/index.js",
-  "vercel-build": "tsc && npx prisma generate"
-}
-,
+    "dev": "nodemon --watch src --exec ts-node api/index.ts",
+    "build": "tsc && npx prisma generate",
+    "start": "node dist/index.js",
+    "vercel-build": "npx prisma generate && tsc"
+  },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
