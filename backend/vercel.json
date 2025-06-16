@@ -2,17 +2,20 @@
   "version": 2,
   "builds": [
     {
-      "src": "dist/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/**"]
-      }
+      "src": "api/index.ts",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "dist/index.js"
+      "dest": "/api/index.ts"
     }
-  ]
+  ],
+  "env": {
+    "DATABASE_URL": "@database_url",
+    "JWT_SECRET": "@jwt_secret",
+    "ADMIN_EMAIL": "@admin_email",
+    "ADMIN_EMAIL_PASSWORD": "@admin_email_password"
+  }
 }
