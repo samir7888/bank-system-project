@@ -28,6 +28,7 @@ export const transfer = async (req: Request, res: Response): Promise<void> => {
     }
 
     const isFrozen = await prisma.user.findUnique({ where: { id: from } });
+    
     if (isFrozen.isFrozen) {
       res.status(400).json({
         message: "Your account is frozen, You cannot send money",
