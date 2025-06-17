@@ -3,11 +3,11 @@ import axios from 'axios';
 import { LoginFormData, TransferFormData, Transaction, UserWithBalance, EmergencyCreditStatusResponse, MaintenanceStatus, EmergencyCreditClaimResponse } from '../types';
 import { AlertData } from '../components/MaintanaceAlert';
 import { toast } from '../hooks/use-toast';
+import { BASEURL } from '../lib/constant';
 
-const API_URL = 'http://localhost:3001';
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: BASEURL,
   withCredentials: true, // Include cookies with requests
   headers: {
     'Content-Type': 'application/json',

@@ -46,8 +46,8 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 
     res.cookie('accessToken', token, {
       httpOnly: true,
-      secure: false,
-      sameSite: 'lax',
+      secure: true,
+      sameSite: 'none',
     });
 
     res.status(200).json({ message: "Login successful", user: { id: user.id,name:user.name, phone: user.number,role: user.role } });
@@ -92,8 +92,8 @@ export const me = async (req: Request, res: Response): Promise<void> => {
 export const logout = async (req: Request, res: Response): Promise<void> => {
     res.clearCookie('accessToken', {
       httpOnly: true,
-      secure: false,  // only over HTTPS
-      sameSite: 'lax',
+      secure: true,  // only over HTTPS
+      sameSite: 'none',
     });
   
     res.status(200).json({ message: "Logout successful" });

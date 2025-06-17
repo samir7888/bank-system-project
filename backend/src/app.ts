@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors"; // 👈 correct way to import
+import cors from "cors"; 
 import cookieParser from "cookie-parser";
 
 import atmRoutes from "./routes/atm.routes";
@@ -7,12 +7,30 @@ import authRoutes from "./routes/auth.routes";
 import transferRoutes from "./routes/transfer.routes";
 import adminRoutes from "./routes/admin.routes";
 import fraudRouter from "./routes/fraud.routes";
-import EmergencyRouter from "./routes/emergenecyCredit.routes";
+import EmergencyRouter from "./routes/emergencyCredit.routes";
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true })); // 👈 add this line to allow CORS
-app.use(cookieParser()); // 👈 add this line to use cookies
+const allowedOrigins = [
+  "http://localhost:5173",             // Local dev frontend
+  "https://bank-site-gamma-vert.vercel.app",  // When you deploy frontend later
+  "https://bank-system-project.vercel.app",   // TEMP: if you test API directly in browser
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
+app.use(cookieParser()); 
 app.use(express.json());
 
 app.get("/", (req, res) => {
