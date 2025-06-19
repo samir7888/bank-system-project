@@ -1,7 +1,8 @@
 import React from "react";
-import {  Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import PopoverUser from "../sperateComponets/popoverUser";
 import { useAuth } from "../context/AuthContext";
+import { Greeting } from "../components/Greeting";
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuth();
@@ -13,18 +14,17 @@ const DashboardPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center">
-             <img src="/faviconn.png" alt="logo" className="h-14 mr-4 bg-transparent" />
+              <img
+                src="/faviconn.png"
+                alt="logo"
+                className="h-14 mr-4 bg-transparent"
+              />
             </div>
-            <div className="flex items-center">
-              <div className="flex items-start mr-4">
-                <div className="p-2 flex items-center justify-between text-2xl font-bold capitalize rounded-full mr-2">
-                  Welcome back, {user?.name}
-                  <span className="text-sm text-gray-500">
-                    <PopoverUser />
-                  </span>
-                </div>
-              </div>
+            <div className="p-2 flex items-center justify-between text-2xl font-bold capitalize rounded-full mr-2">
+              <Greeting />,  
+              <span className="text-blue-500 text-3xl ml-1"> {user?.name}</span>
             </div>
+            <PopoverUser />
           </div>
         </div>
       </header>
