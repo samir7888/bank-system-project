@@ -3,8 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const LoginPage: React.FC = () => {
-  const [phone, setPhone] = useState('2222222222');
-  const [password, setPassword] = useState('sameer');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const { login, isAuthenticated } = useAuth();
