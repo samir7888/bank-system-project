@@ -12,6 +12,9 @@ export const getAllUsers = async (req: Request, res: Response): Promise<void> =>
             orderBy: {
                 id: 'asc' // Replace 'id' with the desired field for sorting
             }
+            ,include:{
+                Balance:true
+            }
         });
         res.status(200).json(users);
         return;

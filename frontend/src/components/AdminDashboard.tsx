@@ -1,9 +1,5 @@
 import { AlertCircle, Loader2, RefreshCw, User, Users } from "lucide-react";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "./ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 import {
   Table,
@@ -21,14 +17,15 @@ import MaintenanceAlertCard from "./MaintanaceAlert";
 import Button from "./ui/Button";
 
 export default function AdminDashboard() {
-  interface IUser {
+  type IUser = {
     id: number;
     name: string;
     email: string;
     number: string;
     role: string;
     isFrozen: boolean;
-  }
+    Balance: [{ id: number; userId: number; amount: number }];
+  };
 
   const {
     data: users,
@@ -40,6 +37,7 @@ export default function AdminDashboard() {
   const handleRefresh = () => {
     refetchDetails();
   };
+  console.log(users);
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="container mx-auto py-8">
@@ -103,15 +101,15 @@ export default function AdminDashboard() {
                     <TableHead>Name</TableHead>
                     <TableHead>Email</TableHead>
                     <TableHead>Phone Number</TableHead>
-                    <TableHead>Role</TableHead>
+                    <TableHead>Balance</TableHead>
                     <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {users.map((user: IUser) => (
+                  {users.map((user: IUser, index: number) => (
                     <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.id}</TableCell>
-                      <TableCell className="flex items-center">
+                      <TableCell className="font-medium">{index + 1}</TableCell>
+                      <TableCell className="flex items-center capitalize">
                         <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center mr-2">
                           <User className="h-4 w-4 text-gray-500" />
                         </div>
@@ -119,17 +117,9 @@ export default function AdminDashboard() {
                       </TableCell>
                       <TableCell>{user.email}</TableCell>
                       <TableCell>{user.number}</TableCell>
-                      <TableCell>
-                        <Badge
-                          className={
-                            user.role === "ADMIN"
-                              ? "bg-purple-100 text-purple-800"
-                              : "bg-blue-100 text-blue-800"
-                          }
-                        >
-                          {user.role}
-                        </Badge>
-                      </TableCell>
+
+                      <TableCell>{user.Balance[0].amount}</TableCell>
+
                       <TableCell>
                         {user.isFrozen ? (
                           <Badge
@@ -149,7 +139,9 @@ export default function AdminDashboard() {
                       </TableCell>
                       <TableCell>
                         <Popover>
-                          <PopoverTrigger><Button>Edit</Button></PopoverTrigger>
+                          <PopoverTrigger>
+                            <Button>Edit</Button>
+                          </PopoverTrigger>
                           <PopoverContent className="w-fit  p-0">
                             <Button
                               onClick={() => {
@@ -164,12 +156,10 @@ export default function AdminDashboard() {
                               }}
                               variant="outline"
                             >
-                              {user.isFrozen ? 'unfreeze' : 'freeze'}
+                              {user.isFrozen ? "unfreeze" : "freeze"}
                             </Button>
                           </PopoverContent>
                         </Popover>
-
-                        
                       </TableCell>
                     </TableRow>
                   ))}
