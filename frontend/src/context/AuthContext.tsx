@@ -60,7 +60,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       const response = await axios.post(`${BASEURL}/auth/login`, {
         phone,
         password,
-      });
+      }
+    ,{
+      withCredentials: true,
+    });
 
       if (rememberMe) {
         localStorage.setItem("bankToken", "true");
