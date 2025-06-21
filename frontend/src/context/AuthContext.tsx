@@ -44,10 +44,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           setUser(null);
         }
       }
-      setIsLoading(false);
     };
 
-    checkAuth();
+    checkAuth().then(() => {
+      setIsLoading(false);
+    });
   }, []);
 
   const login = async (
@@ -56,16 +57,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     rememberMe: boolean
   ) => {
     try {
-      const response = await axios.post(
-        `${BASEURL}/auth/login`,
-        {
-          phone,
-          password,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${BASEURL}/auth/login`, {
+        phone,
+        password,
+      });
 
       if (rememberMe) {
         localStorage.setItem("bankToken", "true");

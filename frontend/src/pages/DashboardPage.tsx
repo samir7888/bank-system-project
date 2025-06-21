@@ -21,7 +21,7 @@ const DashboardPage: React.FC = () => {
               />
             </div>
             <div className="p-2 flex items-center justify-between text-2xl font-bold capitalize rounded-full mr-2">
-              <Greeting />,  
+              <Greeting />  
               <span className="text-blue-500 text-3xl ml-1"> {user?.name}</span>
             </div>
             <PopoverUser />
