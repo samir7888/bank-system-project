@@ -65,7 +65,7 @@ const LandingPage = () => {
               <Shield className="w-5 h-5 text-white" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              SecureBank
+              HamroBank
             </span>
           </div>
           
@@ -166,7 +166,7 @@ const LandingPage = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl font-bold mb-6 text-slate-900">
-                Why Choose SecureBank?
+                Why Choose HamroBank?
               </h2>
               <p className="text-xl text-slate-600 mb-8 leading-relaxed">
                 We combine cutting-edge technology with traditional banking values to provide 
@@ -191,7 +191,7 @@ const LandingPage = () => {
               <div className="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-8 text-white">
                 <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
                 <p className="mb-6 opacity-90">
-                  Join thousands of satisfied customers who trust SecureBank with their financial future.
+                  Join thousands of satisfied customers who trust HamroBank with their financial future.
                 </p>
                 <div className="space-y-3">
                   <Button onClick={() => navigate("/login")} size="lg" variant="secondary" className="w-full bg-white text-black hover:bg-green-500 hover:text-white">
@@ -238,7 +238,7 @@ const LandingPage = () => {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
                   <Shield className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-bold">SecureBank</span>
+                <span className="text-xl font-bold">HamroBank</span>
               </div>
               <p className="text-slate-400">
                 Your trusted partner in secure digital banking.
@@ -277,7 +277,7 @@ const LandingPage = () => {
           </div>
           
           <div className="border-t border-slate-700 mt-8 pt-8 text-center text-slate-400">
-            <p>&copy; {new Date().getFullYear()} SecureBank. All rights reserved</p>
+            <p>&copy; {new Date().getFullYear()} HamroBank. All rights reserved</p>
           </div>
         </div>
       </footer>
