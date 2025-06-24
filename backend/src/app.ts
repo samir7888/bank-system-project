@@ -14,7 +14,8 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",             // Local dev frontend
   "https://bank-site-gamma-vert.vercel.app",  // When you deploy frontend later
-  "https://bank-system-project.vercel.app",   // TEMP: if you test API directly in browser
+  "https://bank-system-project.vercel.app",
+  "https://hamrobank.vercel.app"
 ];
 
 app.use(
