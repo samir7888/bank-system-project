@@ -7,7 +7,8 @@ import OneHundred from "../assets/Hundred.jpeg";
 import Fifty from "../assets/fifty.jpeg";
 import Twenty from "../assets/twenty.jpeg";
 import Ten from "../assets/ten.jpeg";
-import { atmWithdraw } from "../services/api";
+import { atmWithdraw, getUserDetails } from "../services/api";
+import { useQuery } from "react-query";
 
 const ATMInterface = () => {
   const [amount, setAmount] = useState("");
@@ -18,6 +19,8 @@ const ATMInterface = () => {
   > | null>(null);
   const [dispensing, setDispensing] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const { data: userDetails } = useQuery("userDetails", getUserDetails);
   interface INOTE {
     [key: string]: string;
   }
@@ -77,13 +80,17 @@ const ATMInterface = () => {
     : 0;
 
   return (
-    <div className="min-h-screen bg-gray-600 flex items-center justify-center">
-      <div className=" bg-gray-800 rounded-xl shadow-2xl overflow-hidden">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className=" rounded-xl shadow-2xl overflow-hidden">
         <div className="p-6 bg-gray-900">
-          <div className="bg-gray-700 p-6 rounded-lg border-4 border-gray-600 shadow-inner">
+          <div className=" p-6 rounded-lg border-4 border-gray-600 shadow-inner">
             <div className="bg-blue-900 h-40 rounded-md p-4 mb-4 flex flex-col justify-between shadow-inner">
               <div className="flex justify-between items-center text-blue-200">
-                <span>ATM WITHDRAWAL</span>
+                <span className="block">
+                  {" "}
+                  NPR {userDetails?.balance?.amount}
+                </span>
+
                 <span>
                   {new Date().toLocaleTimeString([], {
                     hour: "2-digit",

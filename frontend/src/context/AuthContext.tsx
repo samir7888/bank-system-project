@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
-import { getUserDetails } from "../services/api";
 import { Role } from "../types";
 import { BASEURL } from "../lib/constant";
 
@@ -13,61 +12,34 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
+
+  setUser: (user: User | null) => void;
   login: (
     phone: string,
     password: string,
-    rememberMe: boolean
   ) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
-  isLoading: boolean;
 }
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = localStorage.getItem("bankToken");
-      if (token) {
-        try {
-          const response = await getUserDetails();
-          setUser(response.user);
-        } catch (error) {
-          console.log(error);
-          localStorage.removeItem("bankToken");
-          setUser(null);
-        }
-      }
-    };
-
-    checkAuth().then(() => {
-      setIsLoading(false);
-    });
-  }, []);
-
-  const login = async (
-    phone: string,
-    password: string,
-    rememberMe: boolean
-  ) => {
+  const login = async (phone: string, password: string) => {
     try {
-      const response = await axios.post(`${BASEURL}/auth/login`, {
-        phone,
-        password,
-      }
-    ,{
-      withCredentials: true,
-    });
-
-      if (rememberMe) {
-        localStorage.setItem("bankToken", "true");
-      }
+      const response = await axios.post(
+        `${BASEURL}/auth/login`,
+        {
+          phone,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
 
       setUser(response.data.user);
     } catch (error) {
@@ -94,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, isAuthenticated: !!user, isLoading }}
+      value={{ user, setUser, login, logout, isAuthenticated: !!user }}
     >
       {children}
     </AuthContext.Provider>

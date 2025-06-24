@@ -36,13 +36,13 @@ const PopoverUser = () => {
           {user?.role === Role.USER && (
             <>
               <button
-                onClick={() => navigate("/send-money")}
+                onClick={() => navigate("/user/send-money")}
                 className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded text-gray-700 hover:bg-gray-100 transition-colors"
               >
                 Send Money
               </button>
               <button
-                onClick={() => navigate("/withdraw-money")}
+                onClick={() => navigate("/user/withdraw-money")}
                 className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded text-gray-700 hover:bg-gray-100 transition-colors"
               >
                 Withdraw Money
