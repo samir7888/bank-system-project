@@ -27,10 +27,10 @@ import { useState } from "react";
 // Define the form schema using zod
 const formSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters"),
-  email: z.string().email(),
+  email: z.string().email().min(5, "Email must be at least 5 characters"),
   number: z.string().min(10, "Number must be at least 10 characters"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  balance: z.number(),
+  balance: z.number().min(0, "Balance must be a positive number").max(1000000, "Balance must be less than 1,000,000"),
 });
 
 export function DialogDemo({handleRefresh}: {handleRefresh: () => void}) {
