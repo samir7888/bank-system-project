@@ -30,10 +30,12 @@ const formSchema = z.object({
   email: z.string().email().min(5, "Email must be at least 5 characters"),
   number: z.string().min(10, "Number must be at least 10 characters"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  balance: z.number().min(0, "Balance must be a positive number").max(1000000, "Balance must be less than 1,000,000"),
+  balance: z
+    .number()
+    .min(0, "Balance must be a positive number")
 });
 
-export function DialogDemo({handleRefresh}: {handleRefresh: () => void}) {
+export function DialogDemo({ handleRefresh }: { handleRefresh: () => void }) {
   // Initialize the form
 
   const [isOpen, setIsOpen] = useState(false);
@@ -146,6 +148,7 @@ export function DialogDemo({handleRefresh}: {handleRefresh: () => void}) {
                   <FormLabel>Balance</FormLabel>
                   <FormControl>
                     <Input
+                      min={0}
                       type="number"
                       placeholder="Enter balance"
                       {...field}
