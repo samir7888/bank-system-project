@@ -194,7 +194,7 @@ const LandingPage = () => {
                   Join thousands of satisfied customers who trust HamroBank with their financial future.
                 </p>
                 <div className="space-y-3">
-                  <Button onClick={() => navigate("/login")} size="lg" variant="secondary" className="px-8 py-4 text-lg bg-green-700 text-blue-600 hover:bg-white hover:text-black">
+                  <Button onClick={() => navigate("/login")} size="lg" variant="secondary" className="w-full py-4 text-lg bg-white !text-black hover:!bg-green-500 hover:!text-white">
                     Login with Existing Account
                   </Button>
                   <Button size="lg" variant="outline" className="w-full border-white text-white hover:bg-white/10">
@@ -218,7 +218,7 @@ const LandingPage = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button onClick={() => navigate("/login")} size="lg" variant="secondary" className="px-8 py-4 text-lg bg-green-700 text-blue-600 hover:bg-white hover:text-black">
+            <Button onClick={() => navigate("/login")} size="lg" variant="secondary" className="px-8 py-4 text-lg bg-white !text-black hover:!bg-green-500 hover:!text-white">
               Get Started Now
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
