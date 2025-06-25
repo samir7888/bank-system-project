@@ -38,16 +38,16 @@ model p2pTransfer {
   amount     Int
   timestamp  DateTime
   fromUserId Int
-  fromUser   User         @relation(name: "FromUserRelation", fields: [fromUserId], references: [id])
+  fromUser   User         @relation(name: "FromUserRelation", fields: [fromUserId], references: [id], onDelete: Cascade)
   toUserId   Int
-  toUser     User         @relation(name: "ToUserRelation", fields: [toUserId], references: [id])
+  toUser     User         @relation(name: "ToUserRelation", fields: [toUserId], references: [id], onDelete: Cascade)
 }
 
 model Balance {
   id     Int  @id @default(autoincrement())
   userId Int  @unique
   amount Int
-  user   User @relation(fields: [userId], references: [id])
+  user   User @relation(fields: [userId], references: [id],onDelete: Cascade)
 }
 
 model MaintenanceAlert {

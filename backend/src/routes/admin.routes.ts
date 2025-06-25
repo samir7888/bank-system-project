@@ -1,5 +1,5 @@
 import express from "express";
-import { freezeUser, getAllUsers, unfreezeUser } from "../controllers/admin.controller";
+import { createUser, deleteUser, freezeUser, getAllUsers, unfreezeUser } from "../controllers/admin.controller";
 
 
 const adminRoutes = express.Router();
@@ -10,4 +10,6 @@ const adminRoutes = express.Router();
 adminRoutes.get("/users/",getAllUsers);
 adminRoutes.post("/users/:id/freeze", freezeUser);
 adminRoutes.post("/users/:id/unfreeze", unfreezeUser); 
+adminRoutes.post("/user/create", createUser);
+adminRoutes.post("/user/delete/:id", deleteUser);
 export default adminRoutes;

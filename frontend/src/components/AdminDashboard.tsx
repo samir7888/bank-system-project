@@ -12,9 +12,17 @@ import {
 } from "./ui/table";
 import { Badge } from "./ui/badge";
 import { useQuery } from "react-query";
-import { getAllUsers, unfreezeUser, freezeUser } from "../services/api";
+import {
+  getAllUsers,
+  unfreezeUser,
+  freezeUser,
+  deleteUser,
+} from "../services/api";
 import MaintenanceAlertCard from "./MaintanaceAlert";
+import { cn } from "../lib/utils";
+import { DialogDemo } from "../seperateComponents/createUser";
 import Button from "./ui/Button";
+import { useState } from "react";
 
 export default function AdminDashboard() {
   type IUser = {
@@ -30,12 +38,23 @@ export default function AdminDashboard() {
   const {
     data: users,
     isLoading: isUsersDetailsLoading,
+
     isError: isErrorDetails,
     error,
     refetch: refetchDetails,
+    isRefetching: isRefetchingDetails,
   } = useQuery("usersDetails", getAllUsers);
-  const handleRefresh = () => {
-    refetchDetails();
+
+   const handleRefresh = async () => {
+    await refetchDetails();
+  };
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDeleteUser = async (id: number) => {
+    setIsDeleting(true);
+    await deleteUser(id);
+    setIsDeleting(false);
+    handleRefresh();
   };
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -66,13 +85,20 @@ export default function AdminDashboard() {
           <div className="p-6 border-b border-gray-200">
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-medium">User Management</h2>
-              <button
-                onClick={handleRefresh}
-                className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-              >
-                <RefreshCw className="h-4 w-4 mr-2" />
-                Refresh
-              </button>
+              <div className="flex space-x-2">
+                <DialogDemo handleRefresh={handleRefresh} />
+                <button
+                  onClick={handleRefresh}
+                  className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                >
+                  <RefreshCw
+                    className={cn("h-4 w-4", {
+                      "animate-spin": isRefetchingDetails,
+                    })}
+                  />
+                  Refresh
+                </button>
+              </div>
             </div>
           </div>
 
@@ -141,7 +167,7 @@ export default function AdminDashboard() {
                           <PopoverTrigger>
                             <Button>Edit</Button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-fit  p-0">
+                          <PopoverContent className="w-fit flex flex-col gap-1  p-0">
                             <Button
                               onClick={() => {
                                 if (user.isFrozen) {
@@ -156,6 +182,16 @@ export default function AdminDashboard() {
                               variant="outline"
                             >
                               {user.isFrozen ? "unfreeze" : "freeze"}
+                            </Button>
+                            <Button
+                              isLoading={isDeleting}
+                              disabled={isDeleting}
+                              onClick={() => {
+                                handleDeleteUser(user.id);
+                              }}
+                              variant="danger"
+                            >
+                              {isDeleting ? "Deleting..." : "Delete"}
                             </Button>
                           </PopoverContent>
                         </Popover>

@@ -18,6 +18,7 @@
   "dependencies": {
     "@prisma/client": "^6.8.2",
     "axios": "^1.8.4",
+    "backend": "^0.0.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -27,7 +28,8 @@
     "nodemailer": "^6.10.1",
     "nodemon": "^3.1.9",
     "otp-generator": "^4.0.1",
-    "pg": "^8.15.6"
+    "pg": "^8.15.6",
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

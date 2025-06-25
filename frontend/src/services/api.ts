@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { LoginFormData, TransferFormData, Transaction, UserWithBalance, EmergencyCreditStatusResponse, MaintenanceStatus, EmergencyCreditClaimResponse } from '../types';
+import { LoginFormData, TransferFormData, Transaction, UserWithBalance, EmergencyCreditStatusResponse, MaintenanceStatus, EmergencyCreditClaimResponse, RegisterFormData } from '../types';
 import { AlertData } from '../components/MaintanaceAlert';
 import { toast } from '../hooks/use-toast';
 import { BASEURL } from '../lib/constant';
@@ -14,6 +14,15 @@ const api = axios.create({
   },
 });
 
+export const registerUser = async (data: RegisterFormData) => {
+  const response = await api.post('/admin/user/create', data);
+  return response.data; 
+};
+
+export const deleteUser = async (id: number) => {
+  const response = await api.post(`/admin/user/delete/${id}`);
+  return response.data;
+}
 export const loginUser = async (data: LoginFormData) => {
   const response = await api.post('/auth/login', data);
   return response.data; 

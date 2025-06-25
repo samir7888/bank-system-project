@@ -54,6 +54,14 @@ export interface LoginFormData {
   password: string;
 }
 
+export interface RegisterFormData {
+  name: string;
+  email: string;
+  number: string;
+  password: string;
+  balance: number;
+}
+
 export interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
