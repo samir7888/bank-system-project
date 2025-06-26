@@ -16,18 +16,50 @@ export const getAllUsers = async (
   res: Response
 ): Promise<void> => {
   try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const search = (req.query.search as string) || "";
+
+    const skip = (page - 1) * limit;
     const users = await prisma.user.findMany({
       where: {
-        role: "USER",
+        OR: [
+          { name: { contains: search, mode: "insensitive" } },
+          { email: { contains: search, mode: "insensitive" } },
+        ],
       },
       orderBy: {
-        id: "asc", // Replace 'id' with the desired field for sorting
+        id: "asc",
       },
       include: {
         Balance: true,
       },
+      skip,
+      take: limit,
     });
-    res.status(200).json(users);
+
+    const total = await prisma.user.count({
+      where: {
+        OR: [
+          { name: { contains: search, mode: "insensitive" } },
+          { email: { contains: search, mode: "insensitive" } },
+        ],
+      },
+    });
+
+    const totalPages = Math.ceil(total / limit);
+    const hasNextPage = page < totalPages;
+    const hasPreviousPage = page > 1;
+
+    res.status(200).json({
+      data: users,
+      total,
+      page,
+      limit,
+      hasNextPage,
+      hasPreviousPage,
+    });
+
     return;
   } catch (error) {
     console.error("Error fetching users:", error);
