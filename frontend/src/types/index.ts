@@ -1,16 +1,34 @@
-
-
 export interface User {
   id: number;
   phone: string;
-  name:string;
-  role:Role;
+  name: string;
+  role: Role;
   iat: number;
   exp: number;
 }
-export enum Role{
- ADMIN = "ADMIN",
- USER = "USER"
+
+ type IUser = {
+    id: number;
+    name: string;
+    email: string;
+    number: string;
+    role: string;
+    isFrozen: boolean;
+    Balance: [{ id: number; userId: number; amount: number }];
+  };
+export interface UserResponse {
+  data: IUser[];
+   meta: {
+    page: number;
+    limit: number;
+    total: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
+}
+export enum Role {
+  ADMIN = "ADMIN",
+  USER = "USER",
 }
 export interface UserWithBalance {
   user: User;
@@ -27,8 +45,6 @@ export interface UserWithBalance {
     };
   };
 }
-
-
 
 export interface Transaction {
   id: number;
@@ -74,8 +90,6 @@ export interface BalancePoint {
   amount: number;
 }
 
-
-
 export interface EmergencyCredit {
   id: number;
   userId: number;
@@ -90,21 +104,17 @@ export interface EmergencyCreditStatusResponse {
   credit?: EmergencyCredit;
 }
 
-
-
 export interface MaintenanceStatus {
-  hasMaintenanceAlert: boolean
+  hasMaintenanceAlert: boolean;
 }
-
-
 
 export interface EmergencyCredit {
   id: number;
   userId: number;
   amount: number;
   isUsed: boolean;
-  createdAt: string;  // or Date if parsed
-  expiresAt: string;  // or Date if parsed
+  createdAt: string; // or Date if parsed
+  expiresAt: string; // or Date if parsed
 }
 
 export interface EmergencyCreditClaimResponse {

@@ -18,7 +18,6 @@ const PopoverUser = () => {
   if (!user || !user.role) {
     return ;
   }
-  console.log(user.role)
   return (
     <Popover>
       <PopoverTrigger>

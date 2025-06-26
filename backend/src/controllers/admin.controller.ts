@@ -23,6 +23,7 @@ export const getAllUsers = async (
     const skip = (page - 1) * limit;
     const users = await prisma.user.findMany({
       where: {
+        role: "USER",
         OR: [
           { name: { contains: search, mode: "insensitive" } },
           { email: { contains: search, mode: "insensitive" } },
@@ -40,6 +41,7 @@ export const getAllUsers = async (
 
     const total = await prisma.user.count({
       where: {
+          role: "USER",
         OR: [
           { name: { contains: search, mode: "insensitive" } },
           { email: { contains: search, mode: "insensitive" } },
@@ -53,11 +55,13 @@ export const getAllUsers = async (
 
     res.status(200).json({
       data: users,
-      total,
-      page,
-      limit,
-      hasNextPage,
-      hasPreviousPage,
+      meta: {
+        total,
+        page,
+        limit,
+        hasNextPage,
+        hasPreviousPage,
+      },
     });
 
     return;

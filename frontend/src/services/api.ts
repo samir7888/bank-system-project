@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { LoginFormData, TransferFormData, Transaction, UserWithBalance, EmergencyCreditStatusResponse, MaintenanceStatus, EmergencyCreditClaimResponse, RegisterFormData } from '../types';
+import { LoginFormData, TransferFormData, Transaction, UserWithBalance, EmergencyCreditStatusResponse, MaintenanceStatus, EmergencyCreditClaimResponse, RegisterFormData, UserResponse } from '../types';
 import { AlertData } from '../components/MaintanaceAlert';
 import { toast } from '../hooks/use-toast';
 import { BASEURL } from '../lib/constant';
@@ -48,10 +48,12 @@ export const atmWithdraw = async (data: { amount: number }) => {
   const response = await api.post('/atm/withdraw', data);
   return response.data;
 };
-export const getAllUsers = async () => {
-  const response = await api.get('/admin/users');
+export const getAllUsers = async (search: string, page: number,limit: number) => {
+  const response = await api.get<UserResponse>("/admin/users", {
+    params: { search, page, limit },
+  });
   return response.data;
-}
+};
 export const getEmergencyWalletStatus = async () => {
   const id = localStorage.getItem('id')
   const response = await api.get<EmergencyCreditStatusResponse>(`/emergency-credit/status/${id}`);
