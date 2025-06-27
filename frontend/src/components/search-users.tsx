@@ -14,15 +14,15 @@ const SearchUser = ({
 }: SearchUserProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") || "");
-
+  const debouncedSearch = useDebounce(search, 600);
   useEffect(() => {
-    if (search) {
-      searchParams.set("search", search);
+    if (debouncedSearch) {
+      searchParams.set("search", debouncedSearch);
     } else {
       searchParams.delete("search");
     }
     setSearchParams(searchParams, { replace: true });
-  }, [search, searchParams, setSearchParams]);
+  }, [search, searchParams, setSearchParams, debouncedSearch]);
   return (
     <div className="flex items-center">
       <div className={cn("relative", className)}>
@@ -39,3 +39,19 @@ const SearchUser = ({
 };
 
 export default SearchUser;
+
+function useDebounce(value: string, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}

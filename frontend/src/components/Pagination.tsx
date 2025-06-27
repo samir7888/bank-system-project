@@ -20,7 +20,7 @@ const PaginationComponent = ({ meta }: Props) => {
         searchParam.delete("page");
         setSearchParam(searchParam);
     }
-  }, [searchParam]);
+  }, []);
   return (
     <nav
       aria-label="Pagination Navigation"

@@ -31,7 +31,7 @@ export default function AdminDashboard() {
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search") || "";
   const page = parseInt(searchParams.get("page") as string) || 1;
-  const limit = parseInt(searchParams.get("take") as string) || 2; // You can adjust this limit as needed
+  const limit = parseInt(searchParams.get("take") as string) || 5; // You can adjust this limit as needed
   const {
     data: usersDetails,
     isLoading: isUsersDetailsLoading,
