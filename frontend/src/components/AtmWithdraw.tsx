@@ -10,6 +10,8 @@ import Ten from "../assets/ten.jpeg";
 import { atmWithdraw, getUserDetails } from "../services/api";
 import { useQuery } from "react-query";
 
+import {motion} from 'motion/react'
+ 
 const ATMInterface = () => {
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
@@ -81,7 +83,24 @@ const ATMInterface = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className=" rounded-xl shadow-2xl overflow-hidden">
+      <motion.div
+       initial={{
+          opacity: 0,
+          scale: 0.8,
+          y: 100,
+          filter: "blur(10px)",
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          filter: "blur(0px)",
+        }}
+        transition={{
+          duration: 0.3,
+          ease: "easeInOut",
+        }}
+      className=" rounded-xl shadow-2xl overflow-hidden">
         <div className="p-6 bg-gray-900">
           <div className=" p-6 rounded-lg border-4 border-gray-600 shadow-inner">
             <div className="bg-blue-900 h-40 rounded-md p-4 mb-4 flex flex-col justify-between shadow-inner">
@@ -198,7 +217,7 @@ const ATMInterface = () => {
           </div>
           <div className="h-4 w-full bg-gray-800 rounded-b-md mt-1"></div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

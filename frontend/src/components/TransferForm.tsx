@@ -26,7 +26,7 @@ const TransferForm: React.FC = () => {
     onSuccess: () => {
       setAlert({ type: "success", message: "Transfer successful!" });
       setFormData({ to: "", amount: "" });
-      navigate("/user-dashboard");
+      navigate("/user");
       // Invalidate queries to refresh data
       queryClient.invalidateQueries("userDetails");
       queryClient.invalidateQueries("transactionHistory");
