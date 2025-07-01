@@ -7,7 +7,7 @@ import {
   getEmergencyWalletStatus,
 } from "../../services/api";
 import { cn } from "../../lib/utils";
-
+import { motion } from "motion/react";
 const EmergencyCreditCard = () => {
   const [isClaimed, setIsClaimed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -54,38 +54,57 @@ const EmergencyCreditCard = () => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto p-4 shadow-md border rounded-xl">
-      <CardContent className="flex flex-col items-center justify-center gap-4 text-center">
-        <h2 className="text-xl font-semibold">Emergency Credit Wallet</h2>
-        <p className="text-sm text-muted-foreground">
-          Use this to claim NPR 1000 credit during server maintenance. This can be
-          used offline and will sync automatically later.
-        </p>
-        <Button
-          disabled={isClaimed || loading}
-          onClick={handleClaimCredit}
-          className="w-full"
-        >
-          {loading
-            ? "Processing..."
-            : isClaimed
-            ? "Credit Claimed"
-            : "Claim ₹1000 Emergency Credit"}
-        </Button>
-        {message && (
-          <p
-            className={cn(
-              "text-sm text-red-600 mt-2",
-              message ===
-                "NPR 1000 emergency credit granted. You can now spend it offline." &&
-                "text-green-600"
-            )}
-          >
-            {message}
+    <motion.div
+      initial={{
+        opacity: 0,
+        scale: 0.8,
+        y: 100,
+        filter: "blur(10px)",
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+      }}
+      transition={{
+        duration: 0.5,
+        ease: "easeInOut",
+      }}
+    >
+      <Card className="w-full max-w-md mx-auto p-4 shadow-md border rounded-xl">
+        <CardContent className="flex flex-col items-center justify-center gap-4 text-center">
+          <h2 className="text-xl font-semibold">Emergency Credit Wallet</h2>
+          <p className="text-sm text-muted-foreground">
+            Use this to claim NPR 1000 credit during server maintenance. This
+            can be used offline and will sync automatically later.
           </p>
-        )}
-      </CardContent>
-    </Card>
+          <Button
+            disabled={isClaimed || loading}
+            onClick={handleClaimCredit}
+            className="w-full"
+          >
+            {loading
+              ? "Processing..."
+              : isClaimed
+              ? "Credit Claimed"
+              : "Claim ₹1000 Emergency Credit"}
+          </Button>
+          {message && (
+            <p
+              className={cn(
+                "text-sm text-red-600 mt-2",
+                message ===
+                  "NPR 1000 emergency credit granted. You can now spend it offline." &&
+                  "text-green-600"
+              )}
+            >
+              {message}
+            </p>
+          )}
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 

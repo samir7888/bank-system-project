@@ -18,7 +18,7 @@ import BalanceChart from "./BalanceChart";
 import { CreditCard } from "lucide-react";
 import EmergencyCreditCard from "./ui/EmergencyWallet";
 import OfflineTransfer from "./OfflineTransfer";
-
+import { motion } from "motion/react";
 const UserDashboard: React.FC = () => {
   const {
     data: userDetails,
@@ -101,45 +101,65 @@ const UserDashboard: React.FC = () => {
   return (
     <div
       className={`grid grid-cols-1 ${
-        !maintenanceStatus ? "lg:grid-cols-3" : ""
+      !maintenanceStatus ? "lg:grid-cols-3" : ""
       } gap-6`}
     >
       {/* Balance Card */}
       {!maintenanceStatus && (
-        <Card className="lg:col-span-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-          <CardHeader className="">
-            <div className="flex items-center">
-              <div className="p-3 bg-blue-700 rounded-full mr-4">
-                <CreditCard size={24} />
+        <motion.div
+        className="w-full col-span-2"
+          initial={{
+            opacity: 0,
+            scale: 0.8,
+            y: 100,
+            filter: "blur(10px)",
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
+          }}
+          transition={{
+            duration: 0.3,
+            ease: "easeInOut",
+          }}
+        >
+          <Card className="lg:col-span-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white">
+            <CardHeader className="">
+              <div className="flex items-center">
+                <div className="p-3 bg-blue-700 rounded-full mr-4">
+                  <CreditCard size={24} />
+                </div>
+                <div>
+                  <CardDescription className="text-blue-100">
+                    Current Balance
+                  </CardDescription>
+                  <CardTitle className="text-3xl text-white">
+                    {formattedBalance}
+                  </CardTitle>
+                </div>
               </div>
-              <div>
-                <CardDescription className="text-blue-100">
-                  Current Balance
-                </CardDescription>
-                <CardTitle className="text-3xl text-white">
-                  {formattedBalance}
-                </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="bg-blue-800 rounded-lg p-4">
+                <h3 className="text-sm font-medium text-blue-100 mb-2">
+                  Balance History
+                </h3>
+                {transactions && transactions.length > 0 ? (
+                  <BalanceChart
+                    transactions={transactions}
+                    currentBalance={balance}
+                  />
+                ) : (
+                  <p className="text-blue-200 text-sm">
+                    No transaction history available
+                  </p>
+                )}
               </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-blue-800 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-blue-100 mb-2">
-                Balance History
-              </h3>
-              {transactions && transactions.length > 0 ? (
-                <BalanceChart
-                  transactions={transactions}
-                  currentBalance={balance}
-                />
-              ) : (
-                <p className="text-blue-200 text-sm">
-                  No transaction history available
-                </p>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </motion.div>
       )}
       {!maintenanceAlertStatus && <EmergencyCreditCard />}
       {!maintenanceStatus ? (
