@@ -16,7 +16,6 @@ import UserDashboard from "./components/UserDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import { ProtectedRoutes } from "./services/ProtectedRoutes";
 import { Toaster } from "./components/ui/toaster";
-// import SendMoney from "./sperateComponets/sendMoney";
 import ATMInterface from "./components/AtmWithdraw";
 import LandingPage from "./pages/LandingPage";
 import SendMoney from "./seperateComponents/sendMoney";
