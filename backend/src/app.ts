@@ -10,26 +10,28 @@ import fraudRouter from "./routes/fraud.routes";
 import EmergencyRouter from "./routes/emergencyCredit.routes";
 
 const app = express();
-
 const allowedOrigins = [
-  "http://localhost:5173",           
-  "http://localhost:5173/login",  
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
   "https://bank-system-project.vercel.app",
-  "https://hamrobank.vercel.app"
+  "https://hamrobank.vercel.app",
 ];
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
+    origin: (origin, callback) => {
+      // allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        return callback(new Error("Not allowed by CORS"));
       }
     },
     credentials: true,
   })
 );
+
 
 app.use(cookieParser()); 
 app.use(express.json());

@@ -13,7 +13,6 @@ const PopoverUser = () => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
-
   };
   if (!user || !user.role) {
     return;
