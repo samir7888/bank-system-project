@@ -69,7 +69,7 @@ export function DialogDemo({ handleRefresh }: { handleRefresh: () => void }) {
       <DialogTrigger asChild>
         <Button variant="outline">Create User</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[725px]">
+      <DialogContent className="sm:max-w-[725px] max-h-[560px] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Create User Account</DialogTitle>
           <DialogDescription>

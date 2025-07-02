@@ -12,8 +12,8 @@ import EmergencyRouter from "./routes/emergencyCredit.routes";
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:5173",             // Local dev frontend
-  "https://bank-site-gamma-vert.vercel.app",  // When you deploy frontend later
+  "http://localhost:5173",           
+  "http://localhost:5173/login",  
   "https://bank-system-project.vercel.app",
   "https://hamrobank.vercel.app"
 ];
