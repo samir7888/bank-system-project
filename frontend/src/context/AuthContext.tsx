@@ -14,10 +14,8 @@ interface AuthContextType {
   user: User | null;
 
   setUser: (user: User | null) => void;
-  login: (
-    phone: string,
-    password: string,
-  ) => Promise<void>;
+  error: string;
+  login: (phone: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -27,6 +25,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState("");
 
   const login = async (phone: string, password: string) => {
     try {
@@ -42,8 +41,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       setUser(response.data.user);
-    } catch (error) {
-      console.log(error);
+    } catch (error:unknown) {
+      setError(error.response.data.error);
       throw new Error("Login failed");
     }
   };
@@ -66,7 +65,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, login, logout, isAuthenticated: !!user }}
+      value={{ user, setUser, login, logout, error, isAuthenticated: !!user }}
     >
       {children}
     </AuthContext.Provider>

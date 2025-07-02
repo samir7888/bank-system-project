@@ -5,8 +5,8 @@ import { motion } from "motion/react";
 const LoginPage: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { login, isAuthenticated } = useAuth();
+  // const [error, setError] = useState("");
+  const { login, isAuthenticated,error } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -18,14 +18,12 @@ const LoginPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     try {
       await login(phone, password);
       navigate("/dashboard");
     } catch (err: unknown) {
       console.log(err);
-      setError("Invalid credentials. Please try again.");
     }
   };
 
