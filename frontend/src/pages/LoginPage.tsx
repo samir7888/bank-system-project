@@ -5,25 +5,30 @@ import { motion } from "motion/react";
 const LoginPage: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState("");
-  const { login, isAuthenticated,error } = useAuth();
+  const { login, isAuthenticated, error, clearError } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
     if (isAuthenticated) {
       const from = location.state?.from?.pathname || "/user";
       navigate(from, { replace: true });
+    } else {
+      clearError();
     }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       await login(phone, password);
       navigate("/dashboard");
     } catch (err: unknown) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -89,8 +94,9 @@ const LoginPage: React.FC = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={isLoading}
           >
-            Sign In
+            {isLoading ? "Logging in..." : "Sign In"}
           </button>
         </form>
       </motion.div>

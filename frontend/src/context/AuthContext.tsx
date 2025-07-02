@@ -18,6 +18,7 @@ interface AuthContextType {
   login: (phone: string, password: string) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
+  clearError: () => void;
 }
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -51,6 +52,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const clearError = () => {
+    setError("");
+  };
+
   const logout = async () => {
     try {
       await axios.post(
@@ -73,7 +78,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, login, logout, error, isAuthenticated: !!user }}
+      value={{
+        user,
+        setUser,
+        login,
+        logout,
+        error,
+        isAuthenticated: !!user,
+        clearError,
+      }}
     >
       {children}
     </AuthContext.Provider>
