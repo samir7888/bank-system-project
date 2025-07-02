@@ -11,12 +11,12 @@ import { Role } from "../types";
 const PopoverUser = () => {
   const { logout, user } = useAuth();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
+  const handleLogout = async () => {
+    await logout();
+
   };
   if (!user || !user.role) {
-    return ;
+    return;
   }
   return (
     <Popover>
