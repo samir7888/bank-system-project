@@ -55,17 +55,15 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       path: "/", // Optional: applies site-wide
     });
 
-    res
-      .status(200)
-      .json({
-        message: "Login successful",
-        user: {
-          id: user.id,
-          name: user.name,
-          phone: user.number,
-          role: user.role,
-        },
-      });
+    res.status(200).json({
+      message: "Login successful",
+      user: {
+        id: user.id,
+        name: user.name,
+        phone: user.number,
+        role: user.role,
+      },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -102,8 +100,8 @@ export const me = async (req: Request, res: Response): Promise<void> => {
 export const logout = async (req: Request, res: Response): Promise<void> => {
   res.clearCookie("accessToken", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    secure: true, // ✅ Required for SameSite: None
+    sameSite: "none", // ✅ Required for cross-origin
   });
 
   res.status(200).json({ message: "Logout successful" });
