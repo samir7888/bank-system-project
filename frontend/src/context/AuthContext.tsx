@@ -41,8 +41,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       setUser(response.data.user);
-    } catch (error:unknown) {
-      setError(error.response.data.error);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data?.error || "Login failed");
+      } else {
+        setError("An unknown error occurred during login.");
+      }
       throw new Error("Login failed");
     }
   };
@@ -56,8 +60,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           withCredentials: true,
         }
       );
-    } catch (error) {
-      console.log(error);
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.log(error.response?.data?.error || "Logout failed");
+      } else {
+        console.log("An unknown error occurred during logout.");
+      }
     }
     await localStorage.clear();
     setUser(null);
