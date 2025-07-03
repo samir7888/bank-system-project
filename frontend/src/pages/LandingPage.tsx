@@ -96,10 +96,24 @@ const LandingPage = () => {
       initial="hidden"
       animate="visible"
       transition={{ duration: 0.1 }}
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50"
+      className="min-h-screen relative bg-[#f8fafc]"
     >
+      <div
+    className="absolute inset-0 z-0"
+    style={{
+      backgroundImage: `
+        linear-gradient(to right, #e2e8f0 1px, transparent 1px),
+        linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
+      `,
+      backgroundSize: "20px 30px",
+      WebkitMaskImage:
+        "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+      maskImage:
+        "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+    }}
+  />
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-200 sticky top-0 z-50">
+      <header className="bg-transparent  sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
@@ -114,7 +128,7 @@ const LandingPage = () => {
             <Button
               onClick={() => navigate("/login")}
               variant="outline"
-              className="hidden sm:inline-flex"
+              className="hidden sm:inline-flex bg-white"
             >
               Login
             </Button>
@@ -129,7 +143,7 @@ const LandingPage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
+      <section className="relative py-20 z-10 px-4">
         <div className="container mx-auto text-center max-w-4xl">
           <div className="mb-6">
             <Badge
@@ -144,8 +158,8 @@ const LandingPage = () => {
             Banking Reimagined for the Digital Age
           </h1>
 
-          <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Experience next-generation banking with AI-powered fraud detection,
+          <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Experience next-generation banking with fraud detection,
             offline capabilities, and seamless money transfers. Your financial
             security is our priority.
           </p>
@@ -188,7 +202,7 @@ const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-white/50">
+      <section className="relative py-20 px-4 bg-white/50 z-10">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-slate-900">
@@ -235,7 +249,7 @@ const LandingPage = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4">
+      <section className="relative py-20 px-4 z-10">
         <div className="container mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -298,7 +312,7 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-gradient-to-r from-blue-600 to-indigo-600">
+      <section className="relative py-20 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 z-10">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4 text-white">
             Start Your Secure Banking Journey Today
