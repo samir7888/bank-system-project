@@ -18,7 +18,8 @@ import {
 import { Badge } from "../components/ui/badge";
 import Button from "../components/ui/Button";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, stagger, useAnimate } from "motion/react";
+import { useEffect } from "react";
 const LandingPage = () => {
   const features = [
     {
@@ -73,7 +74,7 @@ const LandingPage = () => {
     "Regulatory compliance",
   ];
   const navigate = useNavigate();
-
+  const [scope, animate] = useAnimate();
   const boxVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -89,8 +90,24 @@ const LandingPage = () => {
     hidden: { y: 20, opacity: 0 },
     visible: { y: 0, opacity: 1 },
   };
+  useEffect(() => {
+    animateText();
+  }, []);
 
-
+  const animateText = () => {
+    animate(
+      "span",
+      {
+        opacity: 1,
+        filter: "blur(0px)",
+        y: 0,
+      },
+      { duration: 1,
+        ease: "easeInOut",
+        delay:stagger(0.2) }
+    );
+  };
+  const mainText = "Banking Reimagined for the Digital Age";
   return (
     <motion.div
       initial="hidden"
@@ -99,19 +116,19 @@ const LandingPage = () => {
       className="min-h-screen relative bg-[#f8fafc]"
     >
       <div
-    className="absolute inset-0 z-0"
-    style={{
-      backgroundImage: `
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
         linear-gradient(to right, #e2e8f0 1px, transparent 1px),
         linear-gradient(to bottom, #e2e8f0 1px, transparent 1px)
       `,
-      backgroundSize: "20px 30px",
-      WebkitMaskImage:
-        "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
-      maskImage:
-        "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
-    }}
-  />
+          backgroundSize: "20px 30px",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+          maskImage:
+            "radial-gradient(ellipse 70% 60% at 50% 0%, #000 60%, transparent 100%)",
+        }}
+      />
       {/* Header */}
       <header className="bg-transparent  sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -143,7 +160,7 @@ const LandingPage = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 z-10 px-4">
+      <section ref={scope} className="relative py-20 z-10 px-4">
         <div className="container mx-auto text-center max-w-4xl">
           <div className="mb-6">
             <Badge
@@ -153,15 +170,28 @@ const LandingPage = () => {
               🚀 Advanced Banking Technology
             </Badge>
           </div>
-
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 py-3 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight">
-            Banking Reimagined for the Digital Age
+          <h1 className="mb-6 py-3 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-7">
+            {mainText.split(" ").map((char, index) => {
+              return (
+                <motion.span
+                  key={index}
+                  className="text-5xl inline-block md:text-6xl font-bold "
+                  style={{
+                    opacity: 0,
+                    filter: "blur(10px)",
+                    y: 10,
+                  }}
+                >
+                  {char}&nbsp;
+                </motion.span>
+              );
+            })}
           </h1>
 
           <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Experience next-generation banking with fraud detection,
-            offline capabilities, and seamless money transfers. Your financial
-            security is our priority.
+            Experience next-generation banking with fraud detection, offline
+            capabilities, and seamless money transfers. Your financial security
+            is our priority.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -223,9 +253,7 @@ const LandingPage = () => {
           >
             {features.map((feature, index) => (
               <motion.div key={index} variants={itemVariants}>
-                <Card
-                  className="group hover:shadow-xl transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm hover:-translate-y-2"
-                >
+                <Card className="group hover:shadow-xl transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm hover:-translate-y-2">
                   <CardHeader>
                     <div
                       className={`w-12 h-12 rounded-lg bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}
