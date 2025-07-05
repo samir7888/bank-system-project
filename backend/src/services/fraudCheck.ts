@@ -8,13 +8,9 @@ interface Transaction {
   timestamp: Date;
 }
 
-interface Graph {
-  get(key: number): Transaction[] | undefined;
-  has(key: number): boolean;
-  set(key: number, value: Transaction[]): void;
-}
-
-async function buildGraph(sinceMinutes = 10): Promise<Map<number, Transaction[]>> {
+async function buildGraph(
+  sinceMinutes = 10
+): Promise<Map<number, Transaction[]>> {
   const sinceDate = new Date(Date.now() - sinceMinutes * 60 * 1000);
 
   const transfers = await prisma.p2pTransfer.findMany({
@@ -33,45 +29,81 @@ async function buildGraph(sinceMinutes = 10): Promise<Map<number, Transaction[]>
 
   const graph = new Map<number, Transaction[]>();
 
-  transfers.forEach(({ fromUserId, toUserId, amount, timestamp }) => {
-    if (!graph.has(fromUserId)) graph.set(fromUserId, []);
+  for (const { fromUserId, toUserId, amount, timestamp } of transfers) {
+    if (!graph.has(fromUserId)) {
+      graph.set(fromUserId, []);
+    }
     graph.get(fromUserId)!.push({ receiverId: toUserId, amount, timestamp });
-  });
+  }
 
   return graph;
 }
 
-function dfs(
-  graph: Graph,
+function dfsCycle(
+  graph: Map<number, Transaction[]>,
   current: number,
   visited: Set<number>,
   path: number[],
-  startTime: Date,
+  origin: number,
+  lastTimestamp: Date,
   maxHops: number,
   maxMinutes: number
-): number[] {
-  if (path.length >= maxHops) return path;
+): number[] | null {
+  if (path.length > maxHops) return null;
 
   visited.add(current);
 
   const neighbors = graph.get(current) || [];
   for (const { receiverId, timestamp } of neighbors) {
-    const timeDiff = (timestamp.getTime() - startTime.getTime()) / 60000; // in minutes
-    if (timeDiff <= maxMinutes && !visited.has(receiverId)) {
-      const result = dfs(graph, receiverId, new Set(visited), [...path, receiverId], startTime, maxHops, maxMinutes);
-      if (result.length >= maxHops) return result;
+    const timeDiff = (timestamp.getTime() - lastTimestamp.getTime()) / 60000;
+    if (timeDiff < 0 || timeDiff > maxMinutes) continue;
+
+    if (receiverId === origin && path.length >= 2) {
+      return [...path, origin]; // cycle found
+    }
+
+    if (!visited.has(receiverId)) {
+      const result = dfsCycle(
+        graph,
+        receiverId,
+        new Set(visited),
+        [...path, receiverId],
+        origin,
+        timestamp,
+        maxHops,
+        maxMinutes
+      );
+      if (result) return result;
     }
   }
 
-  return path;
+  return null;
 }
 
-export async function checkFraudChain(
+export async function checkFraudCycle(
   senderId: number,
-  maxHops: number = 2,
+  maxHops: number = 3,
   maxMinutes: number = 3
 ): Promise<number[] | null> {
   const graph = await buildGraph(maxMinutes);
-  const path = dfs(graph, senderId, new Set<number>(), [senderId], new Date(), maxHops, maxMinutes);
-  return path.length >= maxHops ? path : null;
+  const firstTransfers = graph.get(senderId);
+
+  if (!firstTransfers) return null;
+
+  for (const { receiverId, timestamp } of firstTransfers) {
+    const path = dfsCycle(
+      graph,
+      receiverId,
+      new Set([senderId]),
+      [senderId, receiverId],
+      senderId,
+      timestamp,
+      maxHops,
+      maxMinutes
+    );
+
+    if (path) return path;
+  }
+
+  return null;
 }

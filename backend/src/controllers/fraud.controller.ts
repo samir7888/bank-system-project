@@ -1,26 +1,26 @@
 import { Request, Response } from "express";
-import { checkFraudChain } from "../services/fraudCheck";
-import { prisma } from '../db';
+import { checkFraudCycle } from "../services/fraudCheck";
+import { prisma } from "../db";
 
 export const fraudCheckRoute = async (req: Request, res: Response) => {
   const { senderId } = req.params;
 
   if (!senderId) {
-     res.status(400).json({ error: "senderId is required" });
-     return;
+    res.status(400).json({ error: "senderId is required" });
+    return;
   }
 
   try {
-    const fraudPath = await checkFraudChain(Number(senderId));
+    const fraudPath = await checkFraudCycle(Number(senderId));
 
     if (fraudPath) {
       // Freeze all users involved in the fraud path
       await prisma.user.updateMany({
-        where: { id: { in: fraudPath.map(id => id) } },
+        where: { id: { in: fraudPath.map((id) => id) } },
         data: { isFrozen: true },
       });
 
-       res.status(200).json({
+      res.status(200).json({
         message: "⚠️ Fraud detected. Accounts frozen.",
         fraudChain: fraudPath,
       });

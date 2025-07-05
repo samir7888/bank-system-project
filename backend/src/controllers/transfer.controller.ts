@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { checkFraudChain } from "../services/fraudCheck";
+import { checkFraudCycle } from "../services/fraudCheck";
 import {
   sendFraudAlertEmail,
   sendSucceedOfflineTransactionEmailToReceiver,
@@ -28,7 +28,7 @@ export const transfer = async (req: Request, res: Response): Promise<void> => {
     }
 
     const isFrozen = await prisma.user.findUnique({ where: { id: from } });
-    
+
     if (isFrozen.isFrozen) {
       res.status(400).json({
         message: "Your account is frozen, You cannot send money",
@@ -103,7 +103,7 @@ export const transfer = async (req: Request, res: Response): Promise<void> => {
           },
         });
         // Run fraud check after transaction
-        const fraudChain: number[] | null = await checkFraudChain(fromUserId);
+        const fraudChain: number[] | null = await checkFraudCycle(fromUserId);
 
         if (fraudChain) {
           await prisma.user.updateMany({
