@@ -102,7 +102,7 @@ const LandingPage = () => {
         filter: "blur(0px)",
         y: 0,
       },
-      { duration: 1,
+      { duration: 0.7,
         ease: "easeInOut",
         delay:stagger(0.2) }
     );
@@ -170,7 +170,7 @@ const LandingPage = () => {
               🚀 Advanced Banking Technology
             </Badge>
           </div>
-          <h1 className="mb-6 py-3 bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-7">
+          <h1 className="mb-6 py-3 text-blue-700 bg-clip-text  leading-10">
             {mainText.split(" ").map((char, index) => {
               return (
                 <motion.span
