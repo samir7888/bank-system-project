@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { prisma } from '../db';
+import { prisma } from "../db";
+import { sendAtmWithdrawalEmail } from "../services/email";
 
 // Withdraw function to handle ATM withdrawal requests
 export const withdraw = async (req: Request, res: Response) => {
-
   let { amount } = req.body;
 
   if (!amount || isNaN(amount) || amount <= 0) {
@@ -34,54 +34,59 @@ export const withdraw = async (req: Request, res: Response) => {
       [denomination: number]: number;
     }
 
+    const { email } = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
     const transactionResult = await prisma.$transaction(async (tx) => {
       const balance: Balance | null = await tx.balance.findUnique({
-      where: { userId },
+        where: { userId },
       });
 
       if (!balance) {
-      throw new Error("User not found");
+        throw new Error("User not found");
       }
 
       if (!balance.amount || balance.amount < originalAmount) {
-      throw new Error("Insufficient balance");
+        throw new Error("Insufficient balance");
       }
 
       // Dispense logic (note: this doesn't interact with DB but kept for consistency)
       for (let note of denominations) {
-      const count: number = Math.floor(amount / note);
-      if (count > 0) {
-        (result as Result)[note] = count;
-        amount -= count * note;
-      }
+        const count: number = Math.floor(amount / note);
+        if (count > 0) {
+          (result as Result)[note] = count;
+          amount -= count * note;
+        }
       }
 
       if (amount !== 0) {
-      throw new Error(`Cannot dispense exact amount (₹${originalAmount}) with available denominations`);
+        throw new Error(
+          `Cannot dispense exact amount (₹${originalAmount}) with available denominations`
+        );
       }
 
       // Decrement balance atomically
       await tx.balance.update({
-      where: { userId },
-      data: {
-        amount: {
-        decrement: Number(originalAmount),
+        where: { userId },
+        data: {
+          amount: {
+            decrement: Number(originalAmount),
+          },
         },
-      },
       });
-
     });
 
+    await sendAtmWithdrawalEmail(email, originalAmount);
     res.status(200).json({
       message: "Withdrawal successful",
       notes: result,
     });
-
   } catch (error: any) {
     console.error("Transaction error:", error);
     res.status(400).json({
       error: error.message || "Internal server error",
     });
   }
-}
-
+};
