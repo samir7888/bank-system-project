@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useQuery } from "react-query";
+import React, { useEffect, useRef, useCallback } from "react";
+import { useQuery, useInfiniteQuery } from "react-query";
 import {
   getUserDetails,
   getTransactionHistory,
@@ -19,27 +19,60 @@ import { CreditCard } from "lucide-react";
 import EmergencyCreditCard from "./ui/EmergencyWallet";
 import OfflineTransfer from "./OfflineTransfer";
 import { motion } from "motion/react";
-import PaginationComponent from "./Pagination";
 import { useSearchParams } from "react-router-dom";
 const UserDashboard: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const page = parseInt(searchParams.get("page") as string) || 1;
   const limit = parseInt(searchParams.get("take") as string) || 5;
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const {
+    data: transactions,
+    isLoading: isLoadingTransactions,
+    isError: isErrorTransactions,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch: refetchTransactions,
+  } = useInfiniteQuery(
+    "transactionHistory",
+    ({ pageParam = 1 }) => getTransactionHistory(pageParam, limit),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.meta.page < lastPage.meta.total) {
+          return lastPage.meta.page + 1;
+        }
+        return undefined;
+      },
+      refetchInterval: 5000,
+    }
+  );
+  const handleScroll = useCallback(() => {
+    if (scrollRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = scrollRef.current;
+      if (
+        scrollTop + clientHeight >= scrollHeight - 50 &&
+        hasNextPage &&
+        !isFetchingNextPage
+      ) {
+        fetchNextPage();
+      }
+    }
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+  useEffect(() => {
+    const currentRef = scrollRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", handleScroll);
+      return () => {
+        currentRef.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [handleScroll]);
   const {
     data: userDetails,
     isLoading: isLoadingDetails,
     isError: isErrorDetails,
     refetch: refetchDetails,
   } = useQuery("userDetails", getUserDetails, {
-    refetchInterval: 5000,
-  });
-
-  const {
-    data: transactions,
-    isLoading: isLoadingTransactions,
-    isError: isErrorTransactions,
-    refetch: refetchTransactions,
-  } = useQuery(["transactionHistory", page], () => getTransactionHistory(page, limit), {
     refetchInterval: 5000,
   });
 
@@ -151,9 +184,12 @@ const UserDashboard: React.FC = () => {
                 <h3 className="text-sm font-medium text-blue-100 mb-2">
                   Balance History
                 </h3>
-                {transactions && transactions.data.length > 0 ? (
+                {transactions?.pages &&
+                transactions.pages[0].data.length > 0 ? (
                   <BalanceChart
-                    transactions={transactions.data}
+                    transactions={transactions.pages.flatMap(
+                      (page) => page.data
+                    )}
                     currentBalance={balance}
                   />
                 ) : (
@@ -174,23 +210,37 @@ const UserDashboard: React.FC = () => {
               <CardTitle>Recent Transactions</CardTitle>
               <CardDescription>Your latest activity</CardDescription>
             </CardHeader>
-            <CardContent className="divide-y divide-gray-100 max-h-[400px] overflow-y-auto">
-              {transactions && transactions.data.length > 0 ? (
-                transactions.data.map((transaction) => (
-                  <TransactionItem
-                    key={transaction.id}
-                    transaction={transaction}
-                  />
-                ))
-              ) : (
+            <CardContent
+              className="divide-y divide-gray-100 max-h-[350px] overflow-y-auto"
+              ref={scrollRef}
+            >
+              {transactions?.pages.map((page, pageIndex) => (
+                <React.Fragment key={pageIndex}>
+                  {page.data.map((transaction) => (
+                    <TransactionItem
+                      key={transaction.id}
+                      transaction={transaction}
+                    />
+                  ))}
+                </React.Fragment>
+              ))}
+              {isLoadingTransactions && (
+                <div className="flex justify-center items-center py-4">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-900"></div>
+                </div>
+              )}
+              {!hasNextPage && !isLoadingTransactions && (
                 <p className="py-4 text-gray-500 text-center">
-                  No transactions yet
+                  No more transactions
                 </p>
               )}
+              {transactions?.pages[0].data.length === 0 &&
+                !isLoadingTransactions && (
+                  <p className="py-4 text-gray-500 text-center">
+                    No transactions yet
+                  </p>
+                )}
             </CardContent>
-            {transactions && transactions?.meta && (
-              <PaginationComponent meta={transactions.meta} />
-            )}
           </Card>
         </>
       ) : (
