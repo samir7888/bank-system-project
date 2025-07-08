@@ -60,6 +60,17 @@ export interface Transaction {
   };
 }
 
+export interface TransactionHistoryResponse {
+  data: Transaction[];
+  meta: {
+    page: number;
+    limit: number;
+    total: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
+}
+
 export interface TransferFormData {
   to: string;
   amount: string;

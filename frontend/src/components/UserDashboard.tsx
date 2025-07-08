@@ -19,7 +19,12 @@ import { CreditCard } from "lucide-react";
 import EmergencyCreditCard from "./ui/EmergencyWallet";
 import OfflineTransfer from "./OfflineTransfer";
 import { motion } from "motion/react";
+import PaginationComponent from "./Pagination";
+import { useSearchParams } from "react-router-dom";
 const UserDashboard: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const page = parseInt(searchParams.get("page") as string) || 1;
+  const limit = parseInt(searchParams.get("take") as string) || 5;
   const {
     data: userDetails,
     isLoading: isLoadingDetails,
@@ -34,7 +39,7 @@ const UserDashboard: React.FC = () => {
     isLoading: isLoadingTransactions,
     isError: isErrorTransactions,
     refetch: refetchTransactions,
-  } = useQuery("transactionHistory", getTransactionHistory, {
+  } = useQuery(["transactionHistory", page], () => getTransactionHistory(page, limit), {
     refetchInterval: 5000,
   });
 
@@ -101,13 +106,13 @@ const UserDashboard: React.FC = () => {
   return (
     <div
       className={`grid grid-cols-1 ${
-      !maintenanceStatus ? "lg:grid-cols-3" : ""
+        !maintenanceStatus ? "lg:grid-cols-3" : ""
       } gap-6`}
     >
       {/* Balance Card */}
       {!maintenanceStatus && (
         <motion.div
-        className="w-full col-span-2"
+          className="w-full col-span-2"
           initial={{
             opacity: 0,
             scale: 0.8,
@@ -146,9 +151,9 @@ const UserDashboard: React.FC = () => {
                 <h3 className="text-sm font-medium text-blue-100 mb-2">
                   Balance History
                 </h3>
-                {transactions && transactions.length > 0 ? (
+                {transactions && transactions.data.length > 0 ? (
                   <BalanceChart
-                    transactions={transactions}
+                    transactions={transactions.data}
                     currentBalance={balance}
                   />
                 ) : (
@@ -170,8 +175,8 @@ const UserDashboard: React.FC = () => {
               <CardDescription>Your latest activity</CardDescription>
             </CardHeader>
             <CardContent className="divide-y divide-gray-100 max-h-[400px] overflow-y-auto">
-              {transactions && transactions.length > 0 ? (
-                transactions.map((transaction) => (
+              {transactions && transactions.data.length > 0 ? (
+                transactions.data.map((transaction) => (
                   <TransactionItem
                     key={transaction.id}
                     transaction={transaction}
@@ -183,6 +188,9 @@ const UserDashboard: React.FC = () => {
                 </p>
               )}
             </CardContent>
+            {transactions && transactions?.meta && (
+              <PaginationComponent meta={transactions.meta} />
+            )}
           </Card>
         </>
       ) : (

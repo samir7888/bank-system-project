@@ -29,9 +29,9 @@ import PaginationComponent from "./Pagination";
 
 export default function AdminDashboard() {
   const [searchParams] = useSearchParams();
-  const search = searchParams.get("search") || "";
   const page = parseInt(searchParams.get("page") as string) || 1;
-  const limit = parseInt(searchParams.get("take") as string) || 5; // You can adjust this limit as needed
+  const limit = parseInt(searchParams.get("take") as string) || 5; 
+  const search = searchParams.get("search") || "";
   const {
     data: usersDetails,
     isLoading: isUsersDetailsLoading,

@@ -148,6 +148,10 @@ export const getTransactionHistory = async (
   res: Response
 ): Promise<void> => {
   try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+
+    const skip = (page - 1) * limit;
     const userId = (req as any).user.id;
     if (!userId) {
       res.status(400).json({ message: "User ID is required" });
@@ -172,8 +176,23 @@ export const getTransactionHistory = async (
       orderBy: {
         timestamp: "desc",
       },
+      skip,
+      take: limit,
     });
-    res.status(200).json(transactions);
+    const total = await prisma.p2pTransfer.count();
+    const totalPages = Math.ceil(total / limit);
+    const hasNextPage = page < totalPages;
+    const hasPreviousPage = page > 1;
+    res.status(200).json({
+      data: transactions,
+      meta: {
+        total,
+        page,
+        limit,
+        hasNextPage,
+        hasPreviousPage,
+      },
+    });
   } catch (error) {
     console.error("Error fetching transaction history:", error);
     res.status(500).json({
