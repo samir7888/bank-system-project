@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import PopoverUser from "../seperateComponents/popoverUser";
-import { useAuth } from "../context/AuthContext";
+import {  useAuth } from "../context/AuthContext";
 import { Greeting } from "../components/Greeting";
 
 const DashboardPage: React.FC = () => {
-  const { user } = useAuth();
+  const { user } = useAuth() ;
 
+  const name = localStorage.getItem("name");
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -24,7 +25,7 @@ const DashboardPage: React.FC = () => {
             </Link>
             <div className="hidden  p-2 md:flex items-center justify-between text-2xl font-bold capitalize rounded-full mr-2">
               <Greeting />
-              <span className="text-blue-500 text-3xl ml-1"> {user?.name}</span>
+              <span className="text-blue-500 text-3xl ml-1"> {name}</span>
             </div>
             <PopoverUser />
           </div>

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Role } from "../types";
 import { BASEURL } from "../lib/constant";
 
-interface User {
+interface IUser {
   id: number;
   name: string;
   phone: string;
@@ -11,9 +11,9 @@ interface User {
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: IUser | null;
 
-  setUser: (user: User | null) => void;
+  setUser: (user: IUser | null) => void;
   error: string;
   login: (phone: string, password: string) => Promise<void>;
   logout: () => void;
@@ -25,7 +25,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [error, setError] = useState("");
 
   const login = async (phone: string, password: string) => {
@@ -40,7 +40,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           withCredentials: true,
         }
       );
-
+      localStorage.setItem("name", response.data.user.name);
       setUser(response.data.user);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {

@@ -1,11 +1,3 @@
-export interface User {
-  id: number;
-  phone: string;
-  name: string;
-  role: Role;
-  iat: number;
-  exp: number;
-}
 
  type IUser = {
     id: number;
@@ -31,7 +23,7 @@ export enum Role {
   USER = "USER",
 }
 export interface UserWithBalance {
-  user: User;
+ 
   balance: {
     id: number;
     userId: number;
@@ -89,12 +81,7 @@ export interface RegisterFormData {
   balance: number;
 }
 
-export interface AuthContextType {
-  user: User | null;
-  isAuthenticated: boolean;
-  login: (data: LoginFormData) => Promise<void>;
-  logout: () => void;
-}
+
 
 export interface BalancePoint {
   date: string;
