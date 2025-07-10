@@ -76,7 +76,7 @@ Dispense cash using the fewest number of notes.
 
 Example: Rs.1860 → 3×500 + 1×200 + 1×100 + 1×50 + 1×10
 
-***Pseudocode:**
+**Pseudocode:**
 ```js
 function dispenseCash(amount, denominations) {
   let notesUsed = [];
@@ -157,7 +157,9 @@ Murray & Taylor – Building Secure Online Banking Systems (2021)
 Singh & Patel – Email Alert Systems for Financial Security (2023)
 
 ## 📄 License
-This project is licensed under the MIT License.
+
+This project is licensed under the **MIT License** – see the [LICENSE](./LICENSE) file for details.
+
 
 ## 🙌 Contributions
 We welcome suggestions, issues, and pull requests.
