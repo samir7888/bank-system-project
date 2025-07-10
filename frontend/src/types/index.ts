@@ -1,4 +1,14 @@
 
+
+
+export interface User {
+  id: number;
+  phone: string;
+  name: string;
+  role: Role;
+  iat: number;
+  exp: number;
+}
  type IUser = {
     id: number;
     name: string;
@@ -23,7 +33,7 @@ export enum Role {
   USER = "USER",
 }
 export interface UserWithBalance {
- 
+ user: User;
   balance: {
     id: number;
     userId: number;

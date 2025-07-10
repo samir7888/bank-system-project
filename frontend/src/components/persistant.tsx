@@ -15,6 +15,7 @@ const PersistentRefreshToken = ({
     const checkAuth = async () => {
       try {
         const response = await getUserDetails();
+        console.log(response)
         setUser(response.user);
       } catch (error) {
         console.log(error);

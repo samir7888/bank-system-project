@@ -87,6 +87,7 @@ export const me = async (req: Request, res: Response): Promise<void> => {
     });
 
     res.status(200).json({
+      user,
       balance: userBalance,
     });
   } catch (error) {
