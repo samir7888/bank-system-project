@@ -114,8 +114,6 @@ export interface EmergencyCredit {
   createdAt: string; // or Date if parsed
   expiresAt: string; // or Date if parsed
 }
-
-
 export interface EmergencyCreditClaimResponse {
   message: string;
   credit: EmergencyCredit;
