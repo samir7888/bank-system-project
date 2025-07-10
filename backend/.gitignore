@@ -4,4 +4,4 @@ dist-ssr
 *.local
 .env
 .vercel
-prisma
+prisma/seed.ts
