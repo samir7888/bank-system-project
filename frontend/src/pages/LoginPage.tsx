@@ -2,12 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { motion } from "motion/react";
+import * as z from "zod";
+
+const loginSchema = z.object({
+  phone: z.string().min(10, "Phone number must be at least 10 characters"),
+  password: z.string().min(5, "Password must be at least 5 characters"),
+});
+
 const LoginPage: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState("");
-  const { login, isAuthenticated, error, clearError } = useAuth();
+  const { login, isAuthenticated, clearError, error,setError } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
@@ -22,11 +28,21 @@ const LoginPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError("")
     try {
+      const formData = await loginSchema.safeParse({ phone, password });
+      if (!formData.success) {
+        if (formData.error instanceof z.ZodError) {
+          // Display the validation error message
+          console.error(formData.error.errors);
+          setError(formData.error.errors[0].message);
+        }
+        return;
+      }
       await login(phone, password);
       navigate("/dashboard");
-    } catch (err: unknown) {
-      console.log(err);
+    } catch (error) {
+      console.log(error)
     } finally {
       setIsLoading(false);
     }

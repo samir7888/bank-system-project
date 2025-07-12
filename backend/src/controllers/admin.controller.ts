@@ -9,7 +9,7 @@ const inputSchema = z.object({
   email: z.string().email(),
   number: z.string().min(10, "Number must be at least 10 characters"),
   password: z.string().min(6, "Password must be at least 6 characters"),
-  balance: z.number(),
+  balance: z.coerce.number(),
 });
 export const getAllUsers = async (
   req: Request,

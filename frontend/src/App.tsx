@@ -33,7 +33,6 @@ const queryClient = new QueryClient({
 const AuthRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   const location = useLocation();
-  console.log(user)
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }

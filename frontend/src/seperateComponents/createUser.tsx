@@ -31,7 +31,7 @@ const formSchema = z.object({
   number: z.string().min(10, "Number must be at least 10 characters"),
   password: z.string().min(6, "Password must be at least 6 characters"),
   balance: z
-    .number()
+    .coerce.number()
     .min(0, "Balance must be a positive number")
 });
 

@@ -19,6 +19,7 @@ interface AuthContextType {
   logout: () => void;
   isAuthenticated: boolean;
   clearError: () => void;
+  setError: (error: string) => void;
 }
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -26,9 +27,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<IUser | null>(null);
-  console.log(user)
   const [error, setError] = useState("");
-
   const login = async (phone: string, password: string) => {
     try {
       const response = await axios.post(
@@ -41,6 +40,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
           withCredentials: true,
         }
       );
+      console.log(response)
       localStorage.setItem("name", response.data.user.name);
       setUser(response.data.user);
     } catch (error: unknown) {
@@ -85,6 +85,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         login,
         logout,
         error,
+        setError,
         isAuthenticated: !!user,
         clearError,
       }}
