@@ -145,7 +145,7 @@ const UserDashboard: React.FC = () => {
       {/* Balance Card */}
       {!maintenanceStatus && (
         <motion.div
-          className="w-full col-span-2"
+          className="w-full col-span-3"
           initial={{
             opacity: 0,
             scale: 0.8,
@@ -202,7 +202,7 @@ const UserDashboard: React.FC = () => {
           </Card>
         </motion.div>
       )}
-      {!maintenanceAlertStatus && <EmergencyCreditCard />}
+     
       {!maintenanceStatus ? (
         <>
           <Card className="lg:col-span-3">
@@ -246,6 +246,9 @@ const UserDashboard: React.FC = () => {
       ) : (
         <OfflineTransfer />
       )}
+       <div className="col-span-3">
+        {!maintenanceAlertStatus && <EmergencyCreditCard />}
+      </div>
     </div>
   );
 };
